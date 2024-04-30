@@ -1,13 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include "stdafx.h"
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 #if defined(_DEBUG)
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
@@ -16,6 +8,12 @@
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#include "stdafx.h"
+
+/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #if 0
 #ifdef _DEBUG
@@ -33,12 +31,20 @@
 //===========================================================================
 #include <res/resource.h>
 
+//===========================================================================
 #include "window/MyWinApp.hpp"
 
 
-void a()
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+int RunWin()
 {
+	//-----------------------------------------------------------------------
 	int nResult;
+
 
 	//-----------------------------------------------------------------------
 	try
@@ -46,10 +52,8 @@ void a()
 		// Start Win32++
 		CMyWinApp theApp;
 
-		//		GetComCtlVersion();
-		//		MyInitCommonControls(ICC_COOL_CLASSES | ICC_BAR_CLASSES);
 
-				// Run the application
+		// Run the application
 		nResult = theApp.Run();
 	}
 
@@ -61,14 +65,30 @@ void a()
 
 		nResult = -1;
 	}
+
+	return nResult;
 }
+
+
+
+
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR /*lpstrCmdLine*/, int nCmdShow)
+int WINAPI WinMain(
+	HINSTANCE /*hInstance*/,
+	HINSTANCE /*hPrevInstance*/,
+	LPTSTR /*lpstrCmdLine*/, 
+	int /*nCmdShow*/
+)
 {
-	//MessageBox(nullptr, "a", "a", MB_OK);
-	a();
+	//UNREFERENCED_PARAMETER(hInstance);
+	//UNREFERENCED_PARAMETER(hPrevInstance);
+	//UNREFERENCED_PARAMETER(lpstrCmdLine);
+	//UNREFERENCED_PARAMETER(nCmdShow);
+ 
+
+	RunWin();
 
 	return 0;
 }

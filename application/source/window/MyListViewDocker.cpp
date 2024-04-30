@@ -6,7 +6,7 @@
 #include <res/resource.h>
 
 //===========================================================================
-#include "EventMessageDocker.hpp"
+#include "MyListViewDocker.hpp"
 
 
 
@@ -14,7 +14,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CXListViewInplaceEdit::CXListViewInplaceEdit(CXListView* listview, std::int32_t item, std::int32_t column, std::string text):
+CMyListViewInplaceEdit::CMyListViewInplaceEdit(CMyListView* listview, std::int32_t item, std::int32_t column, std::string text):
 	m_ListView(listview),
 	m_Item    (item)    ,
 	m_Column  (column)  ,
@@ -23,12 +23,12 @@ CXListViewInplaceEdit::CXListViewInplaceEdit(CXListView* listview, std::int32_t 
 {
 }
 
-CXListViewInplaceEdit::~CXListViewInplaceEdit()
+CMyListViewInplaceEdit::~CMyListViewInplaceEdit()
 {
 }
 
 //===========================================================================
-void CXListViewInplaceEdit::PreCreate(CREATESTRUCT& cs)
+void CMyListViewInplaceEdit::PreCreate(CREATESTRUCT& cs)
 {
 	//-----------------------------------------------------------------------
 	DWORD dwStyle;
@@ -59,7 +59,7 @@ void CXListViewInplaceEdit::PreCreate(CREATESTRUCT& cs)
 }
 
 //===========================================================================
-int CXListViewInplaceEdit::OnCreate(CREATESTRUCT& cs)
+int CMyListViewInplaceEdit::OnCreate(CREATESTRUCT& cs)
 {
 	int result;
 
@@ -69,7 +69,7 @@ int CXListViewInplaceEdit::OnCreate(CREATESTRUCT& cs)
 	return result;
 }
 
-void CXListViewInplaceEdit::OnAttach()
+void CMyListViewInplaceEdit::OnAttach()
 {
 #if 0
 	// ES_MULTILINE
@@ -90,13 +90,13 @@ void CXListViewInplaceEdit::OnAttach()
 	SetSel( 0, -1, TRUE );
 }
 
-void CXListViewInplaceEdit::OnDestroy()
+void CMyListViewInplaceEdit::OnDestroy()
 {
 	CEdit::OnDestroy();
 }
 
 //===========================================================================
-BOOL CXListViewInplaceEdit::PreTranslateMessage(MSG& msg)
+BOOL CMyListViewInplaceEdit::PreTranslateMessage(MSG& msg)
 {
 	if (msg.message == WM_KEYDOWN)
 	{
@@ -115,7 +115,7 @@ BOOL CXListViewInplaceEdit::PreTranslateMessage(MSG& msg)
 }
 
 //===========================================================================
-LRESULT CXListViewInplaceEdit::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListViewInplaceEdit::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg)
 	{
@@ -133,7 +133,7 @@ LRESULT CXListViewInplaceEdit::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListViewInplaceEdit::OnNcDestroy(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListViewInplaceEdit::OnNcDestroy(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//-----------------------------------------------------------------------
 	LRESULT lResult;
@@ -166,7 +166,7 @@ LRESULT CXListViewInplaceEdit::OnNcDestroy(UINT msg, WPARAM wparam, LPARAM lpara
 	return lResult;
 }
 
-LRESULT CXListViewInplaceEdit::OnKeyDown(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListViewInplaceEdit::OnKeyDown(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//-----------------------------------------------------------------------
 	int lLow, lHigh;
@@ -295,7 +295,7 @@ LRESULT CXListViewInplaceEdit::OnKeyDown(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListViewInplaceEdit::OnChar(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListViewInplaceEdit::OnChar(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	switch( LOWORD(wparam) ) 
 	{
@@ -315,7 +315,7 @@ LRESULT CXListViewInplaceEdit::OnChar(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListViewInplaceEdit::OnSetFocus(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListViewInplaceEdit::OnSetFocus(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	m_Cancel = false;
 
@@ -323,7 +323,7 @@ LRESULT CXListViewInplaceEdit::OnSetFocus(UINT msg, WPARAM wparam, LPARAM lparam
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListViewInplaceEdit::OnKillFocus(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListViewInplaceEdit::OnKillFocus(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	LRESULT lResult;
 	
@@ -369,7 +369,7 @@ LRESULT CXListViewInplaceEdit::OnKillFocus(UINT msg, WPARAM wparam, LPARAM lpara
 	return lResult;
 }
 
-LRESULT CXListViewInplaceEdit::OnGetDlgCode(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListViewInplaceEdit::OnGetDlgCode(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	return WndProcDefault(msg, wparam, lparam) | DLGC_WANTALLKEYS | DLGC_WANTARROWS;
 }
@@ -380,20 +380,20 @@ LRESULT CXListViewInplaceEdit::OnGetDlgCode(UINT msg, WPARAM wparam, LPARAM lpar
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CXListView::CXListView()
+CMyListView::CMyListView()
 {
 }
 
-CXListView::~CXListView()
+CMyListView::~CMyListView()
 {
 	//--------------------------------------------------------------------------
 //	if (IsWindow()) DeleteAllItems();
 
 
 	//--------------------------------------------------------------------------
-	std::vector<CXListViewInplaceEdit*>::iterator i;
+	std::vector<CMyListViewInplaceEdit*>::iterator i;
 
-	CXListViewInplaceEdit* e;
+	CMyListViewInplaceEdit* e;
 
 
 	for (i=m_InplaceEditContainer.begin();i!=m_InplaceEditContainer.end();i++)
@@ -404,7 +404,7 @@ CXListView::~CXListView()
 }
 
 //===========================================================================
-void CXListView::PreCreate(CREATESTRUCT& cs)
+void CMyListView::PreCreate(CREATESTRUCT& cs)
 {
 	//-----------------------------------------------------------------------
 	DWORD dwStyle;
@@ -434,12 +434,12 @@ void CXListView::PreCreate(CREATESTRUCT& cs)
 	cs.dwExStyle |= dwExStyle;
 }
 
-void CXListView::OnDestroy()
+void CMyListView::OnDestroy()
 {
 	SetImageList(NULL, LVSIL_SMALL);
 }
 
-void CXListView::OnAttach()
+void CMyListView::OnAttach()
 {
 	//-----------------------------------------------------------------------
 	m_Font.CreatePointFont (120, _T("¸¼Àº °íµñ"));
@@ -550,7 +550,7 @@ void CXListView::OnAttach()
 }
 
 //===========================================================================
-LRESULT CXListView::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg)
 	{
@@ -572,13 +572,13 @@ LRESULT CXListView::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListView::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	SetFocus();
 	return FinalWindowProc(msg, wparam, lparam);
 }
 
-LRESULT CXListView::OnLButtonDown(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnLButtonDown(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	CPoint ptMouse((short)LOWORD(lparam), (short)HIWORD(lparam));
 	UINT   uMouseFlag = (UINT)wparam;
@@ -631,7 +631,7 @@ LRESULT CXListView::OnLButtonDown(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListView::OnLButtonDbClk(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnLButtonDbClk(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	CPoint ptMouse((short)LOWORD(lparam), (short)HIWORD(lparam));
 	UINT   uMouseFlag = (UINT)wparam;
@@ -675,7 +675,7 @@ LRESULT CXListView::OnLButtonDbClk(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListView::OnHScroll (UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnHScroll (UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	int  code     ;
 	HWND scrollbar;
@@ -708,7 +708,7 @@ LRESULT CXListView::OnHScroll (UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListView::OnVScroll (UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnVScroll (UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	int  code     ;
 	HWND scrollbar;
@@ -742,7 +742,7 @@ LRESULT CXListView::OnVScroll (UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListView::OnMouseWheel (UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnMouseWheel (UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	CPoint ptMouse((short)LOWORD(lparam), (short)HIWORD(lparam));
 	UINT   uMouseFlag = (UINT)wparam;
@@ -762,17 +762,17 @@ LRESULT CXListView::OnMouseWheel (UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CXListView::InplaceEdit_OnDelete (UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::InplaceEdit_OnDelete (UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//-----------------------------------------------------------------------
-	CXListViewInplaceEdit* e;
+	CMyListViewInplaceEdit* e;
 
 
-	e = (CXListViewInplaceEdit*)lparam;
+	e = (CMyListViewInplaceEdit*)lparam;
 
 
 	//-----------------------------------------------------------------------
-	std::vector<CXListViewInplaceEdit*>::iterator i;
+	std::vector<CMyListViewInplaceEdit*>::iterator i;
 
 
 	i = std::find(m_InplaceEditContainer.begin(), m_InplaceEditContainer.end(), e);
@@ -789,15 +789,15 @@ LRESULT CXListView::InplaceEdit_OnDelete (UINT msg, WPARAM wparam, LPARAM lparam
 	return 0;
 }
 
-LRESULT CXListView::InplaceEdit_OnUpdate (UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::InplaceEdit_OnUpdate (UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//-----------------------------------------------------------------------
-	CXListViewInplaceEdit* e;
+	CMyListViewInplaceEdit* e;
 	UINT ok;
 
 
 	ok = (UINT)wparam;
-	e = (CXListViewInplaceEdit*)lparam;
+	e = (CMyListViewInplaceEdit*)lparam;
 
 	if (ok)
 	{
@@ -808,15 +808,15 @@ LRESULT CXListView::InplaceEdit_OnUpdate (UINT msg, WPARAM wparam, LPARAM lparam
 	return 0;
 }
 
-LRESULT CXListView::InplaceEdit_OnNavigate (UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::InplaceEdit_OnNavigate (UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//-----------------------------------------------------------------------
-	CXListViewInplaceEdit* e;
+	CMyListViewInplaceEdit* e;
 	UINT vkey;
 
 
 	vkey = (UINT)wparam;
-	e = (CXListViewInplaceEdit*)lparam;
+	e = (CMyListViewInplaceEdit*)lparam;
 
 
 	//-----------------------------------------------------------------------
@@ -851,7 +851,7 @@ LRESULT CXListView::InplaceEdit_OnNavigate (UINT msg, WPARAM wparam, LPARAM lpar
 	return 0;
 }
 
-void CXListView::InplaceEdit_New( int item, int column )
+void CMyListView::InplaceEdit_New( int item, int column )
 {
 	//-----------------------------------------------------------------------
 	if( !EnsureVisible( item, TRUE ) )
@@ -954,10 +954,10 @@ void CXListView::InplaceEdit_New( int item, int column )
 
 
 	//-----------------------------------------------------------------------
-	CXListViewInplaceEdit *pEdit;
+	CMyListViewInplaceEdit *pEdit;
 
 
-	pEdit = new CXListViewInplaceEdit(
+	pEdit = new CMyListViewInplaceEdit(
 		this,
 		item, column, 
 		m_TestContainer[item][column]
@@ -987,7 +987,7 @@ void CXListView::InplaceEdit_New( int item, int column )
 }
 
 //===========================================================================
-LRESULT CXListView::OnNotifyReflect(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnNotifyReflect(WPARAM wparam, LPARAM lparam)
 {
 	LPNMHDR NmHdr = reinterpret_cast<LPNMHDR>(lparam);
 
@@ -1013,7 +1013,7 @@ LRESULT CXListView::OnNotifyReflect(WPARAM wparam, LPARAM lparam)
 	return CListView::OnNotifyReflect(wparam, lparam);
 }
 
-LRESULT CXListView::OnLvnGetDispInfo (WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnLvnGetDispInfo (WPARAM wparam, LPARAM lparam)
 {
 	NMLVDISPINFO *NmLvDispInfo = reinterpret_cast<NMLVDISPINFO*>(lparam);
 	LVITEM*       LvItem       = &NmLvDispInfo->item;
@@ -1027,13 +1027,13 @@ LRESULT CXListView::OnLvnGetDispInfo (WPARAM wparam, LPARAM lparam)
 	return 0;
 }
 
-LRESULT CXListView::OnLvnBeginLabelEdit (WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnLvnBeginLabelEdit (WPARAM wparam, LPARAM lparam)
 {
 	return CListView::OnNotify(wparam, lparam);
 }
 
 //---------------------------------------------------------------------------
-LRESULT CXListView::OnNmCustomDraw (WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnNmCustomDraw (WPARAM wparam, LPARAM lparam)
 {
 	LPNMCUSTOMDRAW NmCustomDraw = reinterpret_cast<LPNMCUSTOMDRAW>(lparam);
 
@@ -1058,27 +1058,27 @@ LRESULT CXListView::OnNmCustomDraw (WPARAM wparam, LPARAM lparam)
 	return CListView::OnNotify(wparam, lparam);
 }
 
-LRESULT CXListView::OnPrePaint(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnPrePaint(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_NOTIFYITEMDRAW;
 }
 
-LRESULT CXListView::OnPostPaint(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnPostPaint(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_DODEFAULT;
 }
 
-LRESULT CXListView::OnPreErase(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnPreErase(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_DODEFAULT;
 }
 
-LRESULT CXListView::OnPostErase(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnPostErase(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_DODEFAULT;
 }
 
-LRESULT CXListView::OnItemPrePaint(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnItemPrePaint(WPARAM wparam, LPARAM lparam)
 {
 	NMLVCUSTOMDRAW* NmLvCustomDraw = reinterpret_cast<LPNMLVCUSTOMDRAW>(lparam);
 
@@ -1095,28 +1095,28 @@ LRESULT CXListView::OnItemPrePaint(WPARAM wparam, LPARAM lparam)
 	return CDRF_DODEFAULT;
 }
 
-LRESULT CXListView::OnItemPostPaint(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnItemPostPaint(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_DODEFAULT;
 }
 
-LRESULT CXListView::OnItemPreErase(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnItemPreErase(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_DODEFAULT;
 }
 
-LRESULT CXListView::OnItemPostErase(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnItemPostErase(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_DODEFAULT;
 }
 
-LRESULT CXListView::OnSubItemPrePaint(WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnSubItemPrePaint(WPARAM wparam, LPARAM lparam)
 {
 	return CDRF_DODEFAULT;
 }
 
 //===========================================================================
-LRESULT CXListView::OnMessageReflect(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnMessageReflect(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg)
 	{
@@ -1132,26 +1132,26 @@ LRESULT CXListView::OnMessageReflect(UINT msg, WPARAM wparam, LPARAM lparam)
 	return CListView::OnMessageReflect(msg, wparam, lparam);
 }
 
-LRESULT CXListView::OnDrawItem(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnDrawItem(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	DrawItem((LPDRAWITEMSTRUCT)lparam);
 
 	return (LRESULT)TRUE;
 }
 
-LRESULT CXListView::OnMeasureItem(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnMeasureItem(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	MeasureItem((LPMEASUREITEMSTRUCT)lparam);
 
 	return (LRESULT)TRUE;
 }
 
-LRESULT CXListView::OnCompareItem(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnCompareItem(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	return CompareItem((LPCOMPAREITEMSTRUCT)lparam);
 }
 
-LRESULT CXListView::OnDeleteItem(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyListView::OnDeleteItem(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	DeleteItem((LPDELETEITEMSTRUCT)lparam);
 
@@ -1159,7 +1159,7 @@ LRESULT CXListView::OnDeleteItem(UINT msg, WPARAM wparam, LPARAM lparam)
 }
 
 //---------------------------------------------------------------------------
-void CXListView::GetCellRect(int header_column, const CRect& item_rect, CRect& cell_rect)
+void CMyListView::GetCellRect(int header_column, const CRect& item_rect, CRect& cell_rect)
 {
 	CRect header_rect;
 
@@ -1183,7 +1183,7 @@ void CXListView::GetCellRect(int header_column, const CRect& item_rect, CRect& c
 	cell_rect.bottom = item_rect.bottom;
 }
 
-void CXListView::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
+void CMyListView::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	if (lpDrawItemStruct->CtlType != ODT_LISTVIEW)
 	{
@@ -1314,7 +1314,7 @@ void CXListView::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	DeleteObject(normal_brush  );
 }
 
-void CXListView::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
+void CMyListView::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 {
 	if(lpMeasureItemStruct->CtlType != ODT_MENU)
 	{
@@ -1343,13 +1343,13 @@ void CXListView::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 	}
 }
 
-int CXListView::CompareItem(LPCOMPAREITEMSTRUCT lpCompareItemStruct)
+int CMyListView::CompareItem(LPCOMPAREITEMSTRUCT lpCompareItemStruct)
 {
 	// all items are equal
 	return 0;
 }
 
-void CXListView::DeleteItem(LPDELETEITEMSTRUCT lpDeleteItemStruct)
+void CMyListView::DeleteItem(LPDELETEITEMSTRUCT lpDeleteItemStruct)
 {
 	// default - nothing
 }
@@ -1360,7 +1360,7 @@ void CXListView::DeleteItem(LPDELETEITEMSTRUCT lpDeleteItemStruct)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CEventMessageDockContainer::CEventMessageDockContainer()
+CMyListViewDockContainer::CMyListViewDockContainer()
 {
 	SetView        (m_Wnd); 
 	SetDockCaption (_T("EventMessage - Docking container"));
@@ -1374,7 +1374,7 @@ CEventMessageDockContainer::CEventMessageDockContainer()
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CEventMessageDocker::CEventMessageDocker()
+CMyListViewDocker::CMyListViewDocker()
 {
 	SetView     (m_DockContainer);
 //	SetBarWidth (4);

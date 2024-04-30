@@ -21,16 +21,16 @@
     <ClInclude Include="source\stdafx.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="source\window\WindowID.hpp">
+    <ClInclude Include="source\window\MyID.hpp">
       <Filter>source\window</Filter>
     </ClInclude>
-    <ClInclude Include="source\window\EventMessageDocker.hpp">
+    <ClInclude Include="source\window\MyListViewDocker.hpp">
       <Filter>source\window</Filter>
     </ClInclude>
     <ClInclude Include="source\window\MainFrame.hpp">
       <Filter>source\window</Filter>
     </ClInclude>
-    <ClInclude Include="source\window\MyDocker.hpp">
+    <ClInclude Include="source\window\MyWindowDocker.hpp">
       <Filter>source\window</Filter>
     </ClInclude>
     <ClInclude Include="source\window\MyTabbedMDI.hpp">
@@ -48,6 +48,9 @@
     <ClInclude Include="source\res\resource.h">
       <Filter>source\res</Filter>
     </ClInclude>
+    <ClInclude Include="source\targetver.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Main.cpp">
@@ -56,13 +59,13 @@
     <ClCompile Include="source\stdafx.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\window\EventMessageDocker.cpp">
+    <ClCompile Include="source\window\MyListViewDocker.cpp">
       <Filter>source\window</Filter>
     </ClCompile>
     <ClCompile Include="source\window\MainFrame.cpp">
       <Filter>source\window</Filter>
     </ClCompile>
-    <ClCompile Include="source\window\MyDocker.cpp">
+    <ClCompile Include="source\window\MyWindowDocker.cpp">
       <Filter>source\window</Filter>
     </ClCompile>
     <ClCompile Include="source\window\MyTabbedMDI.cpp">

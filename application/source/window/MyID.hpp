@@ -14,6 +14,6 @@ enum MDIChildIDs
 //===========================================================================
 enum DockerIDs
 {
-	ID_DOCKER_MY = 100,
-	ID_DOCKER_EVENTMESSAGE = 101
+	ID_DOCKER_MY_WINDOW = 100,
+	ID_DOCKER_MY_LISTVIEW = 101
 };

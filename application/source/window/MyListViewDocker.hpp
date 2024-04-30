@@ -6,7 +6,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CXListView;
+class CMyListView;
 
 
 
@@ -14,10 +14,10 @@ class CXListView;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CXListViewInplaceEdit : public CEdit
+class CMyListViewInplaceEdit : public CEdit
 {
 public:
-	CXListView*   m_ListView;
+	CMyListView*   m_ListView;
 	std::int32_t  m_Item;
 	std::int32_t  m_Column;
 	std::string   m_Text;
@@ -26,8 +26,8 @@ public:
 	bool  m_Cancel;
 
 public:
-	explicit CXListViewInplaceEdit(CXListView* listview, std::int32_t item, std::int32_t column, std::string text);
-	virtual ~CXListViewInplaceEdit();
+	explicit CMyListViewInplaceEdit(CMyListView* listview, std::int32_t item, std::int32_t column, std::string text);
+	virtual ~CMyListViewInplaceEdit();
 
 public:
 	virtual void PreCreate(CREATESTRUCT& cs);
@@ -56,19 +56,19 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CXListView : public CListView
+class CMyListView : public CListView
 {
 private:
-	CImageList                          m_SmallImageList;
-	std::vector<CXListViewInplaceEdit*> m_InplaceEditContainer;
+	CImageList                           m_SmallImageList;
+	std::vector<CMyListViewInplaceEdit*> m_InplaceEditContainer;
 
 	std::vector < std::vector<std::string> > m_TestContainer;
 
 	CFont m_Font;
 
 public:
-	CXListView();
-	virtual ~CXListView();
+	CMyListView();
+	virtual ~CMyListView();
 
 public:
 	virtual void    PreCreate       (CREATESTRUCT& cs);
@@ -126,14 +126,14 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CEventMessageDockContainer : public CDockContainer
+class CMyListViewDockContainer : public CDockContainer
 {
 public:
-	CEventMessageDockContainer();
-	~CEventMessageDockContainer() {}
+	CMyListViewDockContainer();
+	~CMyListViewDockContainer() {}
 
 private:
-	CXListView m_Wnd;
+	CMyListView m_Wnd;
 };
 
 
@@ -142,13 +142,13 @@ private:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CEventMessageDocker : public CDocker
+class CMyListViewDocker : public CDocker
 {
 public:
-	CEventMessageDocker();
-	virtual ~CEventMessageDocker() {}
+	CMyListViewDocker();
+	virtual ~CMyListViewDocker() {}
 
 private:
-	CEventMessageDockContainer m_DockContainer;
+	CMyListViewDockContainer m_DockContainer;
 };
 

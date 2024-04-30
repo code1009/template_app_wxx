@@ -6,13 +6,13 @@
 #include <res/resource.h>
 
 //===========================================================================
-#include "MyDocker.hpp"
+#include "MyWindowDocker.hpp"
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void CMyDockerWnd::PreCreate(CREATESTRUCT& cs)
+void CMyWindow::PreCreate(CREATESTRUCT& cs)
 {
 	CWnd::PreCreate(cs);
 
@@ -20,7 +20,7 @@ void CMyDockerWnd::PreCreate(CREATESTRUCT& cs)
 }
 
 //===========================================================================
-int CMyDockerWnd::OnCreate(CREATESTRUCT& cs)
+int CMyWindow::OnCreate(CREATESTRUCT& cs)
 {
 	UNREFERENCED_PARAMETER(cs);
 
@@ -28,20 +28,20 @@ int CMyDockerWnd::OnCreate(CREATESTRUCT& cs)
 	return 0;
 }
 
-void CMyDockerWnd::OnDestroy()
+void CMyWindow::OnDestroy()
 {
 	KillTimer(1);
 }
 
 //===========================================================================
-void CMyDockerWnd::OnDraw(CDC& dc)
+void CMyWindow::OnDraw(CDC& dc)
 {
 	// OnDraw is called automatically whenever a part of the window needs to be redrawn.
 	Draw(dc);
 }
 
 //===========================================================================
-LRESULT CMyDockerWnd::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyWindow::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg)
 	{
@@ -54,14 +54,14 @@ LRESULT CMyDockerWnd::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CMyDockerWnd::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyWindow::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
 // Respond to a mouse click on the window
 {
 	SetFocus();
 	return FinalWindowProc(msg, wparam, lparam);
 }
 
-LRESULT CMyDockerWnd::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyWindow::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	UNREFERENCED_PARAMETER(msg);
 
@@ -85,7 +85,7 @@ LRESULT CMyDockerWnd::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)
 	return WndProcDefault(msg, wparam, lparam);
 }
 
-LRESULT CMyDockerWnd::OnTimer(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyWindow::OnTimer(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	UNREFERENCED_PARAMETER(msg);
 	UNREFERENCED_PARAMETER(wparam);
@@ -94,7 +94,7 @@ LRESULT CMyDockerWnd::OnTimer(UINT msg, WPARAM wparam, LPARAM lparam)
 	return 0;
 }
 
-LRESULT CMyDockerWnd::OnPaint(UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CMyWindow::OnPaint(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	UNREFERENCED_PARAMETER(msg);
 	UNREFERENCED_PARAMETER(wparam);
@@ -109,7 +109,7 @@ LRESULT CMyDockerWnd::OnPaint(UINT msg, WPARAM wparam, LPARAM lparam)
 }
 
 //===========================================================================
-void CMyDockerWnd::Draw (CDC& dc)
+void CMyWindow::Draw (CDC& dc)
 {
 	CRect rc = GetClientRect();
 
@@ -134,11 +134,11 @@ void CMyDockerWnd::Draw (CDC& dc)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CMyDockContainer::CMyDockContainer()
+CMyWindowDockContainer::CMyWindowDockContainer()
 {
 	SetView        (m_Wnd); 
-	SetDockCaption (_T("My - Docking container"));
-	SetTabText     (_T("My"));
+	SetDockCaption (_T("MyWindow - Docking container"));
+	SetTabText     (_T("MyWindow"));
 	SetTabIcon     (IDI_DOCKER);
 } 
 
@@ -148,7 +148,7 @@ CMyDockContainer::CMyDockContainer()
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CMyDocker::CMyDocker()
+CMyWindowDocker::CMyWindowDocker()
 {
 	SetView     (m_DockContainer);
 //	SetBarWidth (4);

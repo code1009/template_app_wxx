@@ -6,13 +6,13 @@
 #include <res/resource.h>
 
 //===========================================================================
-#include "WindowID.hpp"
+#include "MyID.hpp"
 #include "MyTabbedMDI.hpp"
 #include "Mainframe.hpp"
 
 #include "MyView.hpp"
-#include "MyDocker.hpp"
-#include "EventMessageDocker.hpp"
+#include "MyWindowDocker.hpp"
+#include "MyListViewDocker.hpp"
 
 
 
@@ -52,7 +52,7 @@ void CMainFrame::PreCreate(CREATESTRUCT& cs)
 	// Hide the window initially by removing the WS_VISIBLE style
 	cs.style &= ~WS_VISIBLE;
 
-	//	cs.dwExStyle |= WS_EX_CLIENTEDGE;
+//	cs.dwExStyle |= WS_EX_CLIENTEDGE;
 }
 
 //===========================================================================
@@ -213,8 +213,8 @@ CDocker* CMainFrame::NewDockerFromID(int dockID)
 
 	switch (dockID)
 	{
-	case ID_DOCKER_MY:
-		pDocker = new CMyDocker();
+	case ID_DOCKER_MY_WINDOW:
+		pDocker = new CMyWindowDocker();
 		break;
 
 	default:
@@ -295,10 +295,10 @@ void CMainFrame::LoadDefaultDockers()
 
 	
 	// Add the parent dockers
-	pDockLeft = AddDockedChild(new CMyDocker (), DS_DOCKED_LEFT | style, 400, ID_DOCKER_MY );
+	pDockLeft = AddDockedChild(new CMyWindowDocker (), DS_DOCKED_LEFT | style, 400, ID_DOCKER_MY_WINDOW );
 
 	// Add the remaining dockers
-	pDockLeft->AddDockedChild(new CEventMessageDocker (), DS_DOCKED_CONTAINER | style, 400, ID_DOCKER_EVENTMESSAGE );
+	pDockLeft->AddDockedChild(new CMyListViewDocker(), DS_DOCKED_CONTAINER | style, 400, ID_DOCKER_MY_LISTVIEW );
 }
 
 void CMainFrame::LoadDefaultMDIs()

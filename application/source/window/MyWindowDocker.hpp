@@ -4,7 +4,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CMyDockerWnd : public CWnd
+class CMyWindow : public CWnd
 {
 private:
 	int m_cxClientMax;
@@ -31,27 +31,27 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CMyDockContainer : public CDockContainer
+class CMyWindowDockContainer : public CDockContainer
 {
 public:
-	CMyDockContainer(); 
-	~CMyDockContainer() {}
+	CMyWindowDockContainer(); 
+	~CMyWindowDockContainer() {}
 
 private:
-	CMyDockerWnd m_Wnd;
+	CMyWindow m_Wnd;
 };
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class CMyDocker : public CDocker
+class CMyWindowDocker : public CDocker
 {
 public:
-	CMyDocker(); 
-	virtual ~CMyDocker() {}
+	CMyWindowDocker(); 
+	virtual ~CMyWindowDocker() {}
 
 private:
-	CMyDockContainer m_DockContainer;
+	CMyWindowDockContainer m_DockContainer;
 };
 

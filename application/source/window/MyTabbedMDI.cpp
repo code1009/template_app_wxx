@@ -6,10 +6,8 @@
 #include <res/resource.h>
 
 //===========================================================================
-#include "WindowID.hpp"
-
+#include "MyID.hpp"
 #include "MyTabbedMDI.hpp"
-
 #include "MyView.hpp"
 
 

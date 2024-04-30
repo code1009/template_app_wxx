@@ -22,10 +22,11 @@
     <ClInclude Include="source\Main.hpp" />
     <ClInclude Include="source\res\resource.h" />
     <ClInclude Include="source\stdafx.h" />
-    <ClInclude Include="source\window\WindowID.hpp" />
-    <ClInclude Include="source\window\EventMessageDocker.hpp" />
+    <ClInclude Include="source\targetver.h" />
+    <ClInclude Include="source\window\MyID.hpp" />
+    <ClInclude Include="source\window\MyListViewDocker.hpp" />
     <ClInclude Include="source\window\MainFrame.hpp" />
-    <ClInclude Include="source\window\MyDocker.hpp" />
+    <ClInclude Include="source\window\MyWindowDocker.hpp" />
     <ClInclude Include="source\window\MyTabbedMDI.hpp" />
     <ClInclude Include="source\window\MyView.hpp" />
     <ClInclude Include="source\window\MyWinApp.hpp" />
@@ -43,12 +44,24 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\window\EventMessageDocker.cpp" />
-    <ClCompile Include="source\window\MainFrame.cpp" />
-    <ClCompile Include="source\window\MyDocker.cpp" />
-    <ClCompile Include="source\window\MyTabbedMDI.cpp" />
-    <ClCompile Include="source\window\MyView.cpp" />
-    <ClCompile Include="source\window\MyWinApp.cpp" />
+    <ClCompile Include="source\window\MyListViewDocker.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\window\MainFrame.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\window\MyWindowDocker.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\window\MyTabbedMDI.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\window\MyView.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\window\MyWinApp.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="source\res\Application.ico" />
