@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{56643ce8-43d5-48c6-ad8c-b6b9fe935f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\res">
+      <UniqueIdentifier>{1246101f-347e-4890-b53e-4be82e36d9fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\window">
+      <UniqueIdentifier>{9c4a846e-39ca-448a-8e46-a74976b5f935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\res\wxx">
+      <UniqueIdentifier>{395625d3-a2c7-4943-900e-2b80ae1c45ea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\Main.hpp">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\stdafx.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\WindowID.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\EventMessageDocker.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\MainFrame.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\MyDocker.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\MyTabbedMDI.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\MyView.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\MyWinApp.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\window\stdafx.h">
+      <Filter>source\window</Filter>
+    </ClInclude>
+    <ClInclude Include="source\res\resource.h">
+      <Filter>source\res</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\stdafx.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\window\EventMessageDocker.cpp">
+      <Filter>source\window</Filter>
+    </ClCompile>
+    <ClCompile Include="source\window\MainFrame.cpp">
+      <Filter>source\window</Filter>
+    </ClCompile>
+    <ClCompile Include="source\window\MyDocker.cpp">
+      <Filter>source\window</Filter>
+    </ClCompile>
+    <ClCompile Include="source\window\MyTabbedMDI.cpp">
+      <Filter>source\window</Filter>
+    </ClCompile>
+    <ClCompile Include="source\window\MyView.cpp">
+      <Filter>source\window</Filter>
+    </ClCompile>
+    <ClCompile Include="source\window\MyWinApp.cpp">
+      <Filter>source\window</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="source\res\wxx\Docker.ico">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\wxx\SDbottom.bmp">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\wxx\SDcenter.bmp">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\wxx\SDleft.bmp">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\wxx\SDmiddle.bmp">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\wxx\SDright.bmp">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\wxx\SDtop.bmp">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\wxx\View.ico">
+      <Filter>source\res\wxx</Filter>
+    </Image>
+    <Image Include="source\res\Application.ico">
+      <Filter>source\res</Filter>
+    </Image>
+    <Image Include="source\res\Toolbar16.bmp">
+      <Filter>source\res</Filter>
+    </Image>
+    <Image Include="source\res\Toolbar24.bmp">
+      <Filter>source\res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source\res\wxx\SplitH.cur">
+      <Filter>source\res\wxx</Filter>
+    </None>
+    <None Include="source\res\wxx\SplitV.cur">
+      <Filter>source\res\wxx</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="source\res\Application.rc">
+      <Filter>source\res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="source\res\PerMonitorV2.manifest">
+      <Filter>source\res</Filter>
+    </Manifest>
+  </ItemGroup>
+</Project>
