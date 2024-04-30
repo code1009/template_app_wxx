@@ -51,6 +51,9 @@
     <ClInclude Include="source\targetver.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="source\res\wxx\resource_wxx.h">
+      <Filter>source\res\wxx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Main.cpp">

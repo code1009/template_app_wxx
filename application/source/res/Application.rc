@@ -15,11 +15,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 영어(미국) resources
+// 한국어(대한민국) resources
 
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
-#pragma code_page(1252)
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -86,7 +86,6 @@ END
 IDW_MAIN                ICON                    "../../source/res/Application.ico"
 
 IDI_DOCKER              ICON                    "../../source/res/wxx/Docker.ico"
-
 IDI_VIEW                ICON                    "../../source/res/wxx/View.ico"
 
 
@@ -100,15 +99,10 @@ IDW_MAIN                BITMAP                  "../../source/res/toolbar24.bmp"
 IDB_TOOLBAR16           BITMAP                  "../../source/res/toolbar16.bmp"
 
 IDW_SDBOTTOM            BITMAP                  "../../source/res/wxx/SDbottom.bmp"
-
 IDW_SDCENTER            BITMAP                  "../../source/res/wxx/SDcenter.bmp"
-
 IDW_SDLEFT              BITMAP                  "../../source/res/wxx/SDleft.bmp"
-
 IDW_SDMIDDLE            BITMAP                  "../../source/res/wxx/SDmiddle.bmp"
-
 IDW_SDRIGHT             BITMAP                  "../../source/res/wxx/SDright.bmp"
-
 IDW_SDTOP               BITMAP                  "../../source/res/wxx/SDtop.bmp"
 
 
@@ -118,7 +112,6 @@ IDW_SDTOP               BITMAP                  "../../source/res/wxx/SDtop.bmp"
 //
 
 IDW_SPLITH              CURSOR                  "../../source/res/wxx/SplitH.cur"
-
 IDW_SPLITV              CURSOR                  "../../source/res/wxx/SplitV.cur"
 
 
@@ -158,34 +151,6 @@ BEGIN
     ICON            IDW_MAIN,IDC_STATIC,15,20,21,20
     GROUPBOX        "",IDC_STATIC,5,5,210,65
 END
-
-
-#ifdef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// TEXTINCLUDE
-//
-
-1 TEXTINCLUDE 
-BEGIN
-    "resource.h\0"
-END
-
-2 TEXTINCLUDE 
-BEGIN
-    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""windows.h""\r\n"
-    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "\0"
-END
-
-3 TEXTINCLUDE 
-BEGIN
-    "\r\n"
-    "\0"
-END
-
-#endif    // APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -276,7 +241,7 @@ BEGIN
     SC_SIZE                 "Resize the Window"
 END
 
-#endif    // 영어(미국) resources
+#endif    // 한국어(대한민국) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

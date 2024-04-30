@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="source\Main.hpp" />
     <ClInclude Include="source\res\resource.h" />
+    <ClInclude Include="source\res\wxx\resource_wxx.h" />
     <ClInclude Include="source\stdafx.h" />
     <ClInclude Include="source\targetver.h" />
     <ClInclude Include="source\window\MyID.hpp" />
@@ -208,7 +209,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WINDOWS;STRICT;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)library/wtl/Include;$(ProjectDir)library;$(ProjectDir)library/wxx/include;$(ProjectDir)source;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)library;$(ProjectDir)library/wxx/include;$(ProjectDir)source;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
@@ -225,7 +226,7 @@
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);$(ProjectDir)library/wtl/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(IntDir);$(ProjectDir)source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
