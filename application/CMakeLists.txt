@@ -15,6 +15,9 @@ message(STATUS "PROJECT_BINARY_DIR        : ${PROJECT_BINARY_DIR}"        )
 message(STATUS "PROJECT_SOURCE_DIR        : ${PROJECT_SOURCE_DIR}"        )
 
 
+
+
+
 # ///////////////////////////////////////////////////////////////////////////
 # ===========================================================================
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
