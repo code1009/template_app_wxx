@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "stdafx.h"
 
@@ -105,17 +105,13 @@ void CMainFrame::OnInitialUpdate()
 	// Hide the container's tab if it has just one tab
 	HideSingleContainerTab(m_isHideSingleTab);
 
-	// Get a copy of the Frame's menu
+
+	// 윈도우 창 메뉴 항목 기억
 	CMenu frameMenu = GetFrameMenu();
+	CMenu windowMenu = frameMenu.GetSubMenu(frameMenu.GetMenuItemCount() - 1 - 1);
 
-	// Modify the menu
-	int nMenuPos = frameMenu.GetMenuItemCount() - 1;
-	CMenu winMenu = m_MyTabbedMDI.GetListMenu();
-	//frameMenu.InsertPopupMenu(nMenuPos, MF_BYPOSITION, winMenu, _T("&Window"));
-	frameMenu.InsertPopupMenu(nMenuPos, MF_BYPOSITION, winMenu, _T("â(&W)"));
+	m_windowMenuItemCount = windowMenu.GetMenuItemCount();
 
-	// Replace the frame's menu with our modified menu
-	SetFrameMenu(frameMenu);
 
 	// PreCreate initially set the window as invisible, so show it now.
 	ShowWindow(GetInitValues().showCmd);
@@ -129,8 +125,56 @@ void CMainFrame::OnInitialUpdate()
 
 LRESULT CMainFrame::OnInitMenuPopup(UINT msg, WPARAM wparam, LPARAM lparam)
 {
+	CMenu frameMenu = GetFrameMenu();
+	CMenu windowMenu = frameMenu.GetSubMenu(frameMenu.GetMenuItemCount() - 1 - 1);
+	int count;
+	int i;
+
+
+	count = windowMenu.GetMenuItemCount();
+	for (i = m_windowMenuItemCount; i < count; i++)
+	{
+		windowMenu.DeleteMenu(m_windowMenuItemCount, MF_BYPOSITION);
+	}
+
+
 	// Update the "Window" menu
-	m_MyTabbedMDI.GetListMenu();
+	CMenu tabbedMDIMenu = m_MyTabbedMDI.GetListMenu();
+
+
+	MENUITEMINFO src_mii;
+	MENUITEMINFO dst_mii;
+	char text[256];
+	
+
+	count = tabbedMDIMenu.GetMenuItemCount();
+	if (count > 0)
+	{
+		windowMenu.AppendMenu(MF_BYPOSITION | MF_SEPARATOR, windowMenu.GetMenuItemCount());
+	}
+
+
+	for (i = 0; i < count; i++)
+	{
+		memset(&src_mii, 0, sizeof(src_mii));
+		src_mii.cbSize = sizeof(src_mii);
+		src_mii.fMask = MIIM_STRING | MIIM_ID;
+		src_mii.fType = MFT_STRING;
+		src_mii.dwTypeData = text;
+		src_mii.cch = sizeof(text)/sizeof(char);
+		tabbedMDIMenu.GetMenuItemInfo(i, src_mii, MF_BYPOSITION);
+
+
+		memset(&dst_mii, 0, sizeof(dst_mii));
+		dst_mii.cbSize = sizeof(dst_mii);
+		dst_mii.fMask = MIIM_STRING | MIIM_ID;
+		dst_mii.fType = MFT_STRING;
+		dst_mii.wID = src_mii.wID;
+		dst_mii.dwTypeData = text;
+
+		windowMenu.InsertMenuItem(windowMenu.GetMenuItemCount(), dst_mii, MF_BYPOSITION);
+	}
+
 
 	return CDockFrame::OnInitMenuPopup(msg, wparam, lparam);
 }

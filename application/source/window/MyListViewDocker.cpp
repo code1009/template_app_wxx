@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+ï»¿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "stdafx.h"
 
@@ -442,7 +442,7 @@ void CMyListView::OnDestroy()
 void CMyListView::OnAttach()
 {
 	//-----------------------------------------------------------------------
-	m_Font.CreatePointFont (120, _T("¸¼Àº °íµñ"));
+	m_Font.CreatePointFont (120, _T("ë§‘ì€ ê³ ë”•"));
 
 	
 	SetFont(m_Font);
@@ -490,7 +490,7 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
 	LvColumn.fmt       = LVCFMT_RIGHT;
-	LvColumn.pszText   = const_cast<char*>("¹øÈ£");
+	LvColumn.pszText   = const_cast<char*>("ë²ˆí˜¸");
 	LvColumn.cx        = 50;
 	LvColumn.iSubItem  = 0;
 	InsertColumn(0, LvColumn);
@@ -498,7 +498,7 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 	LvColumn.fmt       = LVCFMT_LEFT;
-	LvColumn.pszText   = const_cast<char*>("½Ã°£");
+	LvColumn.pszText   = const_cast<char*>("ì‹œê°„");
 	LvColumn.cx        = 180;
 	LvColumn.iSubItem  = 1;
 	InsertColumn(1, LvColumn);
@@ -506,7 +506,7 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 	LvColumn.fmt       = LVCFMT_CENTER;
-	LvColumn.pszText   = const_cast<char*>("Ç×¸ñ");
+	LvColumn.pszText   = const_cast<char*>("í•­ëª©");
 	LvColumn.cx        = 80;
 	LvColumn.iSubItem  = 2;
 	InsertColumn(2, LvColumn);
@@ -514,9 +514,9 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 	LvColumn.fmt       = LVCFMT_LEFT;
-	LvColumn.pszText   = const_cast<char*>("³»¿ë");
+	LvColumn.pszText   = const_cast<char*>("ë‚´ìš©");
 	LvColumn.cx        = 800;
-	LvColumn.cchTextMax= 1024*3; // GetItem¿Ã¶§ °¡Á®¿Ã¼öÀÖ´Â Å©±â (½ÃÇÏ´Â ÅØ½ºÆ®´Â 259+1[MAX_PATH]³Î¹®ÀÚ·Î Á¦ÇÑµÊ)
+	LvColumn.cchTextMax= 1024*3; // GetItemì˜¬ë•Œ ê°€ì ¸ì˜¬ìˆ˜ìˆëŠ” í¬ê¸° (ì‹œí•˜ëŠ” í…ìŠ¤íŠ¸ëŠ” 259+1[MAX_PATH]ë„ë¬¸ìë¡œ ì œí•œë¨)
 	LvColumn.iSubItem  = 3;
 	InsertColumn(3, LvColumn);
 
