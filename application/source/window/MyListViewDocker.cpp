@@ -47,7 +47,6 @@ void CMyListViewInplaceEdit::PreCreate(CREATESTRUCT& cs)
 		0u;
 
 	dwExStyle = 
-		WS_EX_CLIENTEDGE   |
 		0u;
 
 
@@ -943,7 +942,7 @@ void CMyListView::InplaceEdit_New( int item, int column )
 
 	if     ((lvcolumn.fmt&LVCFMT_JUSTIFYMASK) == LVCFMT_LEFT ) { dwStyle = ES_LEFT  ; }
 	else if((lvcolumn.fmt&LVCFMT_JUSTIFYMASK) == LVCFMT_RIGHT) { dwStyle = ES_RIGHT ; }
-	else                                                     { dwStyle = ES_CENTER; }
+	else                                                       { dwStyle = ES_CENTER; }
 
 	dwStyle |= WS_VISIBLE|WS_CHILD|WS_BORDER|ES_AUTOHSCROLL;
  
