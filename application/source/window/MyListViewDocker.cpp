@@ -1358,15 +1358,47 @@ void CMyListView::DeleteItem(LPDELETEITEMSTRUCT lpDeleteItemStruct)
 
 
 
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 CMyListViewDockContainer::CMyListViewDockContainer()
 {
-	SetView        (m_Wnd); 
-	SetDockCaption (_T("EventMessage - Docking container"));
-	SetTabText     (_T("EventMessage"));
-	SetTabIcon     (IDI_DOCKER);
-} 
+	SetTabText(_T("MyListView"));
+	SetTabIcon(IDI_DOCKER);
+	SetDockCaption(_T("MyListView - Docking container"));
+	SetView(m_Wnd);
+}
+
+CMyListViewDockContainer::~CMyListViewDockContainer()
+{
+
+}
+
+//===========================================================================
+BOOL CMyListViewDockContainer::OnCommand(WPARAM wparam, LPARAM)
+{
+	/*
+	UINT id = LOWORD(wparam);
+
+	switch (id)
+	{
+	default:
+		break;
+	}
+	*/
+
+	return FALSE;
+}
+
+void CMyListViewDockContainer::SetupToolBar()
+{
+	//SetToolBarImages(RGB(192, 192, 192), IDW_MAIN, 0, 0);
+	//AddToolBarButton(IDM_FILE_NEW);
+}
 
 
 
@@ -1376,8 +1408,13 @@ CMyListViewDockContainer::CMyListViewDockContainer()
 //===========================================================================
 CMyListViewDocker::CMyListViewDocker()
 {
-	SetView     (m_DockContainer);
-//	SetBarWidth (4);
+	SetView(m_DockContainer);
+	// SetBarWidth (4);
+}
+
+CMyListViewDocker::~CMyListViewDocker()
+{
+
 }
 
 

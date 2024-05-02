@@ -28,25 +28,25 @@ private:
 	//-----------------------------------------------------------------------
 	// Virtual functions that override base class functions
 public:
-	virtual HWND     Create(HWND parent = 0);
-	virtual void     PreCreate(CREATESTRUCT& cs);
-	virtual int      OnCreate(CREATESTRUCT& cs);
+	virtual HWND     Create(HWND parent = 0) override;
+	virtual void     PreCreate(CREATESTRUCT& cs) override;
+	virtual int      OnCreate(CREATESTRUCT& cs) override;
 
-	virtual void     OnInitialUpdate();
-	virtual LRESULT  OnInitMenuPopup(UINT msg, WPARAM wparam, LPARAM lparam);
-	virtual void     OnMenuUpdate(UINT id);
+	virtual void     OnInitialUpdate() override;
+	virtual LRESULT  OnInitMenuPopup(UINT msg, WPARAM wparam, LPARAM lparam) override;
+	virtual void     OnMenuUpdate(UINT id) override;
 
-	virtual void     SetupMenuIcons();
-	virtual void     SetupToolBar();
-	virtual BOOL     SaveRegistrySettings();
+	virtual void     SetupMenuIcons() override;
+	virtual void     SetupToolBar() override;
+	virtual BOOL     SaveRegistrySettings() override;
 
-	virtual CDocker* NewDockerFromID(int dockID);
-	virtual LRESULT  OnDockActivated(UINT msg, WPARAM wparam, LPARAM lparam);
-	virtual LRESULT  OnDockDestroyed(UINT msg, WPARAM wparam, LPARAM lparam);
+	virtual CDocker* NewDockerFromID(int dockID) override;
+	virtual LRESULT  OnDockActivated(UINT msg, WPARAM wparam, LPARAM lparam) override;
+	virtual LRESULT  OnDockDestroyed(UINT msg, WPARAM wparam, LPARAM lparam) override;
 
-	virtual void     OnClose();
-	virtual BOOL     OnCommand(WPARAM wparam, LPARAM lparam);
-	virtual LRESULT  WndProc(UINT msg, WPARAM wparam, LPARAM lparam);
+	virtual void     OnClose() override;
+	virtual BOOL     OnCommand(WPARAM wparam, LPARAM lparam) override;
+	virtual LRESULT  WndProc(UINT msg, WPARAM wparam, LPARAM lparam) override;
 
 	//-----------------------------------------------------------------------
 public:

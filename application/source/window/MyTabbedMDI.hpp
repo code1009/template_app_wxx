@@ -17,7 +17,7 @@ private:
 	CMyTabbedMDI& operator=(const CMyTabbedMDI&);
 
 public:
-	virtual CWnd* NewMDIChildFromID(int mdiChild);
+	virtual CWnd* NewMDIChildFromID(int mdiChild) override;
 };
 
 

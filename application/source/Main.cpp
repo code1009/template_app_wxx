@@ -85,6 +85,12 @@ static int RunWinApp()
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+static int Run()
+{
+	RunWinApp();
+
+	return 0;
+}
 
 
 
@@ -105,7 +111,8 @@ int WINAPI WinMain(
 	//UNREFERENCED_PARAMETER(nCmdShow);
  
 
-	RunWinApp();
+	Run();
+
 
 	return 0;
 }

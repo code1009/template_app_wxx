@@ -17,23 +17,27 @@ class CMyListView;
 class CMyListViewInplaceEdit : public CEdit
 {
 public:
-	CMyListView*   m_ListView;
+	CMyListView*  m_ListView;
 	std::int32_t  m_Item;
 	std::int32_t  m_Column;
 	std::string   m_Text;
 
 public:
-	bool  m_Cancel;
+	bool m_Cancel;
 
 public:
 	explicit CMyListViewInplaceEdit(CMyListView* listview, std::int32_t item, std::int32_t column, std::string text);
 	virtual ~CMyListViewInplaceEdit();
 
+private:
+	CMyListViewInplaceEdit(const CMyListViewInplaceEdit&);
+	CMyListViewInplaceEdit& operator=(const CMyListViewInplaceEdit&);
+
 public:
-	virtual void PreCreate(CREATESTRUCT& cs);
-	virtual int  OnCreate (CREATESTRUCT& cs);
-	virtual void OnDestroy();
-	virtual void OnAttach ();
+	virtual void PreCreate(CREATESTRUCT& cs) override;
+	virtual int  OnCreate (CREATESTRUCT& cs) override;
+	virtual void OnDestroy() override;
+	virtual void OnAttach () override;
 
 public:
 	virtual BOOL PreTranslateMessage(MSG& msg);
@@ -70,13 +74,17 @@ public:
 	CMyListView();
 	virtual ~CMyListView();
 
+private:
+	CMyListView(const CMyListView&);
+	CMyListView& operator=(const CMyListView&);
+
 public:
-	virtual void    PreCreate       (CREATESTRUCT& cs);
-	virtual void    OnDestroy       ();
-	virtual void    OnAttach        ();
-	virtual LRESULT WndProc         (UINT msg, WPARAM wparam, LPARAM lparam);
-	virtual LRESULT OnNotifyReflect (WPARAM wparam, LPARAM lparam);
-	virtual LRESULT OnMessageReflect(UINT msg, WPARAM wparam, LPARAM lparam);
+	virtual void    PreCreate       (CREATESTRUCT& cs) override;
+	virtual void    OnDestroy       () override;
+	virtual void    OnAttach        () override;
+	virtual LRESULT WndProc         (UINT msg, WPARAM wparam, LPARAM lparam) override;
+	virtual LRESULT OnNotifyReflect (WPARAM wparam, LPARAM lparam) override;
+	virtual LRESULT OnMessageReflect(UINT msg, WPARAM wparam, LPARAM lparam) override;
 
 public:
 	LRESULT OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam);
@@ -128,12 +136,20 @@ public:
 //===========================================================================
 class CMyListViewDockContainer : public CDockContainer
 {
-public:
-	CMyListViewDockContainer();
-	~CMyListViewDockContainer() {}
-
 private:
 	CMyListView m_Wnd;
+
+public:
+	CMyListViewDockContainer();
+	~CMyListViewDockContainer();
+
+private:
+	CMyListViewDockContainer(const CMyListViewDockContainer&);
+	CMyListViewDockContainer& operator=(const CMyListViewDockContainer&);
+
+protected:
+	virtual BOOL OnCommand(WPARAM wparam, LPARAM lparam) override;
+	virtual void SetupToolBar() override;
 };
 
 
@@ -144,11 +160,15 @@ private:
 //===========================================================================
 class CMyListViewDocker : public CDocker
 {
-public:
-	CMyListViewDocker();
-	virtual ~CMyListViewDocker() {}
-
 private:
 	CMyListViewDockContainer m_DockContainer;
+
+public:
+	CMyListViewDocker();
+	virtual ~CMyListViewDocker();
+
+private:
+	CMyListViewDocker(const CMyListViewDocker&);
+	CMyListViewDocker& operator=(const CMyListViewDocker&);
 };
 

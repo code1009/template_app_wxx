@@ -29,7 +29,7 @@ private:
 	CMyWinApp& operator=(const CMyWinApp&);
 
 public:
-	virtual BOOL InitInstance();
+	virtual BOOL InitInstance() override;
 
 public:
 	CMainFrame* GetMainFrame() { return &m_MainFrame; }

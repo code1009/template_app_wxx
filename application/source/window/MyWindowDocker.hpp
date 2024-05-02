@@ -21,11 +21,11 @@ private:
 	CMyWindow& operator=(const CMyWindow&);
 
 public:
-	virtual void    PreCreate(CREATESTRUCT& cs);
-	virtual int     OnCreate(CREATESTRUCT& cs);
-	virtual void    OnDestroy();
-	virtual void    OnDraw(CDC& dc);
-	virtual LRESULT WndProc(UINT msg, WPARAM wparam, LPARAM lparam);
+	virtual void    PreCreate(CREATESTRUCT& cs) override;
+	virtual int     OnCreate(CREATESTRUCT& cs) override;
+	virtual void    OnDestroy() override;
+	virtual void    OnDraw(CDC& dc) override;
+	virtual LRESULT WndProc(UINT msg, WPARAM wparam, LPARAM lparam) override;
 
 public:
 	LRESULT OnDpiChangedBeforeParent(UINT msg, WPARAM wparam, LPARAM lparam);
@@ -59,8 +59,8 @@ private:
 	CMyWindowDockContainer& operator=(const CMyWindowDockContainer&);
 
 protected:
-	virtual BOOL OnCommand(WPARAM wparam, LPARAM lparam);
-	virtual void SetupToolBar();
+	virtual BOOL OnCommand(WPARAM wparam, LPARAM lparam) override;
+	virtual void SetupToolBar() override;
 };
 
 
