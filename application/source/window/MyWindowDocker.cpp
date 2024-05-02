@@ -38,7 +38,7 @@ void CMyWindow::PreCreate(CREATESTRUCT& cs)
 {
 	CWnd::PreCreate(cs);
 
-	// cs.dwExStyle |= WS_EX_CLIENTEDGE;
+	cs.dwExStyle |= WS_EX_CLIENTEDGE;
 }
 
 int CMyWindow::OnCreate(CREATESTRUCT& cs)

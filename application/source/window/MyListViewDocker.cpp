@@ -47,7 +47,7 @@ void CMyListViewInplaceEdit::PreCreate(CREATESTRUCT& cs)
 		0u;
 
 	dwExStyle = 
-		// WS_EX_CLIENTEDGE   |
+		WS_EX_CLIENTEDGE   |
 		0u;
 
 
