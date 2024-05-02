@@ -111,7 +111,8 @@ void CMainFrame::OnInitialUpdate()
 	// Modify the menu
 	int nMenuPos = frameMenu.GetMenuItemCount() - 1;
 	CMenu winMenu = m_MyTabbedMDI.GetListMenu();
-	frameMenu.InsertPopupMenu(nMenuPos, MF_BYPOSITION, winMenu, _T("&Window"));
+	//frameMenu.InsertPopupMenu(nMenuPos, MF_BYPOSITION, winMenu, _T("&Window"));
+	frameMenu.InsertPopupMenu(nMenuPos, MF_BYPOSITION, winMenu, _T("â(&W)"));
 
 	// Replace the frame's menu with our modified menu
 	SetFrameMenu(frameMenu);
