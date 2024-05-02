@@ -1394,7 +1394,7 @@ CMyListViewDockContainer::CMyListViewDockContainer()
 {
 	SetTabText(_T("MyListView"));
 	SetTabIcon(IDI_DOCKER);
-	SetDockCaption(_T("MyListView - Docking container"));
+	SetDockCaption(_T("MyListView - 도구 창"));
 	SetView(m_Wnd);
 }
 

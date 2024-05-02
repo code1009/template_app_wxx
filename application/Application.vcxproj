@@ -144,6 +144,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)output/$(Platform)\$(Configuration)\</OutDir>
     <IntDir>output/$(Platform)\$(Configuration)\</IntDir>
+    <EmbedManifest>false</EmbedManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

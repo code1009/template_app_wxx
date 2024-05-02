@@ -88,8 +88,6 @@ int CMainFrame::OnCreate(CREATESTRUCT& cs)
 //===========================================================================
 void CMainFrame::OnInitialUpdate()
 {
-	//SetDockStyle(DS_CLIENTEDGE);
-
 	// Load dock settings
 	// if (!LoadDockRegistrySettings(GetRegistryKeyName()))
 	{
@@ -240,9 +238,13 @@ void CMainFrame::SetupMenuIcons()
 
 	std::vector<UINT> data = GetToolBarData();
 	if ((GetMenuIconHeight() >= 24) && (GetWindowDpi(*this) != 192))
+	{
 		SetMenuIcons(data, RGB(192, 192, 192), IDW_MAIN);
+	}
 	else
+	{
 		SetMenuIcons(data, RGB(192, 192, 192), IDB_TOOLBAR16);
+	}
 
 	// Add some extra icons for menu items
 	// AddMenuIcon(IDM_FILE_NEWBROWSER, IDI_GLOBE);
@@ -437,9 +439,7 @@ LRESULT CMainFrame::OnDpiChanged(UINT msg, WPARAM wparam, LPARAM lparam)
 
 
 	// Call the base class function. This recreates the toolbars.
-	CDockFrame::OnDpiChanged(msg, wparam, lparam);
-
-	return 0;
+	return CDockFrame::OnDpiChanged(msg, wparam, lparam);
 }
 
 //===========================================================================
@@ -508,7 +508,7 @@ void CMainFrame::LoadDefaultDockers()
 	// Note: The  DockIDs are used for saving/restoring the dockers state in the registry
 	DWORD style;
 
-	style = 0; // DS_CLIENTEDGE;
+	style = DS_CLIENTEDGE;
 
 
 	// Add the parent dockers
@@ -516,6 +516,9 @@ void CMainFrame::LoadDefaultDockers()
 
 	// Add the remaining dockers
 	pDockLeft->AddDockedChild(new CMyListViewDocker(), DS_DOCKED_CONTAINER | style, DpiScaleInt(400), ID_DOCKER_MY_LISTVIEW);
+
+
+	SetDockStyle(style);
 }
 
 void CMainFrame::LoadDefaultMDIs()

@@ -211,7 +211,7 @@ CMyWindowDockContainer::CMyWindowDockContainer()
 {
 	SetTabText(_T("MyWindow"));
 	SetTabIcon(IDI_DOCKER);
-	SetDockCaption (_T("MyWindow - Docking container"));
+	SetDockCaption (_T("MyWindow - 도구 창"));
 	SetView(m_Wnd);
 }
 
