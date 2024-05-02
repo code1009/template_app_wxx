@@ -40,7 +40,7 @@ void CMyView::PreCreate(CREATESTRUCT& cs)
 {
 	CWnd::PreCreate(cs);
 
-	cs.dwExStyle |= WS_EX_CLIENTEDGE;
+	// cs.dwExStyle |= WS_EX_CLIENTEDGE;
 }
 
 int CMyView::OnCreate(CREATESTRUCT& cs)
@@ -199,6 +199,8 @@ void CMyView::Draw(CDC& dc)
 		rc.top,
 		rc.bottom
 		);
+
+	dc.FillRect(rc, (HBRUSH)(COLOR_WINDOW + 1));
 
 	dc.DrawText(text, -1, rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 }

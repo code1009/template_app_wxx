@@ -85,11 +85,66 @@ static int RunWinApp()
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+inline BOOL MyInitCommonControls(DWORD dwFlags = ICC_COOL_CLASSES | ICC_BAR_CLASSES)
+{
+	INITCOMMONCONTROLSEX iccx = { sizeof(INITCOMMONCONTROLSEX), dwFlags };
+	BOOL bRet = ::InitCommonControlsEx(&iccx);
+
+
+	if (FALSE==bRet)
+	{
+		TRACE("InitCommonControlsEx() failed \n");
+	}
+
+
+	return bRet;
+
+}
+
+static int RunWindow()
+{
+	int nRet;
+
+
+	MyInitCommonControls();
+
+	nRet = RunWinApp();
+
+
+	return nRet;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 static int Run()
 {
-	RunWinApp();
+	//-----------------------------------------------------------------------
+	HRESULT hRes;
+	int nRet;
 
-	return 0;
+
+	//-----------------------------------------------------------------------
+	hRes = ::CoInitialize(NULL);
+	VERIFY(SUCCEEDED(hRes));
+	if (!SUCCEEDED(hRes))
+	{
+		return -1;
+	}
+
+
+	//-----------------------------------------------------------------------
+	nRet = RunWindow();
+
+
+	//-----------------------------------------------------------------------
+	::CoUninitialize();
+
+
+	return nRet;
 }
 
 

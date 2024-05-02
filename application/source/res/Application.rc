@@ -147,7 +147,7 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,165,75,50,15
     LTEXT           "Application",IDC_STATIC,45,20,160,10
     LTEXT           "Version 1.0",IDC_STATIC,45,30,160,10
-    LTEXT           "Copyright (c) 2024, Yoo-Kyung Control co., ltd.\nAll rights reserved.",IDC_STATIC,45,45,160,20
+    LTEXT           "Copyright (c) 2024, XXX co., ltd.\nAll rights reserved.",IDC_STATIC,45,45,160,20
     ICON            IDW_MAIN,IDC_STATIC,15,20,21,20
     GROUPBOX        "",IDC_STATIC,5,5,210,65
 END
@@ -175,7 +175,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDW_MAIN                "Tabbed MDI"
+    IDW_MAIN                "Application"
     IDW_VIEW_TOOLBAR        "Show or hide the tool bar"
     IDW_VIEW_STATUSBAR      "Show or hide the status bar"
     IDW_INDICATOR_CAPS      "CAP"

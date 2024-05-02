@@ -54,7 +54,7 @@ void CMainFrame::PreCreate(CREATESTRUCT& cs)
 	// Hide the window initially by removing the WS_VISIBLE style
 	cs.style &= ~WS_VISIBLE;
 
-	// cs.dwExStyle |= WS_EX_CLIENTEDGE;
+	//cs.dwExStyle |= WS_EX_CLIENTEDGE;
 }
 
 int CMainFrame::OnCreate(CREATESTRUCT& cs)
@@ -70,17 +70,25 @@ int CMainFrame::OnCreate(CREATESTRUCT& cs)
 	// UseMenuStatus(FALSE);         // Don't show menu descriptions in the StatusBar
 	// UseReBar(FALSE);              // Don't use a ReBar
 	// UseStatusBar(FALSE);          // Don't use a StatusBar
-	// UseThemes(FALSE);             // Don't use themes
+	UseThemes(FALSE);             // Don't use themes
 	// UseToolBar(FALSE);            // Don't use a ToolBar
 
 	// call the base class function
-	return CDockFrame::OnCreate(cs);
+	int rv;
+
+	rv = CDockFrame::OnCreate(cs);
+	if (0 != rv)
+	{
+		return rv;
+	}
+
+	return 0;
 }
 
 //===========================================================================
 void CMainFrame::OnInitialUpdate()
 {
-	// SetDockStyle(DS_CLIENTEDGE);
+	//SetDockStyle(DS_CLIENTEDGE);
 
 	// Load dock settings
 	// if (!LoadDockRegistrySettings(GetRegistryKeyName()))
@@ -111,6 +119,11 @@ void CMainFrame::OnInitialUpdate()
 	// PreCreate initially set the window as invisible, so show it now.
 	ShowWindow(GetInitValues().showCmd);
 	RedrawWindow(RDW_INVALIDATE | RDW_UPDATENOW | RDW_ERASE | RDW_ALLCHILDREN);
+
+	// The frame is now created.
+	// Place any additional startup code here.
+
+	TRACE("Frame created\n");
 }
 
 LRESULT CMainFrame::OnInitMenuPopup(UINT msg, WPARAM wparam, LPARAM lparam)
@@ -178,9 +191,16 @@ void CMainFrame::OnMenuUpdate(UINT id)
 void CMainFrame::SetupMenuIcons()
 {
 	// Load the defualt set of icons from the toolbar
-	CDockFrame::SetupMenuIcons();
+
+
+	std::vector<UINT> data = GetToolBarData();
+	if ((GetMenuIconHeight() >= 24) && (GetWindowDpi(*this) != 192))
+		SetMenuIcons(data, RGB(192, 192, 192), IDW_MAIN);
+	else
+		SetMenuIcons(data, RGB(192, 192, 192), IDB_TOOLBAR16);
 
 	// Add some extra icons for menu items
+	// AddMenuIcon(IDM_FILE_NEWBROWSER, IDI_GLOBE);
 }
 
 void CMainFrame::SetupToolBar()
@@ -363,6 +383,20 @@ LRESULT CMainFrame::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 	}
 }
 
+LRESULT CMainFrame::OnDpiChanged(UINT msg, WPARAM wparam, LPARAM lparam)
+{
+	// Called when the effective dots per inch (dpi) for a window has changed.
+	// This occurs when:
+	//  - The window is moved to a new monitor that has a different DPI.
+	//  - The DPI of the monitor hosting the window changes.
+
+
+	// Call the base class function. This recreates the toolbars.
+	CDockFrame::OnDpiChanged(msg, wparam, lparam);
+
+	return 0;
+}
+
 //===========================================================================
 void CMainFrame::SetContainerTabsAtTop(BOOL atTop)
 {
@@ -429,7 +463,7 @@ void CMainFrame::LoadDefaultDockers()
 	// Note: The  DockIDs are used for saving/restoring the dockers state in the registry
 	DWORD style;
 
-	style = 0;//DS_CLIENTEDGE;
+	style = 0; // DS_CLIENTEDGE;
 
 
 	// Add the parent dockers

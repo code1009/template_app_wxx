@@ -168,7 +168,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)library/wtl/Include;$(ProjectDir)library;$(ProjectDir)source;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)library;$(ProjectDir)library/wxx/include;$(ProjectDir)source;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
@@ -185,7 +185,7 @@
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);$(ProjectDir)library/wtl/Include;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)source;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
@@ -226,7 +226,7 @@
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);$(ProjectDir)source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)source;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
@@ -257,7 +257,7 @@
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);$(ProjectDir)library/wtl/Include;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)source;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
@@ -295,7 +295,7 @@
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);$(ProjectDir)library/wtl/Include;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)source;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>

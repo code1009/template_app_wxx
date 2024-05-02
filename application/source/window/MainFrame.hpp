@@ -48,6 +48,8 @@ public:
 	virtual BOOL     OnCommand(WPARAM wparam, LPARAM lparam) override;
 	virtual LRESULT  WndProc(UINT msg, WPARAM wparam, LPARAM lparam) override;
 
+	virtual LRESULT OnDpiChanged(UINT msg, WPARAM wparam, LPARAM lparam) override;
+
 	//-----------------------------------------------------------------------
 public:
 	void LoadDefaultDockers();

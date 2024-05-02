@@ -42,12 +42,12 @@ void CMyListViewInplaceEdit::PreCreate(CREATESTRUCT& cs)
 		WS_CLIPCHILDREN    |
 		WS_BORDER          |
 		ES_AUTOHSCROLL     |
-//		ES_MULTILINE       |
-//		ES_UPPERCASE       |
+		// ES_MULTILINE       |
+		// ES_UPPERCASE       |
 		0u;
 
 	dwExStyle = 
-//		WS_EX_CLIENTEDGE   |
+		// WS_EX_CLIENTEDGE   |
 		0u;
 
 
@@ -412,10 +412,10 @@ void CMyListView::PreCreate(CREATESTRUCT& cs)
 
 
 	dwStyle = 
-//		WS_CHILD           |
-//		WS_VISIBLE         |
-//		WS_CLIPSIBLINGS    |
-//		WS_CLIPCHILDREN    |
+		// WS_CHILD           |
+		// WS_VISIBLE         |
+		// WS_CLIPSIBLINGS    |
+		// WS_CLIPCHILDREN    |
 		LVS_REPORT         |
 		LVS_SHOWSELALWAYS  |
 		LVS_OWNERDATA      |
@@ -423,7 +423,7 @@ void CMyListView::PreCreate(CREATESTRUCT& cs)
 		0u;
 
 	dwExStyle = 
-//		WS_EX_CLIENTEDGE   |
+		// WS_EX_CLIENTEDGE   |
 		0u;
 
 
@@ -552,24 +552,36 @@ void CMyListView::OnAttach()
 //===========================================================================
 LRESULT CMyListView::WndProc(UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	switch (msg)
+	try
 	{
-	case WM_MOUSEACTIVATE: return OnMouseActivate(msg, wparam, lparam);
-	case WM_LBUTTONDOWN  : return OnLButtonDown  (msg, wparam, lparam);
-	case WM_LBUTTONDBLCLK: return OnLButtonDbClk (msg, wparam, lparam);
-	case WM_MOUSEWHEEL   : return OnMouseWheel   (msg, wparam, lparam); 
-	case WM_HSCROLL      : return OnHScroll      (msg, wparam, lparam);
-	case WM_VSCROLL      : return OnVScroll      (msg, wparam, lparam);
+		switch (msg)
+		{
+		case WM_MOUSEACTIVATE: return OnMouseActivate(msg, wparam, lparam);
+		case WM_LBUTTONDOWN  : return OnLButtonDown  (msg, wparam, lparam);
+		case WM_LBUTTONDBLCLK: return OnLButtonDbClk (msg, wparam, lparam);
+		case WM_MOUSEWHEEL   : return OnMouseWheel   (msg, wparam, lparam); 
+		case WM_HSCROLL      : return OnHScroll      (msg, wparam, lparam);
+		case WM_VSCROLL      : return OnVScroll      (msg, wparam, lparam);
 
-	case WM_USER+20: return InplaceEdit_OnDelete  (msg, wparam, lparam);
-	case WM_USER+21: return InplaceEdit_OnUpdate  (msg, wparam, lparam);
-	case WM_USER+22: return InplaceEdit_OnNavigate(msg, wparam, lparam);
+		case WM_USER+20: return InplaceEdit_OnDelete  (msg, wparam, lparam);
+		case WM_USER+21: return InplaceEdit_OnUpdate  (msg, wparam, lparam);
+		case WM_USER+22: return InplaceEdit_OnNavigate(msg, wparam, lparam);
 
-	default:
-		break;
+		default:
+			break;
+		}
+
+		return WndProcDefault(msg, wparam, lparam);
 	}
 
-	return WndProcDefault(msg, wparam, lparam);
+	// Catch all CException types.
+	catch (const CException& e)
+	{
+		// Display the exception and continue.
+		::MessageBox(0, e.GetText(), AtoT(e.what()), MB_ICONERROR);
+
+		return 0;
+	}
 }
 
 LRESULT CMyListView::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
@@ -1158,7 +1170,25 @@ LRESULT CMyListView::OnDeleteItem(UINT msg, WPARAM wparam, LPARAM lparam)
 	return (LRESULT)TRUE;
 }
 
-//---------------------------------------------------------------------------
+//===========================================================================
+void CMyListView::SetDPIImages()
+{
+#if 0
+	// Resize the image list.
+	CBitmap bmImage(IDB_CLASSVIEW);
+	bmImage = DpiScaleUpBitmap(bmImage);
+	int scale = bmImage.GetSize().cy / 15;
+	CImageList normalImages;
+	normalImages.Create(scale * 16, scale * 15, ILC_COLOR32 | ILC_MASK, 1, 0);
+	normalImages.Add(bmImage, RGB(255, 0, 0));
+	SetImageList(normalImages, LVSIL_NORMAL);
+
+	// Reset the item indentation.
+	int imageWidth = normalImages.GetIconSize().cx;
+	SetIndent(imageWidth);
+#endif
+}
+
 void CMyListView::GetCellRect(int header_column, const CRect& item_rect, CRect& cell_rect)
 {
 	CRect header_rect;
@@ -1296,7 +1326,7 @@ void CMyListView::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		::SetTextColor(dc, text_color);
 		
 		cell_rect.DeflateRect(4,2,0,2);
-//		::DrawText    (dc, ss.str().c_str(), ss.str().size(), cell_rect, text_format);
+		// ::DrawText (dc, ss.str().c_str(), ss.str().size(), cell_rect, text_format);
 		
 		text = m_TestContainer[item_id][n];
 		::DrawText    (
@@ -1358,11 +1388,6 @@ void CMyListView::DeleteItem(LPDELETEITEMSTRUCT lpDeleteItemStruct)
 
 
 
-
-
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 CMyListViewDockContainer::CMyListViewDockContainer()
@@ -1400,6 +1425,16 @@ void CMyListViewDockContainer::SetupToolBar()
 	//AddToolBarButton(IDM_FILE_NEW);
 }
 
+LRESULT CMyListViewDockContainer::OnDpiChangedBeforeParent(UINT msg, WPARAM wparam, LPARAM lparam)
+{
+	// Called in response to a WM_DPICHANGED_BEFOREPARENT message which is sent to child
+	// windows after a DPI change. A WM_DPICHANGED_BEFOREPARENT is only received when the
+	// application is DPI_AWARENESS_PER_MONITOR_AWARE.
+
+	m_Wnd.SetDPIImages();
+
+	return FinalWindowProc(msg, wparam, lparam);
+}
 
 
 

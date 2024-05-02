@@ -120,6 +120,9 @@ public:
 	LRESULT OnDeleteItem (UINT msg, WPARAM wparam, LPARAM lparam);
 	LRESULT OnCompareItem(UINT msg, WPARAM wparam, LPARAM lparam);
 
+public:
+	void SetDPIImages();
+
 	void DrawItem   (LPDRAWITEMSTRUCT /*lpDrawItemStruct*/);
 	void MeasureItem(LPMEASUREITEMSTRUCT /*lpMeasureItemStruct*/);
 	int  CompareItem(LPCOMPAREITEMSTRUCT /*lpCompareItemStruct*/);
@@ -150,6 +153,7 @@ private:
 protected:
 	virtual BOOL OnCommand(WPARAM wparam, LPARAM lparam) override;
 	virtual void SetupToolBar() override;
+	virtual LRESULT OnDpiChangedBeforeParent(UINT msg, WPARAM wparam, LPARAM lparam) override;
 };
 
 
