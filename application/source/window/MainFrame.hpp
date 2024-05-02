@@ -22,8 +22,8 @@ public:
 
 	//-----------------------------------------------------------------------
 private:
-	CMainFrame(const CMainFrame&);               // Disable copy construction
-	CMainFrame& operator=(const CMainFrame&);    // Disable assignment operator
+	CMainFrame(const CMainFrame&);
+	CMainFrame& operator=(const CMainFrame&);
 
 	//-----------------------------------------------------------------------
 	// Virtual functions that override base class functions

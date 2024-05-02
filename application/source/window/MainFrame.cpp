@@ -23,7 +23,7 @@
 CMainFrame::CMainFrame() :
 	m_isContainerTabsAtTop(FALSE),
 	m_isHideSingleTab(TRUE),
-	m_isMDITabsAtTop(TRUE), 
+	m_isMDITabsAtTop(TRUE),
 	m_pActiveDocker(NULL)
 {
 	// Set m_MyTabbedMDI as the view window of the frame

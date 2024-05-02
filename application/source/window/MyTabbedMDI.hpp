@@ -2,17 +2,22 @@
 
 
 
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class CMyTabbedMDI : public CTabbedMDI
 {
 public:
-    CMyTabbedMDI();
-    virtual ~CMyTabbedMDI();
+	CMyTabbedMDI();
+	virtual ~CMyTabbedMDI();
+
+private:
+	CMyTabbedMDI(const CMyTabbedMDI&);
+	CMyTabbedMDI& operator=(const CMyTabbedMDI&);
 
 public:
 	virtual CWnd* NewMDIChildFromID(int mdiChild);
-	virtual CWnd* AddMDIChild      (CWnd* pView, LPCTSTR pTabText, int mdiChildID = 0);
 };
 
 

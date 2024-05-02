@@ -1,9 +1,15 @@
 #pragma once
 
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "MyTabbedMDI.hpp"
-#include "Mainframe.hpp"
+#include "MainFrame.hpp"
+
+
 
 
 
@@ -12,18 +18,24 @@
 class CMyWinApp : public CWinApp
 {
 private:
-	CMainFrame m_Mainframe;
+	CMainFrame m_MainFrame;
 
 public:
 	CMyWinApp();
 	virtual ~CMyWinApp();
 
+private:
+	CMyWinApp(const CMyWinApp&);
+	CMyWinApp& operator=(const CMyWinApp&);
+
 public:
 	virtual BOOL InitInstance();
 
 public:
-	CMainFrame* GetMainFrame() { return &m_Mainframe; }
+	CMainFrame* GetMainFrame() { return &m_MainFrame; }
 };
+
+
 
 
 
