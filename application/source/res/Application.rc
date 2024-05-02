@@ -28,26 +28,30 @@ LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
 
 IDW_MAIN MENU
 BEGIN
-    POPUP "&File"
+    POPUP "파일(&F)"
     BEGIN
-        MENUITEM "&New",                        IDM_FILE_NEW
+        MENUITEM "새로 만들기(&N)\tCtrl+N",     IDM_FILE_NEW
+        MENUITEM "열기(&O)...\tCtrl+O",         IDM_FILE_OPEN
+        MENUITEM "닫기(&C)",                    IDM_FILE_CLOSE
+        MENUITEM "저장(&S)\tCtrl+S",            IDM_FILE_SAVE
+        MENUITEM "다른 이름으로 저장(&A)...",   IDM_FILE_SAVEAS
         MENUITEM SEPARATOR
-        MENUITEM "E&xit\tAlt+F4",               IDM_FILE_EXIT
+        MENUITEM "끝내기(&X)",                  IDM_FILE_EXIT
     END
-    POPUP "&Edit"
+    POPUP "편집(&E)"
     BEGIN
-        MENUITEM "Undo\tCtrl+Z",                IDM_EDIT_UNDO, GRAYED
-        MENUITEM "Redo\tCtrl+Y",                IDM_EDIT_REDO, GRAYED
+        MENUITEM "실행 취소(&U)\tCtrl+Z",       IDM_EDIT_UNDO, GRAYED
+        MENUITEM "다시 실행(&R)\tCtrl+Y",       IDM_EDIT_REDO, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "Cut\tCtrl+X",                 IDM_EDIT_CUT, GRAYED
-        MENUITEM "Copy\tCtrl+C",                IDM_EDIT_COPY, GRAYED
-        MENUITEM "Paste\tCtrl+V",               IDM_EDIT_PASTE, GRAYED
-        MENUITEM "Delete\tDel",                 IDM_EDIT_DELETE, GRAYED
+        MENUITEM "잘라내기(&T)\tCtrl+X",        IDM_EDIT_CUT, GRAYED
+        MENUITEM "복사(&C)\tCtrl+C",            IDM_EDIT_COPY, GRAYED
+        MENUITEM "붙여넣기(&P)\tCtrl+V",        IDM_EDIT_PASTE, GRAYED
+        MENUITEM "삭제(&D)\tDel",               IDM_EDIT_DELETE, GRAYED
     END
-    POPUP "&View"
+    POPUP "보기(&V)"
     BEGIN
-        MENUITEM "&Tool Bar",                   IDW_VIEW_TOOLBAR, CHECKED
-        MENUITEM "&Status Bar",                 IDW_VIEW_STATUSBAR, CHECKED
+        MENUITEM "도구 모음(&T)",               IDW_VIEW_TOOLBAR, CHECKED
+        MENUITEM "상태 표시줄(&S)",             IDW_VIEW_STATUSBAR, CHECKED
     END
     POPUP "&Options"
     BEGIN
@@ -61,7 +65,7 @@ BEGIN
         MENUITEM "Close All &Containers",       IDM_CLOSE_DOCKERS
         MENUITEM "Close All &MDI Children",     IDM_CLOSE_MDIS
     END
-    POPUP "&Help"
+    POPUP "도움말(&H)"
     BEGIN
         MENUITEM "&About\tF1",                  IDM_HELP_ABOUT
     END
@@ -141,17 +145,49 @@ END
 
 IDW_ABOUT DIALOGEX 0, 0, 220, 95
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About"
-FONT 8, "MS Shell Dlg", 0, 0, 0x0
+CAPTION "정보"
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,165,75,50,15
+    DEFPUSHBUTTON   "확인",IDOK,165,75,50,15
     LTEXT           "Application",IDC_STATIC,45,20,160,10
-    LTEXT           "Version 1.0",IDC_STATIC,45,30,160,10
+    LTEXT           "버전 1.0",IDC_STATIC,45,30,160,10
     LTEXT           "Copyright (c) 2024, XXX co., ltd.\nAll rights reserved.",IDC_STATIC,45,45,160,20
     ICON            IDW_MAIN,IDC_STATIC,15,20,21,20
     GROUPBOX        "",IDC_STATIC,5,5,210,65
 END
 
+VS_VERSION_INFO     VERSIONINFO
+  FILEVERSION       1,0,0,1
+  PRODUCTVERSION    1,0,0,1
+ FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+ FILEFLAGS VS_FF_DEBUG
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204B0"
+        BEGIN
+            VALUE "CompanyName", "TODO: <회사 이름>"
+            VALUE "FileDescription", "Application"
+            VALUE "FileVersion",     "1.0.0.1"
+            VALUE "InternalName",    "Application.exe"
+            VALUE "LegalCopyright", "TODO: (c) <회사 이름>.  All rights reserved."
+            VALUE "OriginalFilename","Application.exe"
+            VALUE "ProductName", "TODO: <제품 이름>"
+            VALUE "ProductVersion",  "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0412, 1200
+    END
+END
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -176,25 +212,68 @@ END
 STRINGTABLE
 BEGIN
     IDW_MAIN                "Application"
-    IDW_VIEW_TOOLBAR        "Show or hide the tool bar"
-    IDW_VIEW_STATUSBAR      "Show or hide the status bar"
-    IDW_INDICATOR_CAPS      "CAP"
-    IDW_INDICATOR_NUM       "NUM"
-    IDW_INDICATOR_SCRL      "SCRL"
-    IDW_READY               "Ready"
+    IDW_READY               "준비"
 END
 
 STRINGTABLE
 BEGIN
-    IDM_FILE_NEW            "Create a New Document"
-    IDM_FILE_OPEN           "Open Existing Document"
-    IDM_FILE_SAVE           "Save the Document"
-    IDM_FILE_SAVEAS         "Save the Document with a new name"
-    IDM_FILE_PRINT          "Print the Document"
-    IDM_FILE_EXIT           "End the Program"
-    IDM_EDIT_UNDO           "Undo the last action"
-    IDM_EDIT_REDO           "Redo the previously undone action"
+    IDW_INDICATOR_CAPS      "CAP"
+    IDW_INDICATOR_NUM       "NUM"
+    IDW_INDICATOR_SCRL      "SCRL"
 END
+
+STRINGTABLE
+BEGIN
+    IDM_FILE_NEW             "새 문서를 만듭니다.\n새로 만들기"
+    IDM_FILE_OPEN            "기존 문서를 엽니다.\n열기"
+    IDM_FILE_CLOSE           "활성 문서를 닫습니다.\n닫기"
+    IDM_FILE_SAVE            "활성 문서를 저장합니다.\n저장"
+    IDM_FILE_SAVEAS          "활성 문서를 새 이름으로 저장합니다.\n다른 이름으로 저장"
+    IDM_FILE_EXIT            "문서를 저장할지를 묻고 애플리케이션을 끝냅니다.\n끝내기"
+END
+
+STRINGTABLE
+BEGIN
+    IDM_EDIT_UNDO            "마지막 작업 실행을 취소합니다.\n실행 취소"
+    IDM_EDIT_REDO            "이전에 실행 취소된 작업을 다시 실행합니다.\n다시 실행"
+    IDM_EDIT_COPY            "선택 영역을 복사하여 클립보드에 넣습니다.\n복사"
+    IDM_EDIT_CUT             "선택 영역을 잘라내어 클립보드에 넣습니다.\n잘라내기"
+    IDM_EDIT_PASTE           "클립보드 내용을 삽입합니다.\n붙여넣기"
+    IDM_EDIT_DELETE          "선택 영역을 삭제합니다.\n삭제"
+END
+
+STRINGTABLE
+BEGIN
+    IDW_VIEW_TOOLBAR        "도구 모음을 표시하거나 숨깁니다.\n도구 모음 설정/해제"
+    IDW_VIEW_STATUSBAR      "상태 표시줄을 표시하거나 숨깁니다.\n상태 표시줄 설정/해제"
+END
+
+STRINGTABLE
+BEGIN
+    IDW_FIRSTCHILD          "창 활성화"
+    IDW_CHILD2              "창 활성화"
+    IDW_CHILD3              "창 활성화"
+    IDW_CHILD4              "창 활성화"
+    IDW_CHILD5              "창 활성화"
+    IDW_CHILD6              "창 활성화"
+    IDW_CHILD7              "창 활성화"
+    IDW_CHILD8              "창 활성화"
+    IDW_CHILD9              "창 활성화"
+    IDW_CHILD10             "창 선택..."
+END
+
+STRINGTABLE
+BEGIN
+    SC_CLOSE                "창을 닫습니다."
+    SC_MAXIMIZE             "창을 전체 화면 크기로 확대합니다."
+    SC_MINIMIZE             "창을 아이콘으로 축소합니다."
+    SC_MOVE                 "창 위치를 변경합니다."
+    SC_NEXTWINDOW           "다음 문서 창으로 전환합니다."
+    SC_PREVWINDOW           "이전 문서 창으로 전환합니다."
+    SC_RESTORE              "창을 보통 크기로 복원합니다."
+    SC_SIZE                 "창 크기를 변경합니다."
+END
+
 
 STRINGTABLE
 BEGIN
@@ -204,41 +283,6 @@ BEGIN
     IDM_DEFAULT_LAYOUT      "Restore default dock layout"
     IDM_CLOSE_DOCKERS       "Close all docked and undocked windows"
     IDM_CLOSE_MDIS          "Close all MDI Children"
-END
-
-STRINGTABLE
-BEGIN
-    IDM_EDIT_CUT            "Cut the Selected Contents to the Clipboard"
-    IDM_EDIT_COPY           "Copy the Selected Contents to the Clipboard"
-    IDM_EDIT_PASTE          "Paste the Clipboard Contents to the Document"
-    IDM_EDIT_DELETE         "Erase the selected Contents"
-    IDM_HELP_ABOUT          "Display Information about this program"
-END
-
-STRINGTABLE
-BEGIN
-    IDW_FIRSTCHILD          "Activate this window"
-    IDW_CHILD2              "Activate this window"
-    IDW_CHILD3              "Activate this window"
-    IDW_CHILD4              "Activate this window"
-    IDW_CHILD5              "Activate this window"
-    IDW_CHILD6              "Activate this window"
-    IDW_CHILD7              "Activate this window"
-    IDW_CHILD8              "Activate this window"
-    IDW_CHILD9              "Activate this window"
-    IDW_CHILD10             "Select a window"
-END
-
-STRINGTABLE
-BEGIN
-    SC_CLOSE                "Close the Window"
-    SC_MAXIMIZE             "Maximize the Window"
-    SC_MINIMIZE             "Minimize the Window"
-    SC_MOVE                 "Move the Window"
-    SC_NEXTWINDOW           "Select Next Window"
-    SC_PREVWINDOW           "Select Previous Window"
-    SC_RESTORE              "Restore the Window"
-    SC_SIZE                 "Resize the Window"
 END
 
 #endif    // 한국어(대한민국) resources
