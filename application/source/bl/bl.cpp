@@ -670,6 +670,7 @@ void window::zoom(bool zoom_in)
 	set_scale(viewscale);
 }
 
+//===========================================================================
 void window::window_to_contents(std::int64_t window_x, std::int64_t window_y, double& contents_x, double& contents_y)
 {
 	contents_x = _contents_x + (window_x / _scale);
