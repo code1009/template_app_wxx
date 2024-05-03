@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /application/library/wxx
+/application/library/vld
+/application/library/pugixml
+/application/library/blend2d
