@@ -319,6 +319,134 @@ void window::enable_scrollbar(bool enable)
 	update_scrollbar();
 }
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+std::int64_t window::scroll(
+	std::uint32_t scroll_code, std::int64_t scroll_pos,
+	std::uint64_t a_view_scroll_page,
+	std::uint64_t a_view_scroll_line,
+	std::uint64_t a_view_scroll_min,
+	std::uint64_t a_view_scroll_max,
+	std::uint64_t a_view_scroll_pos
+)
+{
+	std::int64_t view_scroll_min;
+	std::int64_t view_scroll_max;
+	std::int64_t view_scroll_top;
+	std::int64_t view_scroll_bottom;
+	std::int64_t view_scroll_pos;
+	std::int64_t view_scroll_pos_current;
+	std::int64_t view_scroll_page;
+	std::int64_t view_scroll_line;
+
+
+	view_scroll_page = a_view_scroll_page;
+	view_scroll_line = a_view_scroll_line;
+
+
+	view_scroll_min = a_view_scroll_min;
+	view_scroll_max = a_view_scroll_max;
+
+
+	view_scroll_top = view_scroll_min;
+	if (view_scroll_page < view_scroll_max)
+	{
+		view_scroll_bottom = view_scroll_max - view_scroll_page;
+	}
+	else
+	{
+		view_scroll_bottom = view_scroll_min;
+	}
+
+
+	view_scroll_pos = a_view_scroll_pos;
+	view_scroll_pos_current = a_view_scroll_pos;
+
+
+	switch (scroll_code)
+	{
+	case SB_TOP:
+		view_scroll_pos_current = view_scroll_top;
+		break;
+
+	case SB_BOTTOM:
+		view_scroll_pos_current = view_scroll_bottom;
+		break;
+
+	case SB_LINEUP:
+		if (view_scroll_top < (view_scroll_pos - view_scroll_line))
+		{
+			view_scroll_pos_current = view_scroll_pos - view_scroll_line;
+		}
+		else
+		{
+			view_scroll_pos_current = view_scroll_top;
+		}
+		break;
+
+	case SB_LINEDOWN:
+		if ((view_scroll_pos + view_scroll_line) < view_scroll_bottom)
+		{
+			view_scroll_pos_current = view_scroll_pos + view_scroll_line;
+		}
+		else
+		{
+			view_scroll_pos_current = view_scroll_bottom;
+		}
+		break;
+
+	case SB_PAGEUP:
+		if (view_scroll_top < (view_scroll_pos - view_scroll_page))
+		{
+			view_scroll_pos_current = view_scroll_pos - view_scroll_page;
+		}
+		else
+		{
+			view_scroll_pos_current = view_scroll_top;
+		}
+		break;
+
+	case SB_PAGEDOWN:
+		if ((view_scroll_pos + view_scroll_page) < view_scroll_bottom)
+		{
+			view_scroll_pos_current = view_scroll_pos + view_scroll_page;
+		}
+		else
+		{
+			view_scroll_pos_current = view_scroll_bottom;
+		}
+		break;
+
+	case SB_THUMBTRACK:
+		view_scroll_pos_current = scroll_pos;
+		break;
+
+	case SB_THUMBPOSITION:
+		view_scroll_pos_current = scroll_pos;
+		break;
+
+	case SB_ENDSCROLL:
+		break;
+	}
+
+	if (view_scroll_pos_current < view_scroll_top)
+	{
+		view_scroll_pos_current = view_scroll_top;
+	}
+
+	if (view_scroll_bottom < view_scroll_pos_current)
+	{
+		view_scroll_pos_current = view_scroll_bottom;
+	}
+
+
+	return view_scroll_pos_current;
+}
+
 void window::vscroll(std::uint32_t scroll_code)
 {
 	std::int64_t pos;
@@ -332,7 +460,7 @@ void window::vscroll(std::uint32_t scroll_code)
 
 
 	view_scroll_pos = _view_y;
-	view_scroll_pos_current = view_scroll(scroll_code, pos,
+	view_scroll_pos_current = scroll(scroll_code, pos,
 		_view_y_scroll_page,
 		_view_y_scroll_line,
 		_view_y_scroll_min,
@@ -365,7 +493,7 @@ void window::hscroll(std::uint32_t scroll_code)
 
 
 	view_scroll_pos = _view_x;
-	view_scroll_pos_current = view_scroll(scroll_code, pos,
+	view_scroll_pos_current = scroll(scroll_code, pos,
 		_view_x_scroll_page,
 		_view_x_scroll_line,
 		_view_x_scroll_min,

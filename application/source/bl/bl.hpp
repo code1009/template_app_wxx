@@ -223,6 +223,13 @@ public:
 	virtual void contents_to_window(double contents_x, double contents_y, std::int64_t& window_x, std::int64_t& window_y);
 
 protected:
+	virtual std::int64_t scroll(
+		std::uint32_t scroll_code, std::int64_t scroll_pos,
+		std::uint64_t a_view_scroll_page,
+		std::uint64_t a_view_scroll_line,
+		std::uint64_t a_view_scroll_min,
+		std::uint64_t a_view_scroll_max,
+		std::uint64_t a_view_scroll_pos);
 	virtual void update_scrollbar(void);
 	virtual void update_view_scroll(void);
 	virtual void update_view_size(void);
