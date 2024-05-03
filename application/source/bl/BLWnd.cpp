@@ -54,8 +54,8 @@ bl_drawer::bl_drawer()
 
 	_font.createFromFace(_font_face, 50.0f);
 
-	_contents_cx = 1920 * 4;
-	_contents_cy = 1080 * 4;
+	_contents_cx = 1920 * 2;
+	_contents_cy = 1080 * 2;
 }
 
 bl_drawer::~bl_drawer()
@@ -104,50 +104,42 @@ void bl_drawer::draw_ex7(BLContext* ctx)
 	BLContextCookie cookie1;
 	BLContextCookie cookie2;
 
+	double x = 200;
+	double y = 400;
+
+
 	ctx->save(cookie1);
-	ctx->scale(0.5);
 	{
-		//BLFont _font;
-		//_font.createFromFace(_font_face, 50.0f);
+		ctx->scale(0.5);
+		{
+			ctx->setFillStyle(BLRgba32(0xFFFF0000));
+			ctx->fillUtf8Text(BLPoint(x, y), _font, regularText);
+		}
 
-		ctx->setFillStyle(BLRgba32(0xFFFF0000));
-		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
-
-		//ctx->rotate(0.785398);
-		//ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
+		ctx->save(cookie2);
+		{
+			ctx->scale(0.5);
+			{
+				ctx->setFillStyle(BLRgba32(0xFFFFFFFF));
+				ctx->fillUtf8Text(BLPoint(x, y), _font, regularText);
+			}
+		}
+		ctx->restore(cookie2);
 	}
-
-	ctx->save(cookie2);
-	ctx->scale(0.5);
-	{
-
-		//BLFont _font;
-		//_font.createFromFace(_font_face, 50.0f);
-
-		ctx->setFillStyle(BLRgba32(0xFFFFFFFF));
-		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
-
-		//ctx->rotate(0.785398);
-		//ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
-	}
-
-	ctx->restore(cookie2);
 	ctx->restore(cookie1);
 
 
 	ctx->save(cookie1);
-
-	ctx->translate(100, 100);
-
 	{
 		//BLFont _font;
 		//_font.createFromFace(_font_face, 50.0f);
 
 		ctx->setFillStyle(BLRgba32(0xFF0000FF));
-		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
+		ctx->fillUtf8Text(BLPoint(x, y), _font, regularText);
 
+		ctx->translate(x, y + 50);
 		ctx->rotate(0.785398);
-		ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
+		ctx->fillUtf8Text(BLPoint(0, 0), _font, rotatedText);
 	}
 	ctx->restore(cookie1);
 }

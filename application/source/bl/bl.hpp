@@ -185,62 +185,63 @@ public:
 	virtual ~window();
 
 public:
-	void create(HWND hwnd);
-	void destory();
+	virtual void create(HWND hwnd);
+	virtual void destory();
 
 public:
-	void set_drawer(drawer* d)
+	virtual void set_drawer(drawer* d)
 	{
 		_drawer = d;
 	}
 
-	drawer* get_drawer(void) const
+	virtual drawer* get_drawer(void) const
 	{
 		return _drawer;
 	}
 
 public:
-	void set_window_size(int cx, int cy);
+	virtual void set_window_size(int cx, int cy);
 
 public:
-	double get_scale(void);
-	void set_scale(double s);
-	void zoom(bool zoom_in);
+	virtual double get_scale(void);
+	virtual void set_scale(double s);
 
 public:
-	void set_contents_size(double cx, double cy);
+	virtual void set_contents_size(double cx, double cy);
 
 public:
-	void enable_scrollbar(bool enable);
-	void fit_contents_to_window(bool vert = false);
-	void vscroll(std::uint32_t scroll_code);
-	void hscroll(std::uint32_t scroll_code);
-
-private:
-	void update_scrollbar(void);
-	void update_view_scroll(void);
-	void update_view_size(void);
-	void update_view_offset(void);
-
-	void repaint(void);
+	virtual void enable_scrollbar(bool enable);
+	virtual void vscroll(std::uint32_t scroll_code);
+	virtual void hscroll(std::uint32_t scroll_code);
 
 public:
-	void window_to_contents(std::int64_t window_x, std::int64_t window_y, double& contents_x, double& contents_y);
-	void contents_to_window(double contents_x, double contents_y, std::int64_t& window_x, std::int64_t& window_y);
+	virtual void zoom(bool zoom_in);
+	virtual void fit_contents_to_window(bool vert = false);
 
 public:
-	void paint(HDC hdc);
+	virtual void window_to_contents(std::int64_t window_x, std::int64_t window_y, double& contents_x, double& contents_y);
+	virtual void contents_to_window(double contents_x, double contents_y, std::int64_t& window_x, std::int64_t& window_y);
 
-private:
-	void draw(BLContext* ctx);
-	void draw_underlay(BLContext* ctx);
-	void draw_overlay(BLContext* ctx);
-	void draw_window_info(BLContext* ctx);
-	void draw_window_grid(BLContext* ctx);
-	void draw_contents_grid(BLContext* ctx);
-	void draw_contents(BLContext* ctx);
-	void draw_contents_background(BLContext* ctx);
-	void draw_contents_foreground(BLContext* ctx);
+protected:
+	virtual void update_scrollbar(void);
+	virtual void update_view_scroll(void);
+	virtual void update_view_size(void);
+	virtual void update_view_offset(void);
+	virtual void repaint(void);
+
+public:
+	virtual void paint(HDC hdc);
+
+protected:
+	virtual void draw(BLContext* ctx);
+	virtual void draw_underlay(BLContext* ctx);
+	virtual void draw_overlay(BLContext* ctx);
+	virtual void draw_window_info(BLContext* ctx);
+	virtual void draw_window_grid(BLContext* ctx);
+	virtual void draw_contents_grid(BLContext* ctx);
+	virtual void draw_contents(BLContext* ctx);
+	virtual void draw_contents_background(BLContext* ctx);
+	virtual void draw_contents_foreground(BLContext* ctx);
 };
 
 

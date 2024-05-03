@@ -42,6 +42,7 @@ bitmap::~bitmap()
 	destroy();
 }
 
+//===========================================================================
 void bitmap::create(void)
 {
 	memset(&_bmi, 0, sizeof(_bmi));
@@ -84,6 +85,7 @@ void bitmap::destroy(void)
 	_data = nullptr;
 }
 
+//===========================================================================
 bool bitmap::is_empty(void)
 {
 	if (nullptr == _data)
@@ -120,6 +122,7 @@ canvas::~canvas()
 	//OutputDebugStringA("~canvas \n");
 }
 
+//===========================================================================
 void canvas::set_size(std::size_t cx, std::size_t cy)
 {
 	bool reset = false;
@@ -149,6 +152,7 @@ void canvas::set_size(std::size_t cx, std::size_t cy)
 	}
 }
 
+//===========================================================================
 BLContext* canvas::begin(void)
 {
 	if (_bitmap.get_data())
@@ -196,6 +200,7 @@ void canvas::end(void)
 	_context_ptr = nullptr;
 }
 
+//===========================================================================
 void canvas::paint(HDC hdc)
 {
 	if (_bitmap.get_data())
@@ -220,6 +225,7 @@ window::~window()
 	//OutputDebugStringA("~window \n");
 }
 
+//===========================================================================
 void window::create(HWND hwnd)
 {
 	//-----------------------------------------------------------------------
@@ -247,6 +253,7 @@ void window::destory()
 	_hwnd = nullptr;
 }
 
+//===========================================================================
 void window::set_window_size(int cx, int cy)
 {
 	_window_cx = cx;
@@ -267,6 +274,7 @@ void window::set_window_size(int cx, int cy)
 	//WM_SIZE이후 WM_PAINT호출되기떄문에 다시 그릴 필요 없음
 }
 
+//===========================================================================
 double window::get_scale(void)
 {
 	return _scale;
@@ -287,50 +295,6 @@ void window::set_scale(double s)
 	}
 }
 
-void window::zoom(bool zoom_in)
-{
-	double viewscale_delta;
-	double viewscale_max;
-	double viewscale_min;
-
-
-	viewscale_max = 10.0f;
-	viewscale_min = 0.1f;
-	viewscale_delta = 0.1f;
-
-
-	double viewscale;
-	int viewscale_x10;
-
-
-	viewscale = get_scale();
-	viewscale_x10 = static_cast<int>((viewscale + 0.05) * 10);
-	viewscale = viewscale_x10 / 10.0;
-
-
-	if (zoom_in)
-	{
-		viewscale = viewscale + viewscale_delta;
-	}
-	else
-	{
-		viewscale = viewscale - viewscale_delta;
-	}
-
-
-	if (viewscale > viewscale_max)
-	{
-		viewscale = viewscale_max;
-	}
-	if (viewscale < viewscale_min)
-	{
-		viewscale = viewscale_min;
-	}
-
-
-	set_scale(viewscale);
-}
-
 void window::set_contents_size(double cx, double cy)
 {
 	_contents_x  = 0;
@@ -346,30 +310,13 @@ void window::set_contents_size(double cx, double cy)
 	repaint();
 }
 
+//===========================================================================
 void window::enable_scrollbar(bool enable)
 {
 	_scrollbar_enabled = enable;
 
 	update_view_scroll();
 	update_scrollbar();
-}
-
-void window::fit_contents_to_window(bool vert)
-{
-	if (vert)
-	{
-		if (_window_cy)
-		{
-			set_scale(_window_cy / _contents_cy);
-		}
-	}
-	else
-	{
-		if (_window_cx)
-		{
-			set_scale(_window_cx / _contents_cx);
-		}
-	}
 }
 
 void window::vscroll(std::uint32_t scroll_code)
@@ -532,6 +479,82 @@ void window::update_view_offset(void)
 	_contents_y = _view_y / _scale;
 }
 
+//===========================================================================
+void window::fit_contents_to_window(bool vert)
+{
+	if (vert)
+	{
+		if (_window_cy)
+		{
+			set_scale(_window_cy / _contents_cy);
+		}
+	}
+	else
+	{
+		if (_window_cx)
+		{
+			set_scale(_window_cx / _contents_cx);
+		}
+	}
+}
+
+void window::zoom(bool zoom_in)
+{
+	double viewscale_delta;
+	double viewscale_max;
+	double viewscale_min;
+
+
+	viewscale_max = 10.0f;
+	viewscale_min = 0.1f;
+	viewscale_delta = 0.1f;
+
+
+	double viewscale;
+	int viewscale_x10;
+
+
+	viewscale = get_scale();
+	viewscale_x10 = static_cast<int>((viewscale + 0.05) * 10);
+	viewscale = viewscale_x10 / 10.0;
+
+
+	if (zoom_in)
+	{
+		viewscale = viewscale + viewscale_delta;
+	}
+	else
+	{
+		viewscale = viewscale - viewscale_delta;
+	}
+
+
+	if (viewscale > viewscale_max)
+	{
+		viewscale = viewscale_max;
+	}
+	if (viewscale < viewscale_min)
+	{
+		viewscale = viewscale_min;
+	}
+
+
+	set_scale(viewscale);
+}
+
+void window::window_to_contents(std::int64_t window_x, std::int64_t window_y, double& contents_x, double& contents_y)
+{
+	contents_x = _contents_x + (window_x / _scale);
+	contents_y = _contents_y + (window_y / _scale);
+}
+
+void window::contents_to_window(double contents_x, double contents_y, std::int64_t& window_x, std::int64_t& window_y)
+{
+	window_x = static_cast<std::int64_t>((contents_x - _contents_x) * _scale);
+	window_y = static_cast<std::int64_t>((contents_y - _contents_y) * _scale);
+}
+
+//===========================================================================
 void window::repaint(void)
 {
 	//_canvas.get_context()->reset();
@@ -545,18 +568,6 @@ void window::repaint(void)
 	*/
 
 	InvalidateRect(_hwnd, nullptr, TRUE);
-}
-
-void window::window_to_contents(std::int64_t window_x, std::int64_t window_y, double& contents_x, double& contents_y)
-{
-	contents_x = _contents_x + (window_x / _scale);
-	contents_y = _contents_y + (window_y / _scale);
-}
-
-void window::contents_to_window(double contents_x, double contents_y, std::int64_t& window_x, std::int64_t& window_y)
-{
-	window_x = static_cast<std::int64_t>((contents_x - _contents_x) * _scale);
-	window_y = static_cast<std::int64_t>((contents_y - _contents_y) * _scale);
 }
 
 void window::paint(HDC hdc)
@@ -695,7 +706,7 @@ void window::draw_window_info(BLContext* ctx)
 	ctx->fillUtf8Text(BLPoint(static_cast<double>(x + text_offset_x), y + static_cast<double>(text_offset_y)), _overlay_font, label);
 	y += text_offset_y;
 
-	sprintf_s(label, "scroll x = %lld, %lld, (%lld~%lld)", 
+	sprintf_s(label, "scroll:x = %lld, %lld, (%lld~%lld)", 
 		_view_x_scroll_line,
 		_view_x_scroll_page,
 		_view_x_scroll_min, _view_x_scroll_max
@@ -703,7 +714,7 @@ void window::draw_window_info(BLContext* ctx)
 	ctx->fillUtf8Text(BLPoint(static_cast<double>(x + text_offset_x), y + static_cast<double>(text_offset_y)), _overlay_font, label);
 	y += text_offset_y;
 
-	sprintf_s(label, "scroll y = %lld, %lld, (%lld~%lld)",
+	sprintf_s(label, "scroll:y = %lld, %lld, (%lld~%lld)",
 		_view_y_scroll_line, 
 		_view_y_scroll_page,
 		_view_y_scroll_min, _view_y_scroll_max
