@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /application/library/wxx
 /build/.cmake/api/v1/query/client-vscode
 /build
+/application/library/blend2d
