@@ -101,12 +101,11 @@ LRESULT CMyView::OnDpiChangedBeforeParent(UINT msg, WPARAM wparam, LPARAM lparam
 }
 
 LRESULT CMyView::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
-// Respond to a mouse click on the window
 {
+	// Respond to a mouse click on the window
+
 	SetFocus();
 	return FinalWindowProc(msg, wparam, lparam);
-
-
 }
 
 LRESULT CMyView::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)

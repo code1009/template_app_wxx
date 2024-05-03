@@ -35,6 +35,5 @@ public:
 	LRESULT OnPaint(UINT msg, WPARAM wparam, LPARAM lparam);
 
 public:
-	void SetDPIImages();
 	void Draw(CDC& dc);
 };

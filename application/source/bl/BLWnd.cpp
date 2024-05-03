@@ -60,6 +60,7 @@ void CBLWnd::OnDestroy()
 void CBLWnd::OnDraw(CDC& dc)
 {
 	// OnDraw is called automatically whenever a part of the window needs to be redrawn.
+
 	Draw(dc);
 }
 
@@ -95,18 +96,15 @@ LRESULT CBLWnd::OnDpiChangedBeforeParent(UINT msg, WPARAM wparam, LPARAM lparam)
 	// windows after a DPI change. A WM_DPICHANGED_BEFOREPARENT is only received when the
 	// application is DPI_AWARENESS_PER_MONITOR_AWARE.
 
-	SetDPIImages();
-
 	return FinalWindowProc(msg, wparam, lparam);
 }
 
 LRESULT CBLWnd::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
-// Respond to a mouse click on the window
 {
+	// Respond to a mouse click on the window
+
 	SetFocus();
 	return FinalWindowProc(msg, wparam, lparam);
-
-
 }
 
 LRESULT CBLWnd::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)
@@ -166,24 +164,6 @@ LRESULT CBLWnd::OnPaint(UINT msg, WPARAM wparam, LPARAM lparam)
 }
 
 //===========================================================================
-void CBLWnd::SetDPIImages()
-{
-#if 0
-	// Resize the image list.
-	CBitmap bmImage(IDB_CLASSVIEW);
-	bmImage = DpiScaleUpBitmap(bmImage);
-	int scale = bmImage.GetSize().cy / 15;
-	CImageList normalImages;
-	normalImages.Create(scale * 16, scale * 15, ILC_COLOR32 | ILC_MASK, 1, 0);
-	normalImages.Add(bmImage, RGB(255, 0, 0));
-	SetImageList(normalImages, LVSIL_NORMAL);
-
-	// Reset the item indentation.
-	int imageWidth = normalImages.GetIconSize().cx;
-	SetIndent(imageWidth);
-#endif
-}
-
 void CBLWnd::Draw(CDC& dc)
 {
 	CRect rc = GetClientRect();
