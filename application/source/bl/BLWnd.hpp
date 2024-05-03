@@ -9,8 +9,7 @@
 class CBLWnd : public CWnd
 {
 protected:
-	void* _bl_window_handler;
-	void* _bl_renderer;
+	void* _bl_window;
 
 protected:
 	int m_cxClientMax;

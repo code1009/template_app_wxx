@@ -35,14 +35,14 @@ namespace bl
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bitmap32::~bitmap32()
+bitmap::~bitmap()
 {
-	OutputDebugStringA("~bitmap32 \n");
+	OutputDebugStringA("~bitmap \n");
 
 	destroy();
 }
 
-void bitmap32::create(void)
+void bitmap::create(void)
 {
 	memset(&_bmi, 0, sizeof(_bmi));
 	_bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
@@ -75,7 +75,7 @@ void bitmap32::create(void)
 	}
 }
 
-void bitmap32::destroy(void)
+void bitmap::destroy(void)
 {
 	if (nullptr != _data)
 	{
@@ -84,7 +84,7 @@ void bitmap32::destroy(void)
 	_data = nullptr;
 }
 
-bool bitmap32::is_empty(void)
+bool bitmap::is_empty(void)
 {
 	if (nullptr == _data)
 	{
@@ -94,7 +94,7 @@ bool bitmap32::is_empty(void)
 	return false;
 }
 
-void bitmap32::set_size(std::size_t cx, std::size_t cy)
+void bitmap::set_size(std::size_t cx, std::size_t cy)
 {
 	if (!is_empty())
 	{

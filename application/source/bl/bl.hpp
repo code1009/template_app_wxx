@@ -23,7 +23,7 @@ namespace bl
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class bitmap32
+class bitmap
 {
 private:
 	std::uint8_t* _data{ nullptr };
@@ -37,7 +37,7 @@ private:
 	const std::size_t _color_bits = 32;
 
 public:
-	virtual ~bitmap32();
+	virtual ~bitmap();
 
 private:
 	void create(void);
@@ -83,7 +83,7 @@ public:
 class canvas
 {
 private:
-	bitmap32 _bitmap{};
+	bitmap _bitmap{};
 
 private:
 	BLImage _image{};
@@ -99,8 +99,12 @@ public:
 
 public:
 	void set_size(std::size_t cx, std::size_t cy);
+
+public:
 	BLContext* begin(void);
 	void end(void);
+
+public:
 	void paint(HDC hdc);
 };
 
@@ -163,16 +167,15 @@ private:
 	std::int64_t _window_cx{ 0 };
 	std::int64_t _window_cy{ 0 };
 
-	std::int64_t _paint_time_usec{ 0 };
-
 private:
-	HWND _hwnd{ nullptr };
-	canvas _canvas{};
-	BLFontFace _status_font_face{};
-	BLFont _underlay_font{};
-	BLFont _overlay_font{};
-	bool _scrollbar_enabled{ false };
-	renderer* _renderer{ nullptr };
+	HWND         _hwnd{ nullptr };
+	std::int64_t _paint_time_usec{ 0 };
+	bool         _scrollbar_enabled{ false };
+	renderer*    _renderer{ nullptr };
+	canvas       _canvas{};
+	BLFontFace   _status_font_face{};
+	BLFont       _underlay_font{};
+	BLFont       _overlay_font{};
 
 public:
 	virtual ~window();
@@ -245,7 +248,7 @@ public:
 class window_handler
 {
 public:
-	window _window;
+	window _window{};
 
 public:
 	virtual ~window_handler();

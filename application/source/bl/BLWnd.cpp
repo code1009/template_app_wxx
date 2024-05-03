@@ -17,24 +17,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-constexpr UINT_PTR BLWND_TIMER_EVENTID = 1;
-constexpr UINT     BLWND_TIMER_ELAPSE = 500;
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-#define blwh_get()  (reinterpret_cast<bl::window_handler*>(_bl_window_handler))
-#define blwh_set(p) (_bl_window_handler = reinterpret_cast<void*>(p))
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 class bl_renderer : public bl::renderer
 {
 public:
@@ -204,10 +186,26 @@ void bl_renderer::draw_t1(BLContext* ctx)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CBLWnd::CBLWnd():
-	_bl_window_handler(nullptr),
-	_bl_renderer(nullptr),
+constexpr UINT_PTR BLWND_TIMER_EVENTID = 1;
+constexpr UINT     BLWND_TIMER_ELAPSE = 500;
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#define bl_window_get()  (reinterpret_cast<bl::window_handler*>(_bl_window))
+#define bl_window_set(p) (_bl_window = reinterpret_cast<void*>(p))
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+CBLWnd::CBLWnd():
+	_bl_window(nullptr),
 	m_cxClientMax(0),
 	m_cyClientMax(0)
 {
@@ -232,11 +230,11 @@ int CBLWnd::OnCreate(CREATESTRUCT& cs)
 	UNREFERENCED_PARAMETER(cs);
 
 
-	blwh_set(reinterpret_cast<bl::window_handler*>(new bl::window_handler()));
+	bl_window_set(new bl::window_handler());
 
-	blwh_get()->_window.set_renderer(new bl_renderer());
+	bl_window_get()->_window.set_renderer(new bl_renderer());
 
-	blwh_get()->OnCreate(GetHwnd(), WM_CREATE, 0, 0);
+	bl_window_get()->OnCreate(GetHwnd(), WM_CREATE, 0, 0);
 
 
 //	SetTimer(BLWND_TIMER_EVENTID, BLWND_TIMER_ELAPSE, NULL);
@@ -251,24 +249,24 @@ void CBLWnd::OnDestroy()
 //	KillTimer(BLWND_TIMER_EVENTID);
 
 
-	blwh_get()->OnDestroy(GetHwnd(), WM_DESTROY, 0, 0);
+	bl_window_get()->OnDestroy(GetHwnd(), WM_DESTROY, 0, 0);
 
 	
 	bl_renderer* renderer;
 
 
-	renderer = reinterpret_cast<bl_renderer*>(blwh_get()->_window.get_renderer());
+	renderer = reinterpret_cast<bl_renderer*>(bl_window_get()->_window.get_renderer());
 	if (renderer)
 	{
 		delete renderer;
 	}
 
 
-	if (blwh_get())
+	if (bl_window_get())
 	{
-		delete blwh_get();
+		delete bl_window_get();
 
-		blwh_set(nullptr);
+		bl_window_set(nullptr);
 	}
 }
 
@@ -348,7 +346,7 @@ LRESULT CBLWnd::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)
 
 	if ( IsWindow() )
 	{
-		blwh_get()->OnSize(GetHwnd(), msg, wparam, lparam);
+		bl_window_get()->OnSize(GetHwnd(), msg, wparam, lparam);
 		Invalidate(FALSE);
 	}
 
@@ -385,7 +383,7 @@ LRESULT CBLWnd::OnPaint(UINT msg, WPARAM wparam, LPARAM lparam)
 	//Draw(dc);
 
 
-	blwh_get()->OnPaint(GetHwnd(), msg, wparam, lparam);
+	bl_window_get()->OnPaint(GetHwnd(), msg, wparam, lparam);
 
 
 	return 0;
@@ -399,21 +397,21 @@ LRESULT CBLWnd::OnEraseBkgnd(UINT msg, WPARAM wparam, LPARAM lparam)
 
 LRESULT CBLWnd::OnHScroll(UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	blwh_get()->OnHScroll(GetHwnd(), msg, wparam, lparam);
+	bl_window_get()->OnHScroll(GetHwnd(), msg, wparam, lparam);
 
 	return WndProcDefault(msg, wparam, lparam);
 }
 
 LRESULT CBLWnd::OnVScroll(UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	blwh_get()->OnVScroll(GetHwnd(), msg, wparam, lparam);
+	bl_window_get()->OnVScroll(GetHwnd(), msg, wparam, lparam);
 
 	return WndProcDefault(msg, wparam, lparam);
 }
 
 LRESULT CBLWnd::OnMouseWheel(UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	blwh_get()->OnMouseWheel(GetHwnd(), msg, wparam, lparam);
+	bl_window_get()->OnMouseWheel(GetHwnd(), msg, wparam, lparam);
 
 	return WndProcDefault(msg, wparam, lparam);
 }
