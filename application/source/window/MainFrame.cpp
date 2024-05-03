@@ -10,9 +10,11 @@
 #include "MyTabbedMDI.hpp"
 #include "Mainframe.hpp"
 
-#include "MyView.hpp"
-#include "MyWindowDocker.hpp"
+#include "MyWndDocker.hpp"
 #include "MyListViewDocker.hpp"
+#include "MyView.hpp"
+
+#include "../bl/BLWnd.hpp"
 
 
 
@@ -292,8 +294,8 @@ CDocker* CMainFrame::NewDockerFromID(int dockID)
 
 	switch (dockID)
 	{
-	case ID_DOCKER_MY_WINDOW:
-		pDocker = new CMyWindowDocker();
+	case ID_DOCKER_MY_WND:
+		pDocker = new CMyWndDocker();
 		break;
 
 	default:
@@ -512,7 +514,7 @@ void CMainFrame::LoadDefaultDockers()
 
 
 	// Add the parent dockers
-	pDockLeft = AddDockedChild(new CMyWindowDocker(), DS_DOCKED_LEFT | style, DpiScaleInt(400), ID_DOCKER_MY_WINDOW);
+	pDockLeft = AddDockedChild(new CMyWndDocker(), DS_DOCKED_LEFT | style, DpiScaleInt(400), ID_DOCKER_MY_WND);
 
 	// Add the remaining dockers
 	pDockLeft->AddDockedChild(new CMyListViewDocker(), DS_DOCKED_CONTAINER | style, DpiScaleInt(400), ID_DOCKER_MY_LISTVIEW);
@@ -528,7 +530,8 @@ void CMainFrame::LoadDefaultMDIs()
 
 	// Add some MDI tabs
 	m_MyTabbedMDI.AddMDIChild(new CMyView(), _T("MyView"), ID_MDI_VIEW_MY);
-
+	m_MyTabbedMDI.AddMDIChild(new CBLWnd(), _T("blend2d"), ID_MDI_VIEW_BL);
+	
 
 	if (m_MyTabbedMDI.IsWindow())
 	{

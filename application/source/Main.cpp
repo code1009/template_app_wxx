@@ -18,6 +18,7 @@
 #pragma comment (lib, "comctl32.lib")
 
 //===========================================================================
+#pragma comment (lib, "library/blend2d/lib/blend2d.lib")
 
 
 
