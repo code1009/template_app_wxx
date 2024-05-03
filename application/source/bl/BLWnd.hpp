@@ -9,6 +9,9 @@
 class CBLWnd : public CWnd
 {
 private:
+	void* _bl_window_handler;
+
+private:
 	int m_cxClientMax;
 	int m_cyClientMax;
 
@@ -33,6 +36,10 @@ public:
 	LRESULT OnSize(UINT msg, WPARAM wparam, LPARAM lparam);
 	LRESULT OnTimer(UINT msg, WPARAM wparam, LPARAM lparam);
 	LRESULT OnPaint(UINT msg, WPARAM wparam, LPARAM lparam);
+	LRESULT OnEraseBkgnd(UINT msg, WPARAM wparam, LPARAM lparam);
+	LRESULT OnHScroll(UINT msg, WPARAM wparam, LPARAM lparam);
+	LRESULT OnVScroll(UINT msg, WPARAM wparam, LPARAM lparam);
+	LRESULT OnMouseWheel(UINT msg, WPARAM wparam, LPARAM lparam);
 
 public:
 	void Draw(CDC& dc);

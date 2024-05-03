@@ -19,8 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\bl\bl.hpp" />
     <ClInclude Include="source\bl\BLWnd.hpp" />
+    <ClInclude Include="source\bl\scroll.hpp" />
     <ClInclude Include="source\bl\stdafx.h" />
+    <ClInclude Include="source\bl\stopwatch.hpp" />
     <ClInclude Include="source\Main.hpp" />
     <ClInclude Include="source\res\resource.h" />
     <ClInclude Include="source\res\wxx\resource_wxx.h" />
@@ -36,6 +39,7 @@
     <ClInclude Include="source\window\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\bl\bl.cpp" />
     <ClCompile Include="source\bl\BLWnd.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>

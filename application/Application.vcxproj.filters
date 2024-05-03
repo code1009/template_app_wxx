@@ -63,6 +63,15 @@
     <ClInclude Include="source\bl\stdafx.h">
       <Filter>source\bl</Filter>
     </ClInclude>
+    <ClInclude Include="source\bl\bl.hpp">
+      <Filter>source\bl</Filter>
+    </ClInclude>
+    <ClInclude Include="source\bl\stopwatch.hpp">
+      <Filter>source\bl</Filter>
+    </ClInclude>
+    <ClInclude Include="source\bl\scroll.hpp">
+      <Filter>source\bl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Main.cpp">
@@ -90,6 +99,9 @@
       <Filter>source\window</Filter>
     </ClCompile>
     <ClCompile Include="source\bl\BLWnd.cpp">
+      <Filter>source\bl</Filter>
+    </ClCompile>
+    <ClCompile Include="source\bl\bl.cpp">
       <Filter>source\bl</Filter>
     </ClCompile>
   </ItemGroup>
