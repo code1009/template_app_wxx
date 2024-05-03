@@ -70,7 +70,7 @@ int CMainFrame::OnCreate(CREATESTRUCT& cs)
 	// UseMenuStatus(FALSE);         // Don't show menu descriptions in the StatusBar
 	// UseReBar(FALSE);              // Don't use a ReBar
 	// UseStatusBar(FALSE);          // Don't use a StatusBar
-	//UseThemes(FALSE);             // Don't use themes
+	UseThemes(FALSE);                // Don't use themes
 	// UseToolBar(FALSE);            // Don't use a ToolBar
 
 	// call the base class function
@@ -247,7 +247,7 @@ void CMainFrame::SetupMenuIcons()
 	}
 
 	// Add some extra icons for menu items
-	// AddMenuIcon(IDM_EDIT_UNDO, IDI_GLOBE);
+	// AddMenuIcon(IDM_FILE_NEW, IDI_FILE_NEW);
 }
 
 void CMainFrame::SetupToolBar()
@@ -267,8 +267,6 @@ void CMainFrame::SetupToolBar()
 
 	AddToolBarButton( 0 );  // Separator
 	AddToolBarButton( IDM_HELP_ABOUT );
-
-	//AddToolBarButton(IDM_EDIT_UNDO);
 }
 
 BOOL CMainFrame::SaveRegistrySettings()
