@@ -728,7 +728,7 @@ void window::draw_window_grid(BLContext* ctx)
 
 void window::draw_contents_grid(BLContext* ctx)
 {
-	if (_scale < 1.0)
+	if (_scale <= 1.0)
 	{
 		return;
 	}
@@ -965,8 +965,8 @@ void window_handler::OnCreate(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	// 그 이후에 WM_SIZE 이후에 WM_PAINT가 수행 된다.
 
 	_window.set_window_size(rect.right, rect.bottom);
-	_window.set_contents_size(1920, 1080);
-	_window.fit_contents_to_window(true);
+	_window.set_contents_size(1920*4, 1080*4);
+	//_window.fit_contents_to_window(true);
 	_window.enable_scrollbar(true);
 }
 
@@ -982,7 +982,7 @@ void window_handler::OnSize(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
 	_window.set_window_size(size.cx, size.cy);
-//	_window.fit_contents_to_window(true);
+	//_window.fit_contents_to_window(true);
 }
 
 void window_handler::OnPaint(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

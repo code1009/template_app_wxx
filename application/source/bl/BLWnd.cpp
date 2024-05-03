@@ -53,6 +53,7 @@ void CBLWnd::PreCreate(CREATESTRUCT& cs)
 	CWnd::PreCreate(cs);
 
 	cs.dwExStyle |= WS_EX_CLIENTEDGE;
+	cs.style |= (WS_VSCROLL | WS_HSCROLL);
 }
 
 int CBLWnd::OnCreate(CREATESTRUCT& cs)
@@ -66,6 +67,7 @@ int CBLWnd::OnCreate(CREATESTRUCT& cs)
 
 	SetTimer(BLWND_TIMER_EVENTID, BLWND_TIMER_ELAPSE, NULL);
 
+//	ShowScrollBar(_hwnd, SB_BOTH, TRUE);
 
 	return 0;
 }
