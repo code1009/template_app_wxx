@@ -362,3 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /application/library/wxx
+/build/.cmake/api/v1/query/client-vscode
+/build
+/application/library/blend2d
+/application/library/pugixml
+/application/library/vld

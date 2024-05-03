@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "stdafx.h"
 
@@ -10,9 +10,11 @@
 #include "MyTabbedMDI.hpp"
 #include "Mainframe.hpp"
 
-#include "MyView.hpp"
-#include "MyWindowDocker.hpp"
+#include "MyWndDocker.hpp"
 #include "MyListViewDocker.hpp"
+#include "MyView.hpp"
+
+#include "../bl/BLWnd.hpp"
 
 
 
@@ -70,7 +72,7 @@ int CMainFrame::OnCreate(CREATESTRUCT& cs)
 	// UseMenuStatus(FALSE);         // Don't show menu descriptions in the StatusBar
 	// UseReBar(FALSE);              // Don't use a ReBar
 	// UseStatusBar(FALSE);          // Don't use a StatusBar
-	UseThemes(FALSE);             // Don't use themes
+	UseThemes(FALSE);                // Don't use themes
 	// UseToolBar(FALSE);            // Don't use a ToolBar
 
 	// call the base class function
@@ -88,8 +90,6 @@ int CMainFrame::OnCreate(CREATESTRUCT& cs)
 //===========================================================================
 void CMainFrame::OnInitialUpdate()
 {
-	//SetDockStyle(DS_CLIENTEDGE);
-
 	// Load dock settings
 	// if (!LoadDockRegistrySettings(GetRegistryKeyName()))
 	{
@@ -105,16 +105,13 @@ void CMainFrame::OnInitialUpdate()
 	// Hide the container's tab if it has just one tab
 	HideSingleContainerTab(m_isHideSingleTab);
 
-	// Get a copy of the Frame's menu
+
+	// 윈도우 창 메뉴 항목 기억
 	CMenu frameMenu = GetFrameMenu();
+	CMenu windowMenu = frameMenu.GetSubMenu(frameMenu.GetMenuItemCount() - 1 - 1);
 
-	// Modify the menu
-	int nMenuPos = frameMenu.GetMenuItemCount() - 1;
-	CMenu winMenu = m_MyTabbedMDI.GetListMenu();
-	frameMenu.InsertPopupMenu(nMenuPos, MF_BYPOSITION, winMenu, _T("&Window"));
+	m_windowMenuItemCount = windowMenu.GetMenuItemCount();
 
-	// Replace the frame's menu with our modified menu
-	SetFrameMenu(frameMenu);
 
 	// PreCreate initially set the window as invisible, so show it now.
 	ShowWindow(GetInitValues().showCmd);
@@ -128,8 +125,56 @@ void CMainFrame::OnInitialUpdate()
 
 LRESULT CMainFrame::OnInitMenuPopup(UINT msg, WPARAM wparam, LPARAM lparam)
 {
+	CMenu frameMenu = GetFrameMenu();
+	CMenu windowMenu = frameMenu.GetSubMenu(frameMenu.GetMenuItemCount() - 1 - 1);
+	int count;
+	int i;
+
+
+	count = windowMenu.GetMenuItemCount();
+	for (i = m_windowMenuItemCount; i < count; i++)
+	{
+		windowMenu.DeleteMenu(m_windowMenuItemCount, MF_BYPOSITION);
+	}
+
+
 	// Update the "Window" menu
-	m_MyTabbedMDI.GetListMenu();
+	CMenu tabbedMDIMenu = m_MyTabbedMDI.GetListMenu();
+
+
+	MENUITEMINFO src_mii;
+	MENUITEMINFO dst_mii;
+	char text[256];
+	
+
+	count = tabbedMDIMenu.GetMenuItemCount();
+	if (count > 0)
+	{
+		windowMenu.AppendMenu(MF_BYPOSITION | MF_SEPARATOR, windowMenu.GetMenuItemCount());
+	}
+
+
+	for (i = 0; i < count; i++)
+	{
+		memset(&src_mii, 0, sizeof(src_mii));
+		src_mii.cbSize = sizeof(src_mii);
+		src_mii.fMask = MIIM_STRING | MIIM_ID;
+		src_mii.fType = MFT_STRING;
+		src_mii.dwTypeData = text;
+		src_mii.cch = sizeof(text)/sizeof(char);
+		tabbedMDIMenu.GetMenuItemInfo(i, src_mii, MF_BYPOSITION);
+
+
+		memset(&dst_mii, 0, sizeof(dst_mii));
+		dst_mii.cbSize = sizeof(dst_mii);
+		dst_mii.fMask = MIIM_STRING | MIIM_ID;
+		dst_mii.fType = MFT_STRING;
+		dst_mii.wID = src_mii.wID;
+		dst_mii.dwTypeData = text;
+
+		windowMenu.InsertMenuItem(windowMenu.GetMenuItemCount(), dst_mii, MF_BYPOSITION);
+	}
+
 
 	return CDockFrame::OnInitMenuPopup(msg, wparam, lparam);
 }
@@ -195,12 +240,16 @@ void CMainFrame::SetupMenuIcons()
 
 	std::vector<UINT> data = GetToolBarData();
 	if ((GetMenuIconHeight() >= 24) && (GetWindowDpi(*this) != 192))
+	{
 		SetMenuIcons(data, RGB(192, 192, 192), IDW_MAIN);
+	}
 	else
+	{
 		SetMenuIcons(data, RGB(192, 192, 192), IDB_TOOLBAR16);
+	}
 
 	// Add some extra icons for menu items
-	// AddMenuIcon(IDM_FILE_NEWBROWSER, IDI_GLOBE);
+	// AddMenuIcon(IDM_FILE_NEW, IDI_FILE_NEW);
 }
 
 void CMainFrame::SetupToolBar()
@@ -245,8 +294,8 @@ CDocker* CMainFrame::NewDockerFromID(int dockID)
 
 	switch (dockID)
 	{
-	case ID_DOCKER_MY_WINDOW:
-		pDocker = new CMyWindowDocker();
+	case ID_DOCKER_MY_WND:
+		pDocker = new CMyWndDocker();
 		break;
 
 	default:
@@ -392,9 +441,7 @@ LRESULT CMainFrame::OnDpiChanged(UINT msg, WPARAM wparam, LPARAM lparam)
 
 
 	// Call the base class function. This recreates the toolbars.
-	CDockFrame::OnDpiChanged(msg, wparam, lparam);
-
-	return 0;
+	return CDockFrame::OnDpiChanged(msg, wparam, lparam);
 }
 
 //===========================================================================
@@ -463,14 +510,17 @@ void CMainFrame::LoadDefaultDockers()
 	// Note: The  DockIDs are used for saving/restoring the dockers state in the registry
 	DWORD style;
 
-	style = 0; // DS_CLIENTEDGE;
+	style = DS_CLIENTEDGE;
 
 
 	// Add the parent dockers
-	pDockLeft = AddDockedChild(new CMyWindowDocker(), DS_DOCKED_LEFT | style, DpiScaleInt(400), ID_DOCKER_MY_WINDOW);
+	pDockLeft = AddDockedChild(new CMyWndDocker(), DS_DOCKED_LEFT | style, DpiScaleInt(400), ID_DOCKER_MY_WND);
 
 	// Add the remaining dockers
 	pDockLeft->AddDockedChild(new CMyListViewDocker(), DS_DOCKED_CONTAINER | style, DpiScaleInt(400), ID_DOCKER_MY_LISTVIEW);
+
+
+	SetDockStyle(style);
 }
 
 void CMainFrame::LoadDefaultMDIs()
@@ -480,7 +530,10 @@ void CMainFrame::LoadDefaultMDIs()
 
 	// Add some MDI tabs
 	m_MyTabbedMDI.AddMDIChild(new CMyView(), _T("MyView"), ID_MDI_VIEW_MY);
-
+	m_MyTabbedMDI.AddMDIChild(new CBLWnd(), _T("blend2d"), ID_MDI_VIEW_BL);
+	
+	m_MyTabbedMDI.AddMDIChild(new CBLWnd(), _T("blend2d1"), ID_MDI_VIEW_BL+1);
+	m_MyTabbedMDI.AddMDIChild(new CBLWnd(), _T("blend2d2"), ID_MDI_VIEW_BL+2);
 
 	if (m_MyTabbedMDI.IsWindow())
 	{

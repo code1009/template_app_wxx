@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "stdafx.h"
 
@@ -40,7 +40,7 @@ void CMyView::PreCreate(CREATESTRUCT& cs)
 {
 	CWnd::PreCreate(cs);
 
-	// cs.dwExStyle |= WS_EX_CLIENTEDGE;
+	cs.dwExStyle |= WS_EX_CLIENTEDGE;
 }
 
 int CMyView::OnCreate(CREATESTRUCT& cs)
@@ -54,7 +54,7 @@ int CMyView::OnCreate(CREATESTRUCT& cs)
 
 void CMyView::OnDestroy()
 {
-	KillTimer(1);
+	KillTimer(MYVIEW_TIMER_EVENTID);
 }
 
 void CMyView::OnDraw(CDC& dc)
@@ -101,12 +101,11 @@ LRESULT CMyView::OnDpiChangedBeforeParent(UINT msg, WPARAM wparam, LPARAM lparam
 }
 
 LRESULT CMyView::OnMouseActivate(UINT msg, WPARAM wparam, LPARAM lparam)
-// Respond to a mouse click on the window
 {
+	// Respond to a mouse click on the window
+
 	SetFocus();
 	return FinalWindowProc(msg, wparam, lparam);
-
-
 }
 
 LRESULT CMyView::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)

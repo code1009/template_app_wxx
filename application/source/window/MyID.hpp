@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -8,12 +8,13 @@
 //===========================================================================
 enum MDIChildIDs
 {	
-	ID_MDI_VIEW_MY = 1000
+	ID_MDI_VIEW_MY = 1000,
+	ID_MDI_VIEW_BL = 1001
 };
 
 //===========================================================================
 enum DockerIDs
 {
-	ID_DOCKER_MY_WINDOW = 100,
+	ID_DOCKER_MY_WND = 100,
 	ID_DOCKER_MY_LISTVIEW = 101
 };

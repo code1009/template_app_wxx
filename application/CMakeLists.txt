@@ -15,6 +15,9 @@ message(STATUS "PROJECT_BINARY_DIR        : ${PROJECT_BINARY_DIR}"        )
 message(STATUS "PROJECT_SOURCE_DIR        : ${PROJECT_SOURCE_DIR}"        )
 
 
+
+
+
 # ///////////////////////////////////////////////////////////////////////////
 # ===========================================================================
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -26,6 +29,10 @@ if (MSVC_VERSION GREATER_EQUAL "1900")
         add_compile_options("/std:c++latest")
     endif()
 endif()
+
+set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} /MANIFEST:NO")
+set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /MANIFEST:NO")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MANIFEST:NO")
 
  #include_directories(App 
 #	$ENV{UniversalCRTSdkDir}/Include/ucrt
