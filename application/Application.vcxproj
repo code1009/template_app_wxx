@@ -112,9 +112,6 @@
   <ItemGroup>
     <ResourceCompile Include="source\res\Application.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <Manifest Include="source\res\PerMonitorV2.manifest" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{D62CD8D3-CC63-4972-9788-49F6FCE76E7C}</ProjectGuid>

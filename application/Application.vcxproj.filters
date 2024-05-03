@@ -153,9 +153,4 @@
       <Filter>source\res</Filter>
     </ResourceCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Manifest Include="source\res\PerMonitorV2.manifest">
-      <Filter>source\res</Filter>
-    </Manifest>
-  </ItemGroup>
 </Project>

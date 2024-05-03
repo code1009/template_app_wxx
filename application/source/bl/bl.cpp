@@ -526,8 +526,10 @@ void window::contents_to_window(double contents_x, double contents_y, std::int64
 void window::paint(HDC hdc)
 {
 	stopwatch sw("paint");
+
+	sw.start();
 	{
-		scoped_time_measurer stm(&sw);
+		//scoped_time_measurer stm(&sw);
 
 
 		BLContext* ctx;
@@ -543,19 +545,22 @@ void window::paint(HDC hdc)
 
 
 		{
-			stopwatch sw("gdi");
-			scoped_time_measurer stm(&sw);
+			//stopwatch sw("gdi");
+			//scoped_time_measurer stm(&sw);
 
 			_canvas.paint(hdc);
-		}
+		}	
 	}
-	_paint_time_usec = sw._duration.count();
+	sw.stop();
+	sw.measure();
+
+	_paint_time_usec = sw._duration.count(); // 1500~5100 usec
 }
 
 void window::draw(BLContext* ctx)
 {
-	stopwatch sw("blend2d");
-	scoped_time_measurer stm(&sw);
+	//stopwatch sw("blend2d");
+	//scoped_time_measurer stm(&sw);
 
 
 	ctx->clearAll();

@@ -532,6 +532,8 @@ void CMainFrame::LoadDefaultMDIs()
 	m_MyTabbedMDI.AddMDIChild(new CMyView(), _T("MyView"), ID_MDI_VIEW_MY);
 	m_MyTabbedMDI.AddMDIChild(new CBLWnd(), _T("blend2d"), ID_MDI_VIEW_BL);
 	
+	m_MyTabbedMDI.AddMDIChild(new CBLWnd(), _T("blend2d1"), ID_MDI_VIEW_BL+1);
+	m_MyTabbedMDI.AddMDIChild(new CBLWnd(), _T("blend2d2"), ID_MDI_VIEW_BL+2);
 
 	if (m_MyTabbedMDI.IsWindow())
 	{

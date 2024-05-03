@@ -26,7 +26,7 @@ LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
 // RT_MANIFEST
 //
 
-1                     RT_MANIFEST           "../../source/res/PerMonitorV2.manifest"
+1                     RT_MANIFEST           "../../source/res/wxx/PerMonitorV2.manifest"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -61,10 +61,10 @@ BEGIN
         MENUITEM "도구 모음(&T)",               IDW_VIEW_TOOLBAR, CHECKED
         MENUITEM "상태 표시줄(&S)",             IDW_VIEW_STATUSBAR, CHECKED
         MENUITEM SEPARATOR
-        MENUITEM "문서 창의 탭 위에 표시",      IDM_TABBEDMDI_TOP, CHECKED
+        MENUITEM "문서 창에서 탭 위쪽에 표시",  IDM_TABBEDMDI_TOP, CHECKED
         MENUITEM SEPARATOR
-        MENUITEM "도구 창의 탭 위에 표시",      IDM_CONTAINER_TOP, CHECKED
-        MENUITEM "단일 도구 창의 탭 감추기",    IDM_HIDE_SINGLE_TAB, CHECKED
+        MENUITEM "도구 창에서 탭 위쪽에 표시",  IDM_CONTAINER_TOP, CHECKED
+        MENUITEM "단일 도구 창에서 탭 감추기",  IDM_HIDE_SINGLE_TAB, CHECKED
     END
     POPUP "창(&W)"
     BEGIN
@@ -317,9 +317,9 @@ END
 
 STRINGTABLE
 BEGIN
-    IDM_TABBEDMDI_TOP       "문서 창의 탭을 위에 표시합니다."
-    IDM_CONTAINER_TOP       "도구 창의 탭을 위에 표시합니다."
-    IDM_HIDE_SINGLE_TAB     "도구 창에서 한 개의 윈도우는 탭 감춥니다."
+    IDM_TABBEDMDI_TOP       "문서 창에서 탭을 위에 표시합니다."
+    IDM_CONTAINER_TOP       "도구 창에서 탭을 위에 표시합니다."
+    IDM_HIDE_SINGLE_TAB     "단일 도구 창에서는 탭을 감춥니다."
 END
 
 STRINGTABLE
