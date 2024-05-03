@@ -37,7 +37,7 @@ namespace bl
 //===========================================================================
 bitmap::~bitmap()
 {
-	OutputDebugStringA("~bitmap \n");
+	//OutputDebugStringA("~bitmap \n");
 
 	destroy();
 }
@@ -117,7 +117,7 @@ void bitmap::set_size(std::size_t cx, std::size_t cy)
 //===========================================================================
 canvas::~canvas()
 {
-	OutputDebugStringA("~canvas \n");
+	//OutputDebugStringA("~canvas \n");
 }
 
 void canvas::set_size(std::size_t cx, std::size_t cy)
@@ -156,7 +156,7 @@ BLContext* canvas::begin(void)
 		BLContextCreateInfo createInfo{};
 
 
-		createInfo.threadCount = 1;
+		createInfo.threadCount = 8;
 			
 		//_context.begin(_image, createInfo);
 		_context = BLContext(_image, createInfo);
@@ -217,7 +217,7 @@ void canvas::paint(HDC hdc)
 //===========================================================================
 window::~window()
 {
-	OutputDebugStringA("~window \n");
+	//OutputDebugStringA("~window \n");
 }
 
 void window::create(HWND hwnd)
@@ -850,9 +850,9 @@ void window::draw_contents_foreground(BLContext* ctx)
 
 	ctx->save(context_cookie);
 
-	if (_renderer)
+	if (_drawer)
 	{
-		_renderer->draw(ctx);
+		_drawer->draw(ctx);
 	}
 
 	ctx->restore(context_cookie);
@@ -867,7 +867,7 @@ void window::draw_contents_foreground(BLContext* ctx)
 //===========================================================================
 window_handler::~window_handler()
 {
-	OutputDebugStringA("~window_handler \n");
+	// OutputDebugStringA("~window_handler \n");
 }
 
 void window_handler::OnCreate(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -891,9 +891,9 @@ void window_handler::OnCreate(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	// 그 이후에 WM_SIZE 이후에 WM_PAINT가 수행 된다.
 
 	_window.set_window_size(rect.right, rect.bottom);
-	_window.set_contents_size(1920*4, 1080*4);
+	//_window.set_contents_size(1920*4, 1080*4);
 	//_window.fit_contents_to_window(true);
-	_window.enable_scrollbar(true);
+	//_window.enable_scrollbar(true);
 }
 
 void window_handler::OnDestroy(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

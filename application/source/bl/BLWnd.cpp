@@ -17,7 +17,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class bl_renderer : public bl::renderer
+class bl_drawer : public bl::drawer
 {
 public:
 	double _contents_cx{ 0 };
@@ -28,8 +28,8 @@ public:
 	BLFont _font;
 
 public:
-	bl_renderer();
-	virtual ~bl_renderer();
+	bl_drawer();
+	virtual ~bl_drawer();
 
 public:
 	virtual void draw(bl::context* ctx) override;
@@ -41,7 +41,7 @@ public:
 };
 
 //===========================================================================
-bl_renderer::bl_renderer()
+bl_drawer::bl_drawer()
 {
 	BLResult result;
 
@@ -58,19 +58,19 @@ bl_renderer::bl_renderer()
 	_contents_cy = 1080 * 4;
 }
 
-bl_renderer::~bl_renderer()
+bl_drawer::~bl_drawer()
 {
 
 }
 
-void bl_renderer::draw(bl::context* ctx)
+void bl_drawer::draw(bl::context* ctx)
 {
 	draw_ex5(ctx);
 	draw_ex7(ctx);
 	draw_t1(ctx);
 }
 
-void bl_renderer::draw_ex5(BLContext* ctx)
+void bl_drawer::draw_ex5(BLContext* ctx)
 {
 	// First shape filled with a radial gradient.
 	// By default, SRC_OVER composition is used.
@@ -96,7 +96,7 @@ void bl_renderer::draw_ex5(BLContext* ctx)
 	ctx->setCompOp(BL_COMP_OP_SRC_OVER);
 }
 
-void bl_renderer::draw_ex7(BLContext* ctx)
+void bl_drawer::draw_ex7(BLContext* ctx)
 {
 	const char* regularText = reinterpret_cast<const char*>("Hello Blend2D!");
 	const char* rotatedText = reinterpret_cast<const char*>(u8"Rotated Text 한글");
@@ -152,7 +152,7 @@ void bl_renderer::draw_ex7(BLContext* ctx)
 	ctx->restore(cookie1);
 }
 
-void bl_renderer::draw_t1(BLContext* ctx)
+void bl_drawer::draw_t1(BLContext* ctx)
 {
 	//ctx->fillAll(BLRgba32(0xFF000000u));
 	double _angle = 45;
@@ -222,43 +222,57 @@ void CBLWnd::PreCreate(CREATESTRUCT& cs)
 
 	cs.dwExStyle |= WS_EX_CLIENTEDGE;
 	
-//	cs.style |= (WS_VSCROLL | WS_HSCROLL);
+	// cs.style |= (WS_VSCROLL | WS_HSCROLL);
 }
 
 int CBLWnd::OnCreate(CREATESTRUCT& cs)
 {
+	//-----------------------------------------------------------------------
 	UNREFERENCED_PARAMETER(cs);
+
+
+	//-----------------------------------------------------------------------
+	bl_drawer* drawer;
+
+
+	drawer = new bl_drawer();
 
 
 	bl_window_set(new bl::window_handler());
 
-	bl_window_get()->_window.set_renderer(new bl_renderer());
+	bl_window_get()->_window.set_drawer(drawer);
 
 	bl_window_get()->OnCreate(GetHwnd(), WM_CREATE, 0, 0);
 
+	bl_window_get()->_window.set_contents_size(drawer->_contents_cx, drawer->_contents_cy);
+	bl_window_get()->_window.fit_contents_to_window(true);
+	bl_window_get()->_window.enable_scrollbar(true);
 
-//	SetTimer(BLWND_TIMER_EVENTID, BLWND_TIMER_ELAPSE, NULL);
 
-//	ShowScrollBar(_hwnd, SB_BOTH, TRUE);
+	//-----------------------------------------------------------------------
+	// SetTimer(BLWND_TIMER_EVENTID, BLWND_TIMER_ELAPSE, NULL);
+
+	// ShowScrollBar(_hwnd, SB_BOTH, TRUE);
 
 	return 0;
 }
 
 void CBLWnd::OnDestroy()
 {
-//	KillTimer(BLWND_TIMER_EVENTID);
+	//-----------------------------------------------------------------------
+	// KillTimer(BLWND_TIMER_EVENTID);
 
 
 	bl_window_get()->OnDestroy(GetHwnd(), WM_DESTROY, 0, 0);
 
 	
-	bl_renderer* renderer;
+	bl_drawer* drawer;
 
 
-	renderer = reinterpret_cast<bl_renderer*>(bl_window_get()->_window.get_renderer());
-	if (renderer)
+	drawer = reinterpret_cast<bl_drawer*>(bl_window_get()->_window.get_drawer());
+	if (drawer)
 	{
-		delete renderer;
+		delete drawer;
 	}
 
 
@@ -356,7 +370,7 @@ LRESULT CBLWnd::OnSize(UINT msg, WPARAM wparam, LPARAM lparam)
 LRESULT CBLWnd::OnTimer(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	UNREFERENCED_PARAMETER(msg);
-	//UNREFERENCED_PARAMETER(wparam);
+	// UNREFERENCED_PARAMETER(wparam);
 	UNREFERENCED_PARAMETER(lparam);
 
 	UINT_PTR nIDEvent = (UINT_PTR)wparam;

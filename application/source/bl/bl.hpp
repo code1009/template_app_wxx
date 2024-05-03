@@ -27,8 +27,8 @@ class bitmap
 {
 private:
 	std::uint8_t* _data{ nullptr };
-	std::size_t _data_size{ 0 };
-	BITMAPINFO _bmi{};
+	std::size_t   _data_size{ 0 };
+	BITMAPINFO    _bmi{};
 
 private:
 	std::size_t       _cy{ 0 };
@@ -86,8 +86,8 @@ private:
 	bitmap _bitmap{};
 
 private:
-	BLImage _image{};
-	BLContext _context{};
+	BLImage    _image{};
+	BLContext  _context{};
 	BLContext* _context_ptr{ nullptr };
 
 private:
@@ -122,10 +122,10 @@ using context = BLContext;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class renderer
+class drawer
 {
 public:
-	virtual ~renderer() {};
+	virtual ~drawer() {};
 
 public:
 	virtual void draw(context* ctx) = 0;
@@ -168,11 +168,15 @@ private:
 	std::int64_t _window_cy{ 0 };
 
 private:
+	canvas  _canvas{};
+	drawer* _drawer{ nullptr };
+
+private:
 	HWND         _hwnd{ nullptr };
 	std::int64_t _paint_time_usec{ 0 };
 	bool         _scrollbar_enabled{ false };
-	renderer*    _renderer{ nullptr };
-	canvas       _canvas{};
+
+private:
 	BLFontFace   _status_font_face{};
 	BLFont       _underlay_font{};
 	BLFont       _overlay_font{};
@@ -185,14 +189,14 @@ public:
 	void destory();
 
 public:
-	void set_renderer(renderer* r)
+	void set_drawer(drawer* d)
 	{
-		_renderer = r;
+		_drawer = d;
 	}
 
-	renderer* get_renderer(void) const
+	drawer* get_drawer(void) const
 	{
-		return _renderer;
+		return _drawer;
 	}
 
 public:
@@ -227,7 +231,7 @@ public:
 public:
 	void paint(HDC hdc);
 
-public:
+private:
 	void draw(BLContext* ctx);
 	void draw_underlay(BLContext* ctx);
 	void draw_overlay(BLContext* ctx);
