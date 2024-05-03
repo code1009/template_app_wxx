@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+Ôªø/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "stdafx.h"
 
@@ -47,7 +47,6 @@ void CMyListViewInplaceEdit::PreCreate(CREATESTRUCT& cs)
 		0u;
 
 	dwExStyle = 
-		// WS_EX_CLIENTEDGE   |
 		0u;
 
 
@@ -442,7 +441,7 @@ void CMyListView::OnDestroy()
 void CMyListView::OnAttach()
 {
 	//-----------------------------------------------------------------------
-	m_Font.CreatePointFont (120, _T("∏º¿∫ ∞ÌµÒ"));
+	m_Font.CreatePointFont (120, _T("ÎßëÏùÄ Í≥†Îîï"));
 
 	
 	SetFont(m_Font);
@@ -490,7 +489,7 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
 	LvColumn.fmt       = LVCFMT_RIGHT;
-	LvColumn.pszText   = const_cast<char*>("π¯»£");
+	LvColumn.pszText   = const_cast<char*>("Î≤àÌò∏");
 	LvColumn.cx        = 50;
 	LvColumn.iSubItem  = 0;
 	InsertColumn(0, LvColumn);
@@ -498,7 +497,7 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 	LvColumn.fmt       = LVCFMT_LEFT;
-	LvColumn.pszText   = const_cast<char*>("Ω√∞£");
+	LvColumn.pszText   = const_cast<char*>("ÏãúÍ∞Ñ");
 	LvColumn.cx        = 180;
 	LvColumn.iSubItem  = 1;
 	InsertColumn(1, LvColumn);
@@ -506,7 +505,7 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 	LvColumn.fmt       = LVCFMT_CENTER;
-	LvColumn.pszText   = const_cast<char*>("«◊∏Ò");
+	LvColumn.pszText   = const_cast<char*>("Ìï≠Î™©");
 	LvColumn.cx        = 80;
 	LvColumn.iSubItem  = 2;
 	InsertColumn(2, LvColumn);
@@ -514,9 +513,9 @@ void CMyListView::OnAttach()
 	memset (&LvColumn, 0, sizeof(LvColumn));
 	LvColumn.mask      = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 	LvColumn.fmt       = LVCFMT_LEFT;
-	LvColumn.pszText   = const_cast<char*>("≥ªøÎ");
+	LvColumn.pszText   = const_cast<char*>("ÎÇ¥Ïö©");
 	LvColumn.cx        = 800;
-	LvColumn.cchTextMax= 1024*3; // GetItemø√∂ß ∞°¡Æø√ºˆ¿÷¥¬ ≈©±‚ (Ω√«œ¥¬ ≈ÿΩ∫∆Æ¥¬ 259+1[MAX_PATH]≥ŒπÆ¿⁄∑Œ ¡¶«—µ )
+	LvColumn.cchTextMax= 1024*3; // GetItemÏò¨Îïå Í∞ÄÏ†∏Ïò¨ÏàòÏûàÎäî ÌÅ¨Í∏∞ (ÏãúÌïòÎäî ÌÖçÏä§Ìä∏Îäî 259+1[MAX_PATH]ÎÑêÎ¨∏ÏûêÎ°ú Ï†úÌïúÎê®)
 	LvColumn.iSubItem  = 3;
 	InsertColumn(3, LvColumn);
 
@@ -943,7 +942,7 @@ void CMyListView::InplaceEdit_New( int item, int column )
 
 	if     ((lvcolumn.fmt&LVCFMT_JUSTIFYMASK) == LVCFMT_LEFT ) { dwStyle = ES_LEFT  ; }
 	else if((lvcolumn.fmt&LVCFMT_JUSTIFYMASK) == LVCFMT_RIGHT) { dwStyle = ES_RIGHT ; }
-	else                                                     { dwStyle = ES_CENTER; }
+	else                                                       { dwStyle = ES_CENTER; }
 
 	dwStyle |= WS_VISIBLE|WS_CHILD|WS_BORDER|ES_AUTOHSCROLL;
  
@@ -1394,7 +1393,7 @@ CMyListViewDockContainer::CMyListViewDockContainer()
 {
 	SetTabText(_T("MyListView"));
 	SetTabIcon(IDI_DOCKER);
-	SetDockCaption(_T("MyListView - Docking container"));
+	SetDockCaption(_T("MyListView - ÎèÑÍµ¨ Ï∞Ω"));
 	SetView(m_Wnd);
 }
 

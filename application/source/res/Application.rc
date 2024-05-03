@@ -23,47 +23,59 @@ LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// RT_MANIFEST
+//
+
+1                     RT_MANIFEST           "../../source/res/wxx/PerMonitorV2.manifest"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Menu
 //
 
 IDW_MAIN MENU
 BEGIN
-    POPUP "&File"
+    POPUP "파일(&F)"
     BEGIN
-        MENUITEM "&New",                        IDM_FILE_NEW
+        MENUITEM "새로 만들기(&N)\tCtrl+N",     IDM_FILE_NEW
+        MENUITEM "열기(&O)...\tCtrl+O",         IDM_FILE_OPEN
+        MENUITEM "닫기(&C)",                    IDM_FILE_CLOSE
+        MENUITEM "저장(&S)\tCtrl+S",            IDM_FILE_SAVE
+        MENUITEM "다른 이름으로 저장(&A)...",   IDM_FILE_SAVEAS
         MENUITEM SEPARATOR
-        MENUITEM "E&xit\tAlt+F4",               IDM_FILE_EXIT
+        MENUITEM "끝내기(&X)",                  IDM_FILE_EXIT
     END
-    POPUP "&Edit"
+    POPUP "편집(&E)"
     BEGIN
-        MENUITEM "Undo\tCtrl+Z",                IDM_EDIT_UNDO, GRAYED
-        MENUITEM "Redo\tCtrl+Y",                IDM_EDIT_REDO, GRAYED
+        MENUITEM "실행 취소(&U)\tCtrl+Z",       IDM_EDIT_UNDO, GRAYED
+        MENUITEM "다시 실행(&R)\tCtrl+Y",       IDM_EDIT_REDO, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "Cut\tCtrl+X",                 IDM_EDIT_CUT, GRAYED
-        MENUITEM "Copy\tCtrl+C",                IDM_EDIT_COPY, GRAYED
-        MENUITEM "Paste\tCtrl+V",               IDM_EDIT_PASTE, GRAYED
-        MENUITEM "Delete\tDel",                 IDM_EDIT_DELETE, GRAYED
+        MENUITEM "잘라내기(&T)\tCtrl+X",        IDM_EDIT_CUT, GRAYED
+        MENUITEM "복사(&C)\tCtrl+C",            IDM_EDIT_COPY, GRAYED
+        MENUITEM "붙여넣기(&P)\tCtrl+V",        IDM_EDIT_PASTE, GRAYED
+        MENUITEM "삭제(&D)\tDel",               IDM_EDIT_DELETE, GRAYED
     END
-    POPUP "&View"
+    POPUP "보기(&V)"
     BEGIN
-        MENUITEM "&Tool Bar",                   IDW_VIEW_TOOLBAR, CHECKED
-        MENUITEM "&Status Bar",                 IDW_VIEW_STATUSBAR, CHECKED
+        MENUITEM "도구 모음(&T)",               IDW_VIEW_TOOLBAR, CHECKED
+        MENUITEM "상태 표시줄(&S)",             IDW_VIEW_STATUSBAR, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "문서 창에서 탭 위쪽에 표시",  IDM_TABBEDMDI_TOP, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "도구 창에서 탭 위쪽에 표시",  IDM_CONTAINER_TOP, CHECKED
+        MENUITEM "단일 도구 창에서 탭 감추기",  IDM_HIDE_SINGLE_TAB, CHECKED
     END
-    POPUP "&Options"
+    POPUP "창(&W)"
     BEGIN
-        MENUITEM "MDI Tabs at Top",             IDM_TABBEDMDI_TOP, CHECKED
-        MENUITEM "Container Tabs at Top",       IDM_CONTAINER_TOP, CHECKED
-        MENUITEM "Hide Single Container Tab",   IDM_HIDE_SINGLE_TAB, CHECKED
+        MENUITEM "다시 설정(&D)",               IDM_DEFAULT_LAYOUT
+        MENUITEM SEPARATOR
+        MENUITEM "모든 문서 창 닫기",           IDM_CLOSE_MDIS
+        MENUITEM "모든 도구 창 닫기",           IDM_CLOSE_DOCKERS
     END
-    POPUP "&Layout"
+    POPUP "도움말(&H)"
     BEGIN
-        MENUITEM "&Default Layout",             IDM_DEFAULT_LAYOUT
-        MENUITEM "Close All &Containers",       IDM_CLOSE_DOCKERS
-        MENUITEM "Close All &MDI Children",     IDM_CLOSE_MDIS
-    END
-    POPUP "&Help"
-    BEGIN
-        MENUITEM "&About\tF1",                  IDM_HELP_ABOUT
+        MENUITEM "정보(&A)\tF1",                IDM_HELP_ABOUT
     END
 END
 
@@ -139,17 +151,57 @@ END
 // Dialog
 //
 
-IDW_ABOUT DIALOGEX 0, 0, 220, 95
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDW_ABOUT DIALOGEX 0, 0, 288, 132
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
-FONT 8, "MS Shell Dlg", 0, 0, 0x0
+FONT 9, "Segoe UI", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,165,75,50,15
-    LTEXT           "Application",IDC_STATIC,45,20,160,10
-    LTEXT           "Version 1.0",IDC_STATIC,45,30,160,10
-    LTEXT           "Copyright (c) 2024, XXX co., ltd.\nAll rights reserved.",IDC_STATIC,45,45,160,20
-    ICON            IDW_MAIN,IDC_STATIC,15,20,21,20
-    GROUPBOX        "",IDC_STATIC,5,5,210,65
+    GROUPBOX        "",IDC_STATIC,6,6,276,102
+    ICON            IDW_MAIN,IDC_STATIC,12,18,20,20
+    LTEXT           "Application",IDC_STATIC,36,18,240,13
+    LTEXT           "버전 1.0",IDC_STATIC,36,30,240,12
+    LTEXT           "이 컴퓨터 프로그램은 저작권법과 국제 협약의 보호를 받습니다.\n이 프로그램의 전부 또는 일부를 무단으로 복제, 배포하는 행위는 민사 및 형사법에 의해 엄격히 규제되어 있으며, 기소 사유가 됩니다.",IDC_STATIC,36,72,240,30
+    DEFPUSHBUTTON   "OK",IDOK,216,114,66,14
+    LTEXT           "(c) Copyright 2024, {COMPANY}.\nAll Rights Reserved.",IDC_STATIC,36,48,240,18
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204B0"
+        BEGIN
+            VALUE "CompanyName", "TODO: <회사 이름>"
+            VALUE "FileDescription", "Application"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "Application.exe"
+            VALUE "LegalCopyright", "TODO: (c) <회사 이름>.  All rights reserved."
+            VALUE "OriginalFilename", "Application.exe"
+            VALUE "ProductName", "TODO: <제품 이름>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
 END
 
 
@@ -168,6 +220,31 @@ END
 #endif    // APSTUDIO_INVOKED
 
 
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
@@ -176,69 +253,80 @@ END
 STRINGTABLE
 BEGIN
     IDW_MAIN                "Application"
-    IDW_VIEW_TOOLBAR        "Show or hide the tool bar"
-    IDW_VIEW_STATUSBAR      "Show or hide the status bar"
+    IDW_READY               "준비"
+END
+
+STRINGTABLE
+BEGIN
     IDW_INDICATOR_CAPS      "CAP"
     IDW_INDICATOR_NUM       "NUM"
     IDW_INDICATOR_SCRL      "SCRL"
-    IDW_READY               "Ready"
 END
 
 STRINGTABLE
 BEGIN
-    IDM_FILE_NEW            "Create a New Document"
-    IDM_FILE_OPEN           "Open Existing Document"
-    IDM_FILE_SAVE           "Save the Document"
-    IDM_FILE_SAVEAS         "Save the Document with a new name"
-    IDM_FILE_PRINT          "Print the Document"
-    IDM_FILE_EXIT           "End the Program"
-    IDM_EDIT_UNDO           "Undo the last action"
-    IDM_EDIT_REDO           "Redo the previously undone action"
+    IDM_FILE_NEW            "새 문서를 만듭니다."
+    IDM_FILE_OPEN           "기존 문서를 엽니다."
+    IDM_FILE_SAVE           "활성 문서를 저장합니다."
+    IDM_FILE_SAVEAS         "활성 문서를 새 이름으로 저장합니다."
+    IDM_FILE_CLOSE          "활성 문서를 닫습니다."
+    IDM_FILE_EXIT           "문서를 저장할지를 묻고 애플리케이션을 끝냅니다."
 END
 
 STRINGTABLE
 BEGIN
-    IDM_CONTAINER_TOP       "Place Tabs at the top of the containers"
-    IDM_TABBEDMDI_TOP       "Place Tabs at the top of the MDITab"
-    IDM_HIDE_SINGLE_TAB     "Hide single tabs in containers"
-    IDM_DEFAULT_LAYOUT      "Restore default dock layout"
-    IDM_CLOSE_DOCKERS       "Close all docked and undocked windows"
-    IDM_CLOSE_MDIS          "Close all MDI Children"
+    IDM_EDIT_UNDO           "마지막 작업 실행을 취소합니다."
+    IDM_EDIT_REDO           "이전에 실행 취소된 작업을 다시 실행합니다."
+    IDM_EDIT_COPY           "선택 영역을 복사하여 클립보드에 넣습니다."
+    IDM_EDIT_CUT            "선택 영역을 잘라내어 클립보드에 넣습니다."
+    IDM_EDIT_PASTE          "클립보드 내용을 삽입합니다."
+    IDM_EDIT_DELETE         "선택 영역을 삭제합니다."
 END
 
 STRINGTABLE
 BEGIN
-    IDM_EDIT_CUT            "Cut the Selected Contents to the Clipboard"
-    IDM_EDIT_COPY           "Copy the Selected Contents to the Clipboard"
-    IDM_EDIT_PASTE          "Paste the Clipboard Contents to the Document"
-    IDM_EDIT_DELETE         "Erase the selected Contents"
-    IDM_HELP_ABOUT          "Display Information about this program"
+    IDW_VIEW_TOOLBAR        "도구 모음을 표시하거나 숨깁니다."
+    IDW_VIEW_STATUSBAR      "상태 표시줄을 표시하거나 숨깁니다."
 END
 
 STRINGTABLE
 BEGIN
-    IDW_FIRSTCHILD          "Activate this window"
-    IDW_CHILD2              "Activate this window"
-    IDW_CHILD3              "Activate this window"
-    IDW_CHILD4              "Activate this window"
-    IDW_CHILD5              "Activate this window"
-    IDW_CHILD6              "Activate this window"
-    IDW_CHILD7              "Activate this window"
-    IDW_CHILD8              "Activate this window"
-    IDW_CHILD9              "Activate this window"
-    IDW_CHILD10             "Select a window"
+    IDW_FIRSTCHILD          "문서 창 활성화 합니다."
+    IDW_CHILD2              "문서 창 활성화 합니다."
+    IDW_CHILD3              "문서 창 활성화 합니다."
+    IDW_CHILD4              "문서 창 활성화 합니다."
+    IDW_CHILD5              "문서 창 활성화 합니다."
+    IDW_CHILD6              "문서 창 활성화 합니다."
+    IDW_CHILD7              "문서 창 활성화 합니다."
+    IDW_CHILD8              "문서 창 활성화 합니다."
+    IDW_CHILD9              "문서 창 활성화 합니다."
+    IDW_CHILD10             "문서 창 선택..."
 END
 
 STRINGTABLE
 BEGIN
-    SC_CLOSE                "Close the Window"
-    SC_MAXIMIZE             "Maximize the Window"
-    SC_MINIMIZE             "Minimize the Window"
-    SC_MOVE                 "Move the Window"
-    SC_NEXTWINDOW           "Select Next Window"
-    SC_PREVWINDOW           "Select Previous Window"
-    SC_RESTORE              "Restore the Window"
-    SC_SIZE                 "Resize the Window"
+    SC_CLOSE                "창을 닫습니다."
+    SC_MAXIMIZE             "창을 전체 화면 크기로 확대합니다."
+    SC_MINIMIZE             "창을 아이콘으로 축소합니다."
+    SC_MOVE                 "창 위치를 변경합니다."
+    SC_NEXTWINDOW           "다음 문서 창으로 전환합니다."
+    SC_PREVWINDOW           "이전 문서 창으로 전환합니다."
+    SC_RESTORE              "창을 보통 크기로 복원합니다."
+    SC_SIZE                 "창 크기를 변경합니다."
+END
+
+STRINGTABLE
+BEGIN
+    IDM_TABBEDMDI_TOP       "문서 창에서 탭을 위에 표시합니다."
+    IDM_CONTAINER_TOP       "도구 창에서 탭을 위에 표시합니다."
+    IDM_HIDE_SINGLE_TAB     "단일 도구 창에서는 탭을 감춥니다."
+END
+
+STRINGTABLE
+BEGIN
+    IDM_DEFAULT_LAYOUT      "창 설정을 기본으로 재배치 합니다."
+    IDM_CLOSE_MDIS          "모든 문서 창을 닫습니다."
+    IDM_CLOSE_DOCKERS       "모든 도구 창을 닫습니다."
 END
 
 #endif    // 한국어(대한민국) resources

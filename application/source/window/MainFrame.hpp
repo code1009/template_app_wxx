@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -14,6 +14,7 @@ private:
 	BOOL m_isContainerTabsAtTop;
 	BOOL m_isHideSingleTab;
 	BOOL m_isMDITabsAtTop;
+	int m_windowMenuItemCount;
 
 	//-----------------------------------------------------------------------
 public:
