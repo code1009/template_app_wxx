@@ -121,6 +121,9 @@ using context = BLContext;
 class renderer
 {
 public:
+	virtual ~renderer() {};
+
+public:
 	virtual void draw(context* ctx) = 0;
 };
 
@@ -163,14 +166,13 @@ private:
 	std::int64_t _paint_time_usec{ 0 };
 
 private:
-	canvas _canvas;
-	BLFontFace _font_face;
-	BLFontFace _font_face_status;
-	BLFont _font;
-	BLFont _underlay_font;
-	BLFont _overlay_font;
-	HWND _hwnd;
+	HWND _hwnd{ nullptr };
+	canvas _canvas{};
+	BLFontFace _status_font_face{};
+	BLFont _underlay_font{};
+	BLFont _overlay_font{};
 	bool _scrollbar_enabled{ false };
+	renderer* _renderer{ nullptr };
 
 public:
 	virtual ~window();
@@ -180,11 +182,23 @@ public:
 	void destory();
 
 public:
+	void set_renderer(renderer* r)
+	{
+		_renderer = r;
+	}
+
+	renderer* get_renderer(void) const
+	{
+		return _renderer;
+	}
+
+public:
 	void set_window_size(int cx, int cy);
 
 public:
 	double get_scale(void);
 	void set_scale(double s);
+	void zoom(bool zoom_in);
 
 public:
 	void set_contents_size(double cx, double cy);
@@ -209,6 +223,8 @@ public:
 
 public:
 	void paint(HDC hdc);
+
+public:
 	void draw(BLContext* ctx);
 	void draw_underlay(BLContext* ctx);
 	void draw_overlay(BLContext* ctx);
@@ -218,10 +234,6 @@ public:
 	void draw_contents(BLContext* ctx);
 	void draw_contents_background(BLContext* ctx);
 	void draw_contents_foreground(BLContext* ctx);
-
-	void draw_ex5(BLContext* ctx);
-	void draw_ex7(BLContext* ctx);
-	void draw_t1(BLContext* ctx);
 };
 
 
@@ -232,7 +244,7 @@ public:
 //===========================================================================
 class window_handler
 {
-private:
+public:
 	window _window;
 
 public:

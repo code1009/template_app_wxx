@@ -222,35 +222,29 @@ window::~window()
 
 void window::create(HWND hwnd)
 {
-	//-------------------------------------------------------------------
+	//-----------------------------------------------------------------------
 	_hwnd = hwnd;
 
 
-	//-------------------------------------------------------------------
+	//-----------------------------------------------------------------------
 	BLResult result;
 
 
-	result = _font_face.createFromFile("C:/Windows/Fonts/malgun.ttf");
-	if (result != BL_SUCCESS)
-	{
-		printf("_font_face.createFromFile() (%u)\n", result);
-	}
-
-	result = _font_face_status.createFromFile("C:/Users/USER/AppData/Local/Microsoft/Windows/Fonts/NanumGothicCoding-Bold.ttf");
+	result = _status_font_face.createFromFile("C:/Users/USER/AppData/Local/Microsoft/Windows/Fonts/NanumGothicCoding-Bold.ttf");
 	if (result != BL_SUCCESS)
 	{
 		printf("_font_face.createFromFile() (%u)\n", result);
 	}
 		
 
-	_font.createFromFace(_font_face, 50.0f);
-	_underlay_font.createFromFace(_font_face_status, 12.0f);
-	_overlay_font.createFromFace(_font_face_status, 16.0f);
+	_underlay_font.createFromFace(_status_font_face, 12.0f);
+	_overlay_font.createFromFace(_status_font_face, 16.0f);
 }
 
 void window::destory()
 {
-
+	//-----------------------------------------------------------------------
+	_hwnd = nullptr;
 }
 
 void window::set_window_size(int cx, int cy)
@@ -291,6 +285,50 @@ void window::set_scale(double s)
 
 		repaint();
 	}
+}
+
+void window::zoom(bool zoom_in)
+{
+	double viewscale_delta;
+	double viewscale_max;
+	double viewscale_min;
+
+
+	viewscale_max = 10.0f;
+	viewscale_min = 0.1f;
+	viewscale_delta = 0.1f;
+
+
+	double viewscale;
+	int viewscale_x10;
+
+
+	viewscale = get_scale();
+	viewscale_x10 = static_cast<int>((viewscale + 0.05) * 10);
+	viewscale = viewscale_x10 / 10.0;
+
+
+	if (zoom_in)
+	{
+		viewscale = viewscale + viewscale_delta;
+	}
+	else
+	{
+		viewscale = viewscale - viewscale_delta;
+	}
+
+
+	if (viewscale > viewscale_max)
+	{
+		viewscale = viewscale_max;
+	}
+	if (viewscale < viewscale_min)
+	{
+		viewscale = viewscale_min;
+	}
+
+
+	set_scale(viewscale);
 }
 
 void window::set_contents_size(double cx, double cy)
@@ -812,124 +850,14 @@ void window::draw_contents_foreground(BLContext* ctx)
 
 	ctx->save(context_cookie);
 
-
-	draw_ex5(ctx);
-	draw_ex7(ctx);
-	draw_t1(ctx);
-
+	if (_renderer)
+	{
+		_renderer->draw(ctx);
+	}
 
 	ctx->restore(context_cookie);
 }
 
-void window::draw_ex5(BLContext* ctx)
-{
-	// First shape filled with a radial gradient.
-	// By default, SRC_OVER composition is used.
-	ctx->setCompOp(BL_COMP_OP_SRC_OVER);
-
-	BLGradient radial(
-		BLRadialGradientValues(180, 180, 180, 180, 180));
-	radial.addStop(0.0, BLRgba32(0xFFFFFFFF));
-	radial.addStop(1.0, BLRgba32(0xFFFF6F3F));
-	ctx->fillCircle(180, 180, 160, radial);
-
-	// Second shape filled with a linear gradient.
-	BLGradient linear(
-		BLLinearGradientValues(195, 195, 470, 470));
-	linear.addStop(0.0, BLRgba32(0xFFFFFFFF));
-	linear.addStop(1.0, BLRgba32(0xFF3F9FFF));
-
-	// Use 'setCompOp()' to change a composition operator.
-	ctx->setCompOp(BL_COMP_OP_DIFFERENCE);
-	ctx->fillRoundRect(
-		BLRoundRect(195, 195, 270, 270, 25), linear);
-
-	ctx->setCompOp(BL_COMP_OP_SRC_OVER);
-}
-
-void window::draw_ex7(BLContext* ctx)
-{
-	const char* regularText = reinterpret_cast<const char*>( "Hello Blend2D!" );
-	const char* rotatedText = reinterpret_cast<const char*>( u8"Rotated Text ÇÑ±Û" );
-
-	BLContextCookie cookie1;
-	BLContextCookie cookie2;
-
-	ctx->save(cookie1);
-	ctx->scale(0.5);
-	{
-		//BLFont _font;
-		//_font.createFromFace(_font_face, 50.0f);
-
-		ctx->setFillStyle(BLRgba32(0xFFFF0000));
-		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
-
-		//ctx->rotate(0.785398);
-		//ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
-	}
-
-	ctx->save(cookie2);
-	ctx->scale(0.5);
-	{
-
-		//BLFont _font;
-		//_font.createFromFace(_font_face, 50.0f);
-
-		ctx->setFillStyle(BLRgba32(0xFFFFFFFF));
-		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
-
-		//ctx->rotate(0.785398);
-		//ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
-	}
-
-	ctx->restore(cookie2);
-	ctx->restore(cookie1);
-
-
-	ctx->save(cookie1);
-
-	ctx->translate(100, 100);
-
-	{
-		//BLFont _font;
-		//_font.createFromFace(_font_face, 50.0f);
-
-		ctx->setFillStyle(BLRgba32(0xFF0000FF));
-		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
-
-		ctx->rotate(0.785398);
-		ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
-	}
-	ctx->restore(cookie1);
-}
-
-void window::draw_t1(BLContext* ctx)
-{
-	//ctx->fillAll(BLRgba32(0xFF000000u));
-	double _angle = 45;
-
-	BLPath p;
-
-	int count = 1000;
-	double PI = 3.14159265359;
-
-	double cx = _contents_cx / 2.0f;
-	double cy = _contents_cy / 2.0f;
-	double maxDist = 1000.0;
-	double baseAngle = _angle / 180.0 * PI;
-
-	for (int i = 0; i < count; i++) {
-		double t = double(i) * 1.01 / 1000;
-		double d = t * 1000.0 * 0.4 + 10;
-		double a = baseAngle + t * PI * 2 * 20;
-		double x = cx + std::cos(a) * d;
-		double y = cy + std::sin(a) * d;
-		double r = std::min(t * 8 + 0.5, 10.0);
-		p.addCircle(BLCircle(x, y, r));
-	}
-
-	ctx->fillPath(p, BLRgba32(0xFF00FFFFu));
-}
 
 
 
@@ -1032,70 +960,44 @@ void window_handler::OnMouseWheel(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 	case MK_CONTROL:
 		scale = true;
 		break;
+
 	case MK_LBUTTON:
 	case MK_RBUTTON:
 		break;
 	case MK_MBUTTON:
 		break;
+
 	case MK_SHIFT:
 		break;
+
 	case MK_XBUTTON1:
 	case MK_XBUTTON2:
+		break;
+
+	default:
 		break;
 	}
 
 	if (scale)
 	{
-		double viewscale_delta;
-		double viewscale_max;
-		double viewscale_min;
-
-
-		viewscale_max = 10.0f;
-		viewscale_min = 0.1f;
-		viewscale_delta = 0.1f;
-
-
-		double viewscale;
-		int viewscale_x10;
-
-
-		viewscale = _window.get_scale();
-		viewscale_x10 = static_cast<int>((viewscale + 0.05) * 10);
-		viewscale = viewscale_x10 / 10.0;
-
-
 		if (zDelta > 0)
 		{
-			viewscale = viewscale + viewscale_delta;
+			_window.zoom(true);
 		}
 		else
 		{
-			viewscale = viewscale - viewscale_delta;
+			_window.zoom(false);
 		}
-
-
-		if (viewscale > viewscale_max)
-		{
-			viewscale = viewscale_max;
-		}
-		if (viewscale < viewscale_min)
-		{
-			viewscale = viewscale_min;
-		}
-
-
-		_window.set_scale(viewscale);
 	}
 	else
 	{
 		if (zDelta > 0)
 		{
-			OnVScroll(hWnd, 0, MAKEWORD(SB_LINEUP, 0), 0);
+			_window.vscroll(SB_LINEUP);
 		}
 		else
 		{
-			OnVScroll(hWnd, 0, MAKEWORD(SB_LINEDOWN, 0), 0);
+			_window.vscroll(SB_LINEDOWN);
 		}
 	}
 }

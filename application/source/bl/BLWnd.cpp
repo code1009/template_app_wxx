@@ -38,14 +38,164 @@ constexpr UINT     BLWND_TIMER_ELAPSE = 500;
 class bl_renderer : public bl::renderer
 {
 public:
+	double _contents_cx{ 0 };
+	double _contents_cy{ 0 };
+
+public:
+	BLFontFace _font_face;
+	BLFont _font;
+
+public:
+	bl_renderer();
+	virtual ~bl_renderer();
+
+public:
 	virtual void draw(bl::context* ctx) override;
 
 public:
+	void draw_ex5(BLContext* ctx);
+	void draw_ex7(BLContext* ctx);
+	void draw_t1(BLContext* ctx);
 };
+
+//===========================================================================
+bl_renderer::bl_renderer()
+{
+	BLResult result;
+
+
+	result = _font_face.createFromFile("C:/Windows/Fonts/malgun.ttf");
+	if (result != BL_SUCCESS)
+	{
+		printf("_font_face.createFromFile() (%u)\n", result);
+	}
+
+	_font.createFromFace(_font_face, 50.0f);
+
+	_contents_cx = 1920 * 4;
+	_contents_cy = 1080 * 4;
+}
+
+bl_renderer::~bl_renderer()
+{
+
+}
 
 void bl_renderer::draw(bl::context* ctx)
 {
+	draw_ex5(ctx);
+	draw_ex7(ctx);
+	draw_t1(ctx);
+}
 
+void bl_renderer::draw_ex5(BLContext* ctx)
+{
+	// First shape filled with a radial gradient.
+	// By default, SRC_OVER composition is used.
+	ctx->setCompOp(BL_COMP_OP_SRC_OVER);
+
+	BLGradient radial(
+		BLRadialGradientValues(180, 180, 180, 180, 180));
+	radial.addStop(0.0, BLRgba32(0xFFFFFFFF));
+	radial.addStop(1.0, BLRgba32(0xFFFF6F3F));
+	ctx->fillCircle(180, 180, 160, radial);
+
+	// Second shape filled with a linear gradient.
+	BLGradient linear(
+		BLLinearGradientValues(195, 195, 470, 470));
+	linear.addStop(0.0, BLRgba32(0xFFFFFFFF));
+	linear.addStop(1.0, BLRgba32(0xFF3F9FFF));
+
+	// Use 'setCompOp()' to change a composition operator.
+	ctx->setCompOp(BL_COMP_OP_DIFFERENCE);
+	ctx->fillRoundRect(
+		BLRoundRect(195, 195, 270, 270, 25), linear);
+
+	ctx->setCompOp(BL_COMP_OP_SRC_OVER);
+}
+
+void bl_renderer::draw_ex7(BLContext* ctx)
+{
+	const char* regularText = reinterpret_cast<const char*>("Hello Blend2D!");
+	const char* rotatedText = reinterpret_cast<const char*>(u8"Rotated Text 한글");
+
+	BLContextCookie cookie1;
+	BLContextCookie cookie2;
+
+	ctx->save(cookie1);
+	ctx->scale(0.5);
+	{
+		//BLFont _font;
+		//_font.createFromFace(_font_face, 50.0f);
+
+		ctx->setFillStyle(BLRgba32(0xFFFF0000));
+		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
+
+		//ctx->rotate(0.785398);
+		//ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
+	}
+
+	ctx->save(cookie2);
+	ctx->scale(0.5);
+	{
+
+		//BLFont _font;
+		//_font.createFromFace(_font_face, 50.0f);
+
+		ctx->setFillStyle(BLRgba32(0xFFFFFFFF));
+		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
+
+		//ctx->rotate(0.785398);
+		//ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
+	}
+
+	ctx->restore(cookie2);
+	ctx->restore(cookie1);
+
+
+	ctx->save(cookie1);
+
+	ctx->translate(100, 100);
+
+	{
+		//BLFont _font;
+		//_font.createFromFace(_font_face, 50.0f);
+
+		ctx->setFillStyle(BLRgba32(0xFF0000FF));
+		ctx->fillUtf8Text(BLPoint(60, 80), _font, regularText);
+
+		ctx->rotate(0.785398);
+		ctx->fillUtf8Text(BLPoint(250, 80), _font, rotatedText);
+	}
+	ctx->restore(cookie1);
+}
+
+void bl_renderer::draw_t1(BLContext* ctx)
+{
+	//ctx->fillAll(BLRgba32(0xFF000000u));
+	double _angle = 45;
+
+	BLPath p;
+
+	int count = 1000;
+	double PI = 3.14159265359;
+
+	double cx = _contents_cx / 2.0f;
+	double cy = _contents_cy / 2.0f;
+	double maxDist = 1000.0;
+	double baseAngle = _angle / 180.0 * PI;
+
+	for (int i = 0; i < count; i++) {
+		double t = double(i) * 1.01 / 1000;
+		double d = t * 1000.0 * 0.4 + 10;
+		double a = baseAngle + t * PI * 2 * 20;
+		double x = cx + std::cos(a) * d;
+		double y = cy + std::sin(a) * d;
+		double r = std::min(t * 8 + 0.5, 10.0);
+		p.addCircle(BLCircle(x, y, r));
+	}
+
+	ctx->fillPath(p, BLRgba32(0xFF00FFFFu));
 }
 
 
@@ -73,7 +223,8 @@ void CBLWnd::PreCreate(CREATESTRUCT& cs)
 	CWnd::PreCreate(cs);
 
 	cs.dwExStyle |= WS_EX_CLIENTEDGE;
-	cs.style |= (WS_VSCROLL | WS_HSCROLL);
+	
+//	cs.style |= (WS_VSCROLL | WS_HSCROLL);
 }
 
 int CBLWnd::OnCreate(CREATESTRUCT& cs)
@@ -82,6 +233,9 @@ int CBLWnd::OnCreate(CREATESTRUCT& cs)
 
 
 	blwh_set(reinterpret_cast<bl::window_handler*>(new bl::window_handler()));
+
+	blwh_get()->_window.set_renderer(new bl_renderer());
+
 	blwh_get()->OnCreate(GetHwnd(), WM_CREATE, 0, 0);
 
 
@@ -98,6 +252,18 @@ void CBLWnd::OnDestroy()
 
 
 	blwh_get()->OnDestroy(GetHwnd(), WM_DESTROY, 0, 0);
+
+	
+	bl_renderer* renderer;
+
+
+	renderer = reinterpret_cast<bl_renderer*>(blwh_get()->_window.get_renderer());
+	if (renderer)
+	{
+		delete renderer;
+	}
+
+
 	if (blwh_get())
 	{
 		delete blwh_get();
