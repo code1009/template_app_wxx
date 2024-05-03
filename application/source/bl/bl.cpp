@@ -334,7 +334,7 @@ void window::fit_contents_to_window(bool vert)
 	}
 }
 
-void window::on_vscroll(std::uint32_t scroll_code)
+void window::vscroll(std::uint32_t scroll_code)
 {
 	std::int64_t pos;
 
@@ -347,7 +347,7 @@ void window::on_vscroll(std::uint32_t scroll_code)
 
 
 	view_scroll_pos = _view_y;
-	view_scroll_pos_current = on_scroll(scroll_code, pos,
+	view_scroll_pos_current = view_scroll(scroll_code, pos,
 		_view_y_scroll_page,
 		_view_y_scroll_line,
 		_view_y_scroll_min,
@@ -367,7 +367,7 @@ void window::on_vscroll(std::uint32_t scroll_code)
 	}
 }
 
-void window::on_hscroll(std::uint32_t scroll_code)
+void window::hscroll(std::uint32_t scroll_code)
 {
 	std::int64_t pos;
 
@@ -380,7 +380,7 @@ void window::on_hscroll(std::uint32_t scroll_code)
 
 
 	view_scroll_pos = _view_x;
-	view_scroll_pos_current = on_scroll(scroll_code, pos,
+	view_scroll_pos_current = view_scroll(scroll_code, pos,
 		_view_x_scroll_page,
 		_view_x_scroll_line,
 		_view_x_scroll_min,
@@ -509,7 +509,6 @@ void window::repaint(void)
 	InvalidateRect(_hwnd, nullptr, TRUE);
 }
 
-//--------------------------------------------------------------------------
 void window::window_to_contents(std::int64_t window_x, std::int64_t window_y, double& contents_x, double& contents_y)
 {
 	contents_x = _contents_x + (window_x / _scale);
@@ -522,7 +521,6 @@ void window::contents_to_window(double contents_x, double contents_y, std::int64
 	window_y = static_cast<std::int64_t>((contents_y - _contents_y) * _scale);
 }
 
-//--------------------------------------------------------------------------
 void window::paint(HDC hdc)
 {
 	stopwatch sw("paint");
@@ -1007,7 +1005,7 @@ void window_handler::OnHScroll(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 	HWND pScrollBar = (HWND)lParam;
 
 
-	_window.on_hscroll(nSBCode);
+	_window.hscroll(nSBCode);
 }
 
 void window_handler::OnVScroll(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -1017,7 +1015,7 @@ void window_handler::OnVScroll(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 	HWND pScrollBar = (HWND)lParam ;
 
 
-	_window.on_vscroll(nSBCode);
+	_window.vscroll(nSBCode);
 }
 
 void window_handler::OnMouseWheel(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

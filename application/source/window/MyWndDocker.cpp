@@ -52,7 +52,7 @@ int CMyWnd::OnCreate(CREATESTRUCT& cs)
 
 void CMyWnd::OnDestroy()
 {
-	KillTimer(1);
+	KillTimer(MYWND_TIMER_ELAPSE);
 }
 
 void CMyWnd::OnDraw(CDC& dc)

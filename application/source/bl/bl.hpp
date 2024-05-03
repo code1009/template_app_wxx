@@ -107,6 +107,27 @@ public:
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+using context = BLContext;
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class renderer
+{
+public:
+	virtual void draw(context* ctx) = 0;
+};
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class window
@@ -160,13 +181,19 @@ public:
 
 public:
 	void set_window_size(int cx, int cy);
+
+public:
 	double get_scale(void);
 	void set_scale(double s);
+
+public:
 	void set_contents_size(double cx, double cy);
+
+public:
 	void enable_scrollbar(bool enable);
 	void fit_contents_to_window(bool vert = false);
-	void on_vscroll(std::uint32_t scroll_code);
-	void on_hscroll(std::uint32_t scroll_code);
+	void vscroll(std::uint32_t scroll_code);
+	void hscroll(std::uint32_t scroll_code);
 
 private:
 	void update_scrollbar(void);
@@ -176,12 +203,10 @@ private:
 
 	void repaint(void);
 
-	//--------------------------------------------------------------------------
 public:
 	void window_to_contents(std::int64_t window_x, std::int64_t window_y, double& contents_x, double& contents_y);
 	void contents_to_window(double contents_x, double contents_y, std::int64_t& window_x, std::int64_t& window_y);
 
-	//--------------------------------------------------------------------------
 public:
 	void paint(HDC hdc);
 	void draw(BLContext* ctx);

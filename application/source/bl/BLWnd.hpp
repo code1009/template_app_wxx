@@ -8,10 +8,11 @@
 //===========================================================================
 class CBLWnd : public CWnd
 {
-private:
+protected:
 	void* _bl_window_handler;
+	void* _bl_renderer;
 
-private:
+protected:
 	int m_cxClientMax;
 	int m_cyClientMax;
 

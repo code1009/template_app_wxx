@@ -121,7 +121,7 @@ UINT64 GetScrollPos64(HWND hwnd,
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::int64_t on_scroll(
+std::int64_t view_scroll(
 	std::uint32_t scroll_code, std::int64_t pos,
 	std::uint64_t _view_y_scroll_page,
 	std::uint64_t _view_y_scroll_line,

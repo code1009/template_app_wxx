@@ -35,8 +35,28 @@ constexpr UINT     BLWND_TIMER_ELAPSE = 500;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class bl_renderer : public bl::renderer
+{
+public:
+	virtual void draw(bl::context* ctx) override;
+
+public:
+};
+
+void bl_renderer::draw(bl::context* ctx)
+{
+
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 CBLWnd::CBLWnd():
 	_bl_window_handler(nullptr),
+	_bl_renderer(nullptr),
 
 	m_cxClientMax(0),
 	m_cyClientMax(0)
@@ -65,7 +85,7 @@ int CBLWnd::OnCreate(CREATESTRUCT& cs)
 	blwh_get()->OnCreate(GetHwnd(), WM_CREATE, 0, 0);
 
 
-	SetTimer(BLWND_TIMER_EVENTID, BLWND_TIMER_ELAPSE, NULL);
+//	SetTimer(BLWND_TIMER_EVENTID, BLWND_TIMER_ELAPSE, NULL);
 
 //	ShowScrollBar(_hwnd, SB_BOTH, TRUE);
 
@@ -74,7 +94,7 @@ int CBLWnd::OnCreate(CREATESTRUCT& cs)
 
 void CBLWnd::OnDestroy()
 {
-	KillTimer(1);
+//	KillTimer(BLWND_TIMER_EVENTID);
 
 
 	blwh_get()->OnDestroy(GetHwnd(), WM_DESTROY, 0, 0);

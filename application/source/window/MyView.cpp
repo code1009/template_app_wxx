@@ -54,7 +54,7 @@ int CMyView::OnCreate(CREATESTRUCT& cs)
 
 void CMyView::OnDestroy()
 {
-	KillTimer(1);
+	KillTimer(MYVIEW_TIMER_EVENTID);
 }
 
 void CMyView::OnDraw(CDC& dc)
