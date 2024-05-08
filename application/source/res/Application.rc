@@ -103,6 +103,51 @@ IDI_VIEW                ICON                    "../../source/res/wxx/View.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// PNG
+//
+
+TB_FILE_NEW.PNG                     PNG                     "../../source/res/tb/file_new.png"
+TB_FILE_OPEN.PNG                    PNG                     "../../source/res/tb/file_open.png"
+TB_FILE_SAVE.PNG                    PNG                     "../../source/res/tb/file_save.png"
+TB_FILE_PRINT.PNG                   PNG                     "../../source/res/tb/file_print.png"
+TB_EDIT_COPY.PNG                    PNG                     "../../source/res/tb/edit_copy.png"
+TB_EDIT_CUT.PNG                     PNG                     "../../source/res/tb/edit_cut.png"
+TB_EDIT_PASTE.PNG                   PNG                     "../../source/res/tb/edit_paste.png"
+TB_EDIT_REDO.PNG                    PNG                     "../../source/res/tb/edit_redo.png"
+TB_EDIT_UNDO.PNG                    PNG                     "../../source/res/tb/edit_undo.png"
+TB_HELP_ABOUT.PNG                   PNG                     "../../source/res/tb/help_about.png"
+TB_DIAGRAM_EDIT_BRING_TO_TOP.PNG    PNG                     "../../source/res/tb/diagram_edit_bring_to_top.png"
+TB_DIAGRAM_EDIT_SELECT_ALL.PNG      PNG                     "../../source/res/tb/diagram_edit_select_all.png"
+TB_DIAGRAM_EDIT_SEND_TO_BOTTOM.PNG  PNG                     "../../source/res/tb/diagram_edit_send_to_bottom.png"
+
+16_about.png                    PNG                     "../../source/res/il16/about.png"
+16_document.png                 PNG                     "../../source/res/il16/document.png"
+16_empty_trash.png              PNG                     "../../source/res/il16/empty_trash.png"
+16_file.png                     PNG                     "../../source/res/il16/file.png"
+16_folder.png                   PNG                     "../../source/res/il16/folder.png"
+16_full_trash.png               PNG                     "../../source/res/il16/full_trash.png"
+16_opened_folder.png            PNG                     "../../source/res/il16/opened_folder.png"
+16_print.png                    PNG                     "../../source/res/il16/print.png"
+16_ruler.png                    PNG                     "../../source/res/il16/ruler.png"
+16_search.png                   PNG                     "../../source/res/il16/search.png"
+16_settings.png                 PNG                     "../../source/res/il16/settings.png"
+
+
+24_about.png                    PNG                     "../../source/res/il24/about.png"
+24_document.png                 PNG                     "../../source/res/il24/document.png"
+24_empty_trash.png              PNG                     "../../source/res/il24/empty_trash.png"
+24_file.png                     PNG                     "../../source/res/il24/file.png"
+24_folder.png                   PNG                     "../../source/res/il24/folder.png"
+24_full_trash.png               PNG                     "../../source/res/il24/full_trash.png"
+24_opened_folder.png            PNG                     "../../source/res/il24/opened_folder.png"
+24_print.png                    PNG                     "../../source/res/il24/print.png"
+24_ruler.png                    PNG                     "../../source/res/il24/ruler.png"
+24_search.png                   PNG                     "../../source/res/il24/search.png"
+24_settings.png                 PNG                     "../../source/res/il24/settings.png"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Bitmap
 //
 

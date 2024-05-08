@@ -15,6 +15,10 @@ private:
 	BOOL m_isHideSingleTab;
 	BOOL m_isMDITabsAtTop;
 	int m_windowMenuItemCount;
+	CImageList m_ilToolbar;
+	CImageList m_ilCommand_32;
+	CImageList m_ilCommand_24;
+	CImageList m_ilCommand_16;
 
 	//-----------------------------------------------------------------------
 public:

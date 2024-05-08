@@ -16,6 +16,8 @@
 
 #include "../bl/BLWnd.hpp"
 
+#include "png_image_list_loader.hpp"
+
 
 
 
@@ -236,8 +238,72 @@ void CMainFrame::OnMenuUpdate(UINT id)
 void CMainFrame::SetupMenuIcons()
 {
 	// Load the defualt set of icons from the toolbar
+	ClearMenuIcons();
 
 
+	//std::vector<UINT> m_menuItemIDs;
+	//CImageList m_menuImages;
+	//CImageList m_menuDisabledImages;
+
+
+	//-----------------------------------------------------------------------
+	CImageList* imagelist;
+	int cxy;
+
+
+	if ((GetMenuIconHeight() >= 24) && (GetWindowDpi(*this) != 192))
+	{
+		imagelist = &m_ilCommand_24;
+		cxy = 24;
+
+		png_image_list_loader image_list_loader(imagelist, cxy, cxy);
+
+		image_list_loader.add("24_about.png");
+		image_list_loader.add("24_document.png");
+		image_list_loader.add("24_empty_trash.png");
+		image_list_loader.add("24_file.png");
+		image_list_loader.add("24_folder.png");
+		image_list_loader.add("24_full_trash.png");
+		image_list_loader.add("24_opened_folder.png");
+		image_list_loader.add("24_print.png");
+		image_list_loader.add("24_ruler.png");
+		image_list_loader.add("24_search.png");
+		image_list_loader.add("24_settings.png");
+	}
+	else
+	{
+		imagelist = &m_ilCommand_16;
+		cxy = 16;
+
+		png_image_list_loader image_list_loader(imagelist, cxy, cxy);
+
+		image_list_loader.add("16_about.png");
+		image_list_loader.add("16_document.png");
+		image_list_loader.add("16_empty_trash.png");
+		image_list_loader.add("16_file.png");
+		image_list_loader.add("16_folder.png");
+		image_list_loader.add("16_full_trash.png");
+		image_list_loader.add("16_opened_folder.png");
+		image_list_loader.add("16_print.png");
+		image_list_loader.add("16_ruler.png");
+		image_list_loader.add("16_search.png");
+		image_list_loader.add("16_settings.png");
+	}
+
+
+	HICON hicon;
+	UINT icon_flags;
+
+	icon_flags = ILD_NORMAL;
+
+	hicon = imagelist->GetIcon(1, icon_flags); AddMenuIcon(IDM_FILE_NEW, hicon); DestroyIcon(hicon);
+	hicon = imagelist->GetIcon(6, icon_flags); AddMenuIcon(IDM_FILE_OPEN, hicon); DestroyIcon(hicon);
+//	hicon = imagelist->GetIcon(7, icon_flags); AddMenuIcon(IDM_FILE_PRINT, hicon); DestroyIcon(hicon);
+	hicon = imagelist->GetIcon(0, icon_flags); AddMenuIcon(IDM_HELP_ABOUT, hicon); DestroyIcon(hicon);
+
+
+	//-----------------------------------------------------------------------
+#if 0
 	std::vector<UINT> data = GetToolBarData();
 	if ((GetMenuIconHeight() >= 24) && (GetWindowDpi(*this) != 192))
 	{
@@ -247,13 +313,52 @@ void CMainFrame::SetupMenuIcons()
 	{
 		SetMenuIcons(data, RGB(192, 192, 192), IDB_TOOLBAR16);
 	}
+#endif
 
+
+#if 0
 	// Add some extra icons for menu items
-	// AddMenuIcon(IDM_FILE_NEW, IDI_FILE_NEW);
+	//AddMenuIcon(IDM_FILE_NEW, IDI_FILE_NEW);
+#endif
 }
 
 void CMainFrame::SetupToolBar()
 {
+	//-----------------------------------------------------------------------
+	png_image_list_loader image_list_loader(&m_ilToolbar, 32, 32);
+
+
+	image_list_loader.add("tb_file_new.png");
+	image_list_loader.add("tb_file_open.png");
+	image_list_loader.add("tb_file_save.png");
+
+	image_list_loader.add("tb_edit_cut.png");
+	image_list_loader.add("tb_edit_copy.png");
+	image_list_loader.add("tb_edit_paste.png");
+
+/*
+	image_list_loader.add("tb_edit_undo.png");
+	image_list_loader.add("tb_edit_redo.png");
+*/
+
+	image_list_loader.add("tb_file_print.png");
+
+/*
+	image_list_loader.add("tb_diagram_edit_select_all.png");
+	image_list_loader.add("tb_diagram_edit_send_to_bottom.png");
+	image_list_loader.add("tb_diagram_edit_bring_to_top.png");
+*/
+
+	image_list_loader.add("tb_help_about.png");
+
+
+	//-----------------------------------------------------------------------
+	GetToolBar().SetImageList(m_ilToolbar);
+	GetToolBar().SetHotImageList(0);
+	GetToolBar().SetDisableImageList(0);
+
+
+	//-----------------------------------------------------------------------
 	// Set the Resource IDs for the toolbar buttons
 	AddToolBarButton( IDM_FILE_NEW   );
 	AddToolBarButton( IDM_FILE_OPEN,  FALSE );

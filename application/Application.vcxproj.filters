@@ -72,6 +72,9 @@
     <ClInclude Include="source\bl\scroll.hpp">
       <Filter>source\bl</Filter>
     </ClInclude>
+    <ClInclude Include="source\window\png_image_list_loader.hpp">
+      <Filter>source\window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Main.cpp">
@@ -103,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="source\bl\bl.cpp">
       <Filter>source\bl</Filter>
+    </ClCompile>
+    <ClCompile Include="source\window\png_image_list_loader.cpp">
+      <Filter>source\window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
