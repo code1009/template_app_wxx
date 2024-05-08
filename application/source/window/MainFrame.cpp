@@ -241,6 +241,7 @@ void CMainFrame::SetupMenuIcons()
 	ClearMenuIcons();
 
 
+#if 0
 	//std::vector<UINT> m_menuItemIDs;
 	//CImageList m_menuImages;
 	//CImageList m_menuDisabledImages;
@@ -300,7 +301,7 @@ void CMainFrame::SetupMenuIcons()
 	hicon = imagelist->GetIcon(6, icon_flags); AddMenuIcon(IDM_FILE_OPEN, hicon); DestroyIcon(hicon);
 //	hicon = imagelist->GetIcon(7, icon_flags); AddMenuIcon(IDM_FILE_PRINT, hicon); DestroyIcon(hicon);
 	hicon = imagelist->GetIcon(0, icon_flags); AddMenuIcon(IDM_HELP_ABOUT, hicon); DestroyIcon(hicon);
-
+#endif
 
 	//-----------------------------------------------------------------------
 #if 0
@@ -360,17 +361,18 @@ void CMainFrame::SetupToolBar()
 
 	//-----------------------------------------------------------------------
 	// Set the Resource IDs for the toolbar buttons
-	AddToolBarButton( IDM_FILE_NEW   );
-	AddToolBarButton( IDM_FILE_OPEN,  FALSE );
-	AddToolBarButton( IDM_FILE_SAVE,  FALSE );
+	//AddToolBarButton(IDM_FILE_NEW, TRUE, "새 파일");
+	AddToolBarButton(IDM_FILE_NEW, TRUE);
+	AddToolBarButton( IDM_FILE_OPEN,  TRUE );
+	AddToolBarButton( IDM_FILE_SAVE, TRUE);
 
 	AddToolBarButton( 0 );  // Separator
-	AddToolBarButton( IDM_EDIT_CUT,   FALSE );
-	AddToolBarButton( IDM_EDIT_COPY,  FALSE );
-	AddToolBarButton( IDM_EDIT_PASTE, FALSE );
+	AddToolBarButton( IDM_EDIT_CUT, TRUE);
+	AddToolBarButton( IDM_EDIT_COPY, TRUE);
+	AddToolBarButton( IDM_EDIT_PASTE, TRUE);
 
 	AddToolBarButton( 0 );  // Separator
-	AddToolBarButton( IDM_FILE_PRINT, FALSE );
+	AddToolBarButton( IDM_FILE_PRINT, TRUE);
 
 	AddToolBarButton( 0 );  // Separator
 	AddToolBarButton( IDM_HELP_ABOUT );
