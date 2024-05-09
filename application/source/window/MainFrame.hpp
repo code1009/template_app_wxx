@@ -57,6 +57,7 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
+	void LoadImageList();
 	void LoadDefaultDockers();
 	void LoadDefaultMDIs();
 

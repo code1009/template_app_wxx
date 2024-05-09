@@ -46,6 +46,7 @@ HWND CMainFrame::Create(HWND parent)
 	// Use a registry key name like "CompanyName\\Application".
 	
 	// LoadRegistrySettings(_T("Win32++\\TabbedMDI Docking"));
+	LoadImageList();
 
 	return CDockFrame::Create(parent);
 }
@@ -235,24 +236,14 @@ void CMainFrame::OnMenuUpdate(UINT id)
 }
 
 //===========================================================================
-void CMainFrame::SetupMenuIcons()
+void CMainFrame::LoadImageList()
 {
-	// Load the defualt set of icons from the toolbar
-	ClearMenuIcons();
-
-
-#if 0
-	//std::vector<UINT> m_menuItemIDs;
-	//CImageList m_menuImages;
-	//CImageList m_menuDisabledImages;
-
-
 	//-----------------------------------------------------------------------
 	CImageList* imagelist;
 	int cxy;
 
 
-	if ((GetMenuIconHeight() >= 24) && (GetWindowDpi(*this) != 192))
+	//-----------------------------------------------------------------------
 	{
 		imagelist = &m_ilCommand_24;
 		cxy = 24;
@@ -271,7 +262,7 @@ void CMainFrame::SetupMenuIcons()
 		image_list_loader.add("24_search.png");
 		image_list_loader.add("24_settings.png");
 	}
-	else
+	
 	{
 		imagelist = &m_ilCommand_16;
 		cxy = 16;
@@ -292,8 +283,66 @@ void CMainFrame::SetupMenuIcons()
 	}
 
 
+	//-----------------------------------------------------------------------
+	{
+		imagelist = &m_ilToolbar;
+		cxy = 32;
+
+		png_image_list_loader image_list_loader(imagelist, cxy, cxy);
+
+		image_list_loader.add("tb_file_new.png");
+		image_list_loader.add("tb_file_open.png");
+		image_list_loader.add("tb_file_save.png");
+
+		image_list_loader.add("tb_edit_cut.png");
+		image_list_loader.add("tb_edit_copy.png");
+		image_list_loader.add("tb_edit_paste.png");
+
+		/*
+		image_list_loader.add("tb_edit_undo.png");
+		image_list_loader.add("tb_edit_redo.png");
+		*/
+
+		image_list_loader.add("tb_file_print.png");
+
+		/*
+		image_list_loader.add("tb_diagram_edit_select_all.png");
+		image_list_loader.add("tb_diagram_edit_send_to_bottom.png");
+		image_list_loader.add("tb_diagram_edit_bring_to_top.png");
+		*/
+
+		image_list_loader.add("tb_help_about.png");
+	}
+}
+
+void CMainFrame::SetupMenuIcons()
+{
+	// Load the defualt set of icons from the toolbar
+	//std::vector<UINT> m_menuItemIDs;
+	//CImageList m_menuImages;
+	//CImageList m_menuDisabledImages;
+	ClearMenuIcons();
+
+
+#if 1
+	//-----------------------------------------------------------------------
+	CImageList* imagelist;
+
+
+	if ((GetMenuIconHeight() >= 24) && (GetWindowDpi(*this) != 192))
+	{
+		imagelist = &m_ilCommand_24;
+	}
+	else
+	{
+		imagelist = &m_ilCommand_16;
+	}
+
+
+	//-----------------------------------------------------------------------
 	HICON hicon;
 	UINT icon_flags;
+
 
 	icon_flags = ILD_NORMAL;
 
@@ -302,6 +351,7 @@ void CMainFrame::SetupMenuIcons()
 //	hicon = imagelist->GetIcon(7, icon_flags); AddMenuIcon(IDM_FILE_PRINT, hicon); DestroyIcon(hicon);
 	hicon = imagelist->GetIcon(0, icon_flags); AddMenuIcon(IDM_HELP_ABOUT, hicon); DestroyIcon(hicon);
 #endif
+
 
 	//-----------------------------------------------------------------------
 #if 0
@@ -314,10 +364,8 @@ void CMainFrame::SetupMenuIcons()
 	{
 		SetMenuIcons(data, RGB(192, 192, 192), IDB_TOOLBAR16);
 	}
-#endif
 
 
-#if 0
 	// Add some extra icons for menu items
 	//AddMenuIcon(IDM_FILE_NEW, IDI_FILE_NEW);
 #endif
@@ -325,34 +373,6 @@ void CMainFrame::SetupMenuIcons()
 
 void CMainFrame::SetupToolBar()
 {
-	//-----------------------------------------------------------------------
-	png_image_list_loader image_list_loader(&m_ilToolbar, 32, 32);
-
-
-	image_list_loader.add("tb_file_new.png");
-	image_list_loader.add("tb_file_open.png");
-	image_list_loader.add("tb_file_save.png");
-
-	image_list_loader.add("tb_edit_cut.png");
-	image_list_loader.add("tb_edit_copy.png");
-	image_list_loader.add("tb_edit_paste.png");
-
-/*
-	image_list_loader.add("tb_edit_undo.png");
-	image_list_loader.add("tb_edit_redo.png");
-*/
-
-	image_list_loader.add("tb_file_print.png");
-
-/*
-	image_list_loader.add("tb_diagram_edit_select_all.png");
-	image_list_loader.add("tb_diagram_edit_send_to_bottom.png");
-	image_list_loader.add("tb_diagram_edit_bring_to_top.png");
-*/
-
-	image_list_loader.add("tb_help_about.png");
-
-
 	//-----------------------------------------------------------------------
 	GetToolBar().SetImageList(m_ilToolbar);
 	GetToolBar().SetHotImageList(0);
@@ -363,19 +383,19 @@ void CMainFrame::SetupToolBar()
 	// Set the Resource IDs for the toolbar buttons
 	//AddToolBarButton(IDM_FILE_NEW, TRUE, "새 파일");
 	AddToolBarButton(IDM_FILE_NEW, TRUE);
-	AddToolBarButton( IDM_FILE_OPEN,  TRUE );
-	AddToolBarButton( IDM_FILE_SAVE, TRUE);
+	AddToolBarButton(IDM_FILE_OPEN, TRUE);
+	AddToolBarButton(IDM_FILE_SAVE, TRUE);
 
-	AddToolBarButton( 0 );  // Separator
-	AddToolBarButton( IDM_EDIT_CUT, TRUE);
-	AddToolBarButton( IDM_EDIT_COPY, TRUE);
-	AddToolBarButton( IDM_EDIT_PASTE, TRUE);
+	AddToolBarButton(0);  // Separator
+	AddToolBarButton(IDM_EDIT_CUT, TRUE);
+	AddToolBarButton(IDM_EDIT_COPY, TRUE);
+	AddToolBarButton(IDM_EDIT_PASTE, TRUE);
 
-	AddToolBarButton( 0 );  // Separator
-	AddToolBarButton( IDM_FILE_PRINT, TRUE);
+	AddToolBarButton(0);  // Separator
+	AddToolBarButton(IDM_FILE_PRINT, TRUE);
 
-	AddToolBarButton( 0 );  // Separator
-	AddToolBarButton( IDM_HELP_ABOUT );
+	AddToolBarButton(0);  // Separator
+	AddToolBarButton(IDM_HELP_ABOUT);
 }
 
 BOOL CMainFrame::SaveRegistrySettings()
