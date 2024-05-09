@@ -303,7 +303,7 @@ void CMainFrame::LoadImageList()
 		image_list_loader.add("tb_edit_redo.png");
 		*/
 
-		image_list_loader.add("tb_file_print.png");
+		//image_list_loader.add("tb_file_print.png");
 
 		/*
 		image_list_loader.add("tb_diagram_edit_select_all.png");
@@ -391,8 +391,8 @@ void CMainFrame::SetupToolBar()
 	AddToolBarButton(IDM_EDIT_COPY, TRUE);
 	AddToolBarButton(IDM_EDIT_PASTE, TRUE);
 
-	AddToolBarButton(0);  // Separator
-	AddToolBarButton(IDM_FILE_PRINT, TRUE);
+	//AddToolBarButton(0);  // Separator
+	//AddToolBarButton(IDM_FILE_PRINT, TRUE);
 
 	AddToolBarButton(0);  // Separator
 	AddToolBarButton(IDM_HELP_ABOUT);
