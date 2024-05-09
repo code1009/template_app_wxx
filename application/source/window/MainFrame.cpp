@@ -344,6 +344,7 @@ void CMainFrame::SetupMenuIcons()
 	UINT icon_flags;
 
 
+
 	icon_flags = ILD_NORMAL;
 
 	hicon = imagelist->GetIcon(1, icon_flags); AddMenuIcon(IDM_FILE_NEW, hicon); DestroyIcon(hicon);
